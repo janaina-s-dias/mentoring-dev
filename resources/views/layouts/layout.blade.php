@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-@include('header')
-@include('navbar')
+@include('layouts.header') 
+@include('layouts.navbar')
 <body>
 <div class="container">
   @yield('content')
   </div>
   <script src="{{ asset('js/app.js') }}" type="text/js"></script>
-@include('footer')
+@include('layouts.footer')
 </body>
 </html>
