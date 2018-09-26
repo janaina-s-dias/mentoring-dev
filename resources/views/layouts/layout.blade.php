@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 @include('layouts.header') 
+=======
+@include('layouts.header')
+>>>>>>> origin
 @include('layouts.navbar')
 <body>
 <div class="container">
