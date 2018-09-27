@@ -61,7 +61,7 @@ Route::get('notifications', function(){
     return view('notifications');
 });
 
-Route::get('panel', function(){
+Route::get('panels', function(){
     return view('panel');
 });
 

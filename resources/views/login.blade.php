@@ -29,4 +29,6 @@
             </div>
         </div>
     </div>
+
+     <center><a href="{{ url ('home') }}"><h3>Ver Layout</h3></a></center>
 @stop
