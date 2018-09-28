@@ -14,7 +14,7 @@ class CreateConnectionsTable extends Migration
     public function up()
     {
         Schema::create('connections', function (Blueprint $table) {
-            $table->timestamp('connection_start');
+            $table->timestamp('connection_start'); //essa coluna que determina as notificações
             $table->timestamp('connection_end');
             $table->integer('fk_connection_user');
             $table->integer('fk_connection_knowledge');

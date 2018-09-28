@@ -16,7 +16,7 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('area_id');
             $table->string('area_descrition');
-            $table->boolean('area_active');
+            $table->boolean('area_active'); //a mesma ideia do segment
             $table->integer('fk_area_segment');
             $table->foreign('fk_area_segment')
                     ->references('segment_id')

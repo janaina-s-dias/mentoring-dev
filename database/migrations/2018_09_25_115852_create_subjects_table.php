@@ -16,7 +16,7 @@ class CreateCarrersTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('subject_id');
             $table->string('subject_descrition');
-            $table->boolean('subject_active');
+            $table->boolean('subject_active'); //idem²
             $table->integer('fk_subject_carrer');
             $table->foreign('fk_subject_carrer')
                     ->references('carrer_id')

@@ -16,7 +16,7 @@ class CreateSegmentsTable extends Migration
         Schema::create('segments', function (Blueprint $table) {
             $table->increments('segment_id');
             $table->string('segment_descrition');
-            $table->boolean('segment_active');
+            $table->boolean('segment_active'); //se true, pode ser escolhido, se false, o moderador ou admin tem que aceitar
             $table->timestamps();
         });
     }

@@ -17,7 +17,8 @@ class CreateContentsTable extends Migration
             $table->increments('content_id');
             $table->string('content_descrition');
             $table->string('content_title');
-            $table->string('content_archive');
+            $table->string('content_url'); //caminho do arquivo ou url do video
+            $table->integer('content_type'); //tipo arquivo, tipo video, tipo conteudo(texto no site)
             $table->integer('fk_content_user');
             $table->integer('fk_content_subject');
             $table->foreign('fk_content_user')

@@ -17,7 +17,7 @@ class CreateKnowledgeTable extends Migration
             $table->increments('knowledge_id');
             $table->double('knowledge_rank');
             $table->integer('knowledge_nivel');
-            $table->boolean('knowledge_active');
+            $table->boolean('knowledge_active'); //se foi aceito ou não como mentor pelos moderados, e ele mesmo pode de desligar como mentor mudando pra null
             $table->integer('fk_knowledge_user');
             $table->integer('fk_knowledge_subject');
             $table->foreign('fk_knowledge_user')
