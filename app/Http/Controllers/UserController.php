@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
+    private $user;
+    function __construct(User $user) {
+        $this->user = $user;
+    }
+
+
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -80,5 +88,27 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function logar(Request $request)
+    {
+        $user = User::where('user_user', '=', $request->user)->count();
+        if($user > 0)
+        {
+            $user = User::where('user_user', '=', $request->user)->first();
+            if(Hash::check($request->password, $user->user_hash))
+            {
+                $request->session()->put('user', $user);
+                return redirect('/');
+            }
+            else
+            {
+                return redirect()->with('error', 'Senha incorreta');
+            }
+        }
+        else
+        {
+            return redirect('/')->with('error', 'Usuario inexistente');
+        }
     }
 }
