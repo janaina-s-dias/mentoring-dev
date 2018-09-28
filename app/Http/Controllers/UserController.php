@@ -92,10 +92,10 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
-        $user = User::where('user_user', '=', $request->user)->count();
+        $user = User::where('user_login', '=', $request->user)->count();
         if($user > 0)
         {
-            $user = User::where('user_user', '=', $request->user)->first();
+            $user = User::where('user_login', '=', $request->user)->first();
             if(Hash::check($request->password, $user->user_hash))
             {
                 $request->session()->put('user', $user);
