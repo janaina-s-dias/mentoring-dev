@@ -14,18 +14,18 @@ class CreateUserSubjectsTable extends Migration
     public function up()
     {
         Schema::create('user_subjects', function (Blueprint $table) { // essa tabela é só pros mentorados, pois quando ele quer ser mentor, vai ficar esses dados na tabela mentor
-            $table->integer('fk_user_subject'); 
-            $table->integer('fk_subject_user');
+            $table->unsignedInteger('fk_user_subject');
+            $table->unsignedInteger('fk_subject_user');
             $table->foreign('fk_subject_user')
                     ->references('user_id')
                     ->on('users')
                     ->onDelete('restrict')
-                    ->onUpdate('cascate');
+                    ->onUpdate('cascade');
             $table->foreign('fk_user_subject')
                     ->references('subject_id')
                     ->on('subjects')
                     ->onDelete('restrict')
-                    ->onUpdate('cascate');
+                    ->onUpdate('cascade');
             $table->timestamps();
         });
     }

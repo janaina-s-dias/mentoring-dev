@@ -17,12 +17,12 @@ class CreateContactsTable extends Migration
             $table->increments('contact_id');
             $table->string('contact_type');
             $table->string('contact_descrition');
-            $table->integer('fk_contact_user');
+            $table->unsignedInteger('fk_contact_user');
             $table->foreign('fk_contact_user')
                     ->references('user_id')
                     ->on('users')
-                    ->onDelete('cascate')
-                    ->onUpdate('cascate');
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -14,10 +14,10 @@ class CreateConnectionsTable extends Migration
     public function up()
     {
         Schema::create('connections', function (Blueprint $table) {
-            $table->timestamp('connection_start'); //essa coluna que determina as notificações
-            $table->timestamp('connection_end');
-            $table->integer('fk_connection_user');
-            $table->integer('fk_connection_knowledge');
+            $table->date('connection_start'); //essa coluna que determina as notificações
+            $table->date('connection_end');
+            $table->unsignedInteger('fk_connection_user');
+            $table->unsignedInteger('fk_connection_knowledge');
             $table->foreign('fk_connection_user')
                     ->references('user_id')
                     ->on('users')
@@ -28,6 +28,7 @@ class CreateConnectionsTable extends Migration
                     ->on('knowledges')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
