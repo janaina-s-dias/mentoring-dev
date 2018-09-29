@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Segment;
 
 class SegmentController extends Controller
 {
+    private $segment;
+    public function __construct(Segment $segment) {
+        $this->segment = $segment;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +40,12 @@ class SegmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, $this->segment->Rules(), $this->segment->messages);
+        $attributes = [
+            'segment_descrition' => $request->get('segment_descrition')
+        ];
+        $retorno = $this->segment->Store($attributes);
+        redirect()->with('mensagem', $retorno);
     }
 
     /**
@@ -68,7 +79,12 @@ class SegmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->segment->Rules('update'), $this->segment->messages);
+        $attributes = [
+            'segment_descrition' => $request->get('segment_descrition')
+        ];
+        $retorno = $this->segment->Update($attributes, $id);
+        redirect()->with('mensagem', $retorno);
     }
 
     /**
@@ -79,6 +95,7 @@ class SegmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $retorno = $this->segment->Destroy($id);
+        redirect()->with('mensagem', $retorno);
     }
 }
