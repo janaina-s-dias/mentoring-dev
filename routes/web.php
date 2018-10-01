@@ -86,4 +86,9 @@ Route::get('grid', function(){
 });
 
 
+Route::get('admin', function(){
+    return view('layouts.dashboardAdmin');
+});
+
+
 

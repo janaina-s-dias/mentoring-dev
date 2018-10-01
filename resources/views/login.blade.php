@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
             <br /><br /><br />
-               @section ('login_panel_title','Please Sign In')
+               @section ('login_panel_title','Sign In')
                @section ('login_panel_body')
                         <form role="form">
                             <fieldset>
@@ -20,7 +20,8 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ url ('') }}" class="btn btn-lg btn-success btn-block">Login</a>
+                                <a href="{{ url ('home') }}" class="btn btn-md btn-success btn-block">Sign in</a> 
+                                <a href="{{ url ('forms') }}" class="btn btn-md btn-success btn-block">Sign up</a>
                             </fieldset>
                         </form>
                     
