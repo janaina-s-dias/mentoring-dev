@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +20,16 @@ Route::get('home', function(){
     return view('home');
 });
 
-Route::get('/', function(){
-    return view('login');
+Route::get('/', function(Request $request){
+    if($request->session()->has('userLogado'))
+    {
+        return view('home');
+    }
+    else
+    {
+        return view('login');
+    }
+        
 });
 
 

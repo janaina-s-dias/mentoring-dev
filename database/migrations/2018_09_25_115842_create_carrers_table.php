@@ -16,8 +16,8 @@ class CreateCarrersTable extends Migration
         Schema::create('carrers', function (Blueprint $table) {
             $table->increments('carrer_id');
             $table->string('carrer_descrition');
-            $table->boolean('carrer_active');
-            $table->integer('fk_carrer_area');
+            $table->boolean('carrer_active'); //idem
+            $table->unsignedInteger('fk_carrer_area');
             $table->foreign('fk_carrer_area')
                     ->references('area_id')
                     ->on('areas')

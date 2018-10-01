@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarrersTable extends Migration
+class CreateSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,8 +16,8 @@ class CreateCarrersTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('subject_id');
             $table->string('subject_descrition');
-            $table->boolean('subject_active');
-            $table->integer('fk_subject_carrer');
+            $table->boolean('subject_active'); //idem²
+            $table->unsignedInteger('fk_subject_carrer');
             $table->foreign('fk_subject_carrer')
                     ->references('carrer_id')
                     ->on('carrers')
@@ -34,6 +34,6 @@ class CreateCarrersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject');
+        Schema::dropIfExists('subjects');
     }
 }
