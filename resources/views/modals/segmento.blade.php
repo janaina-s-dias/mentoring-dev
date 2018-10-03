@@ -2,13 +2,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Cadastrar Segmento</h4>
+        <button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="Fechar">&times;</button>
+        <h4 class="modal-title">Segmento</h4>
       </div>
       <div class="modal-body">
       <form role="form">
             <div class="form-group">
-                <label>Segmento</label>
+                <label>Nome</label>
                 <input class="form-control">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
             </div>
@@ -19,9 +19,8 @@
                     <option>Inativo</option>
                 </select>
             </div>
-             <button type="submit" class="btn btn-default">Adicionar</button>  
 
-              <!-- <button type="button" class="btn btn-info btn-circle" data-toggle="tooltip" title="Adicionar"><i class="fa fa-check"></i></button>  -->
-            <button type="reset" class="btn btn-default">Limpar</button>
+            <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
+            <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
       </div>

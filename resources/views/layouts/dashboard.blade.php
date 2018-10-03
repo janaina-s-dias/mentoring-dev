@@ -327,8 +327,9 @@
                             <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                         </li>
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('admin') }}"><i class="fa fa-file-word-o fa-fw"></i> Admin</a>
+                            <a href="{{ url ('admin') }}"><i class="fa fa-file-word-o fa-fw"></i>Acessar Layout Mentoring</a>
                         </li>
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
