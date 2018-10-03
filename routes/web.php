@@ -99,5 +99,10 @@ Route::get('admin', function(){
     return view('layouts.dashboardAdmin');
 });
 
+Route::get('pageTipos', function(){
+    return view('pageTipos');
+});
+
+
 
 
