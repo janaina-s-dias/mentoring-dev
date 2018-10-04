@@ -9,10 +9,10 @@
                         <form role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Usuario" name="user_login" type="text" value="{{old('user_login')}}" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Senha" name="user_hash" type="password">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -20,7 +20,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ url ('home') }}" class="btn btn-md btn-success btn-block">Sign in</a> 
+                                <a href="{{ route ('/') }}" class="btn btn-md btn-success btn-block">Sign in</a> 
                                 <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#modalCadastro">Sign up</a>
                             </fieldset>
                         </form>

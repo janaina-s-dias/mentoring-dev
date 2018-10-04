@@ -17,10 +17,10 @@ class CreateAreasTable extends Migration
             $table->increments('area_id');
             $table->string('area_descrition');
             $table->boolean('area_active')->default(false);; //a mesma ideia do prefession
-            $table->unsignedInteger('fk_area_prefession');
-            $table->foreign('fk_area_prefession')
-                    ->references('prefession_id')
-                    ->on('prefessions')
+            $table->unsignedInteger('fk_area_profession');
+            $table->foreign('fk_area_profession')
+                    ->references('profession_id')
+                    ->on('professions')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
             $table->timestamps();
