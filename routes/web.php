@@ -21,7 +21,7 @@ Route::get('home', function(){
 });
 
 Route::get('/', function(Request $request){
-    if($request->session()->has('userLogado'))
+    if($request->session()->exists('user'))
     {
         return view('home');
     }
@@ -32,6 +32,7 @@ Route::get('/', function(Request $request){
         
 });
 
+Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 
 Route::get('tables', function(){
     return view('table');

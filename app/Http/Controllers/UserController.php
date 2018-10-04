@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\User;
+use App\User;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -31,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -42,7 +43,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$this->validate($request, $this->user->Regras(), $this->user->messages);
+        dd($request);
+        $user = new User(
+                ['user_login' => $request->get('user_login')],
+                ['user_nome' => $request->get('user_nome')],
+                ['user_hash' => bcrypt($request->get('user_hash'))]
+        );
+        try
+        {
+           $user->save();
+        } 
+        catch (\Illuminate\Database\QueryException $ex) 
+        {
+            dd($user->save());
+        }
     }
 
     /**
@@ -92,11 +107,11 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
-        $user = User::where('user_login', '=', $request->user)->count();
+        $user = User::where('user_login', '=', $request->user_login)->count();
         if($user > 0)
         {
-            $user = User::where('user_login', '=', $request->user)->first();
-            if(Hash::check($request->password, $user->user_hash))
+            $user = User::where('user_login', '=', $request->user_login)->first();
+            if(Hash::check($request->user_hash, $user->user_hash))
             {
                 $request->session()->put('user', $user);
                 return redirect('/');

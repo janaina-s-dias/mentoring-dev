@@ -20,7 +20,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ route ('/') }}" class="btn btn-md btn-success btn-block">Sign in</a> 
+                                <a href="{{ url ('/') }}" class="btn btn-md btn-primary btn-block">Sign in</a> 
                                 <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#modalCadastro">Sign up</a>
                             </fieldset>
                         </form>
@@ -41,17 +41,17 @@
               </button>
                 <h3 class="modal-title" id="modalTitulo">Cadastrar</h3>  
             </div>
-            <form  method="POST" action="/inserirUsuario">
+            <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
                 <div class="modal-body">
                 <div class="form-group">
-                    <input class="form-control" name="user" id="user" type="text" placeholder="Usuario">
+                    <input class="form-control" name="user_nome" id="nome" type="text" placeholder="Nome">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="email" id="email" type="text" placeholder="E-mail">
+                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="senha" id="senha" type="password" placeholder="Senha">
+                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
                 </div>
             </div>
             <div class="modal-footer">
