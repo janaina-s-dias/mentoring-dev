@@ -5,9 +5,9 @@
 
 <div>
 
-<h3>Segmento</h3>   
+<h3>Profissão</h3>   
     <form class="input-group custom-search-form">
-            <input type="text" class="form-control" placeholder="Insira um segmento para pesquisa">
+            <input type="text" class="form-control" placeholder="Insira uma profissão para pesquisa">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Pesquisar">
                         <i class="fa fa-search"></i>
@@ -27,9 +27,9 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		@section ('table_panel_title','Segmentos')
+		@section ('table_panel_title','Profissão')
 		@section ('table_panel_body')
-		    @include('widgets.tableSegmento', array('class'=>'table-condensed'))
+		    @include('widgets.tableProfissao', array('class'=>'table-condensed'))
 		@endsection
 		@include('widgets.panel', array('header'=>true, 'as'=>'table'))
 	</div>
@@ -39,7 +39,7 @@
 
 
 
-@include('modals.segmento')
+@include('modals.profissao')
            
 
       

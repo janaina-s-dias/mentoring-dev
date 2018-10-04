@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Segment;
+use App\Model\Profession;
 
-class SegmentController extends Controller
+class ProfessionController extends Controller
 {
-    private $segment;
-    public function __construct(Segment $segment) {
-        $this->segment = $segment;
+    private $profession;
+    public function __construct(Profession $profession) {
+        $this->profession = $profession;
     }
 
     /**
@@ -40,11 +40,11 @@ class SegmentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, $this->segment->Rules(), $this->segment->messages);
+        $this->validate($request, $this->profession->Rules(), $this->profession->messages);
         $attributes = [
-            'segment_descrition' => $request->get('segment_descrition')
+            'profession_descrition' => $request->get('profession_descrition')
         ];
-        $retorno = $this->segment->Store($attributes);
+        $retorno = $this->profession->Store($attributes);
         redirect()->with('mensagem', $retorno);
     }
 
@@ -79,11 +79,11 @@ class SegmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->segment->Rules('update'), $this->segment->messages);
+        $this->validate($request, $this->profession->Rules('update'), $this->profession->messages);
         $attributes = [
-            'segment_descrition' => $request->get('segment_descrition')
+            'profession_descrition' => $request->get('profession_descrition')
         ];
-        $retorno = $this->segment->Update($attributes, $id);
+        $retorno = $this->profession->Update($attributes, $id);
         redirect()->with('mensagem', $retorno);
     }
 
@@ -95,7 +95,7 @@ class SegmentController extends Controller
      */
     public function destroy($id)
     {
-        $retorno = $this->segment->Destroy($id);
+        $retorno = $this->profession->Destroy($id);
         redirect()->with('mensagem', $retorno);
     }
 }

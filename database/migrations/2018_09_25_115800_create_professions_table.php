@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSegmentsTable extends Migration
+class CreateProfessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSegmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('segments', function (Blueprint $table) {
-            $table->increments('segment_id');
-            $table->string('segment_descrition');
-            $table->boolean('segment_active'); //se true, pode ser escolhido, se false, o moderador ou admin tem que aceitar
+        Schema::create('professions', function (Blueprint $table) {
+            $table->increments('profession_id');
+            $table->string('profession_descrition');
+            $table->boolean('profession_active'); //se true, pode ser escolhido, se false, o moderador ou admin tem que aceitar
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSegmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('segments');
+        Schema::dropIfExists('professions');
     }
 }

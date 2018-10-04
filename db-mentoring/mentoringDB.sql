@@ -39,12 +39,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Mentoring`.`segment`
+-- Table `Mentoring`.`profession`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Mentoring`.`segment` (
-  `segment_id` INT NOT NULL AUTO_INCREMENT,
-  `segment_descricao` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`segment_id`))
+CREATE TABLE IF NOT EXISTS `Mentoring`.`profession` (
+  `profession_id` INT NOT NULL AUTO_INCREMENT,
+  `profession_descricao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`profession_id`))
 ENGINE = InnoDB;
 
 
@@ -54,12 +54,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Mentoring`.`area` (
   `area_id` INT NOT NULL AUTO_INCREMENT,
   `area_descricao` VARCHAR(30) NOT NULL,
-  `fk_area_segment` INT NULL,
+  `fk_area_profession` INT NULL,
   PRIMARY KEY (`area_id`),
-  INDEX `fk_segment_id_idx` (`fk_area_segment` ASC),
-  CONSTRAINT `fk_segment_id`
-    FOREIGN KEY (`fk_area_segment`)
-    REFERENCES `Mentoring`.`segment` (`segment_id`)
+  INDEX `fk_profession_id_idx` (`fk_area_profession` ASC),
+  CONSTRAINT `fk_profession_id`
+    FOREIGN KEY (`fk_area_profession`)
+    REFERENCES `Mentoring`.`profession` (`profession_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

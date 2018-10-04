@@ -19,4 +19,4 @@
 	</tbody>
 </table>
  
-@include('modals.segmento')
+@include('modals.profissao')
