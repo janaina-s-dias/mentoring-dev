@@ -16,11 +16,11 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('area_id');
             $table->string('area_descrition');
-            $table->boolean('area_active'); //a mesma ideia do segment
-            $table->unsignedInteger('fk_area_segment');
-            $table->foreign('fk_area_segment')
-                    ->references('segment_id')
-                    ->on('segments')
+            $table->boolean('area_active')->default(false);; //a mesma ideia do prefession
+            $table->unsignedInteger('fk_area_prefession');
+            $table->foreign('fk_area_prefession')
+                    ->references('prefession_id')
+                    ->on('prefessions')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
             $table->timestamps();

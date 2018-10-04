@@ -16,7 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('subject_id');
             $table->string('subject_descrition');
-            $table->boolean('subject_active'); //idem²
+            $table->boolean('subject_active')->default(false);; //idem²
             $table->unsignedInteger('fk_subject_carrer');
             $table->foreign('fk_subject_carrer')
                     ->references('carrer_id')

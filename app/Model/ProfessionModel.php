@@ -4,20 +4,20 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
-use App\Model\Segment;
+use App\Model\Profession;
 
-class Segment extends Model
+class Profession extends Model
 {
-    protected $table = ['segments'];
-    protected $fillable = ['segment_descrition'];
+    protected $table = ['professions'];
+    protected $fillable = ['profession_descrition'];
     private $rules = [];
     public $message = [];
     public function Store($attributes)
     {
-        $segment = new Segment($attributes);        
+        $profession = new Profession($attributes);        
         try
         {
-            $segment->save();
+            $profession->save();
             return "Salvo com sucesso";
         } catch (QueryException $exc) {
             return "Erro ao salvar";
@@ -25,11 +25,11 @@ class Segment extends Model
     }
     public function Update($attributes, $id)
     {
-        $segment = Segment::find($id);
-        $segment->segment_descrition = $attributes->segment_descrition;
+        $profession = Profession::find($id);
+        $profession->profession_descrition = $attributes->profession_descrition;
         try
         {
-            $segment->update();
+            $profession->update();
             return "Atualizado com sucesso";
         } catch (QueryException $exc) {
             return "Erro ao atualizar";
@@ -37,9 +37,9 @@ class Segment extends Model
     }
     public function Destroy($id)
     {
-        $segment = Segment::find($id);
+        $profession = Profession::find($id);
         try {
-            $segment->delete();
+            $profession->delete();
             return "Deletado com sucesso";
         } catch (QueryException $exc) {
             return "Erro ao deletar";
