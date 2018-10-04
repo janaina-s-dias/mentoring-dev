@@ -16,7 +16,7 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('area_id');
             $table->string('area_descrition');
-            $table->boolean('area_active'); //a mesma ideia do prefession
+            $table->boolean('area_active')->default(false);; //a mesma ideia do prefession
             $table->unsignedInteger('fk_area_prefession');
             $table->foreign('fk_area_prefession')
                     ->references('prefession_id')

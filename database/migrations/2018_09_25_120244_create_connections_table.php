@@ -15,7 +15,7 @@ class CreateConnectionsTable extends Migration
     {
         Schema::create('connections', function (Blueprint $table) {
             $table->date('connection_start'); //essa coluna que determina as notificações
-            $table->date('connection_end');
+            $table->date('connection_end')->nullable();
             $table->unsignedInteger('fk_connection_user');
             $table->unsignedInteger('fk_connection_knowledge');
             $table->foreign('fk_connection_user')
