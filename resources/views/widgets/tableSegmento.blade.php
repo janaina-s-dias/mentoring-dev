@@ -1,4 +1,3 @@
-
 <table class="table {{ $class }}">
 	<thead>
 		<tr>
@@ -19,4 +18,5 @@
 	</tbody>
 </table>
  
-@include('modals.segmento')
+@include('modals.segmento')  
+
