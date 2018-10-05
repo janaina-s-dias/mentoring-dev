@@ -24,3 +24,6 @@
             <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
       </div>
+    </div>
+    </div>
+    </div>

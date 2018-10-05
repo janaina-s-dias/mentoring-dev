@@ -13,7 +13,10 @@
                         <i class="fa fa-search"></i>
                     </button>
                     <button class="btn btn-success" type="button" data-toggle="modal" data-toggle="tooltip" title="Novo" data-target="#myModal">
-                        +
+                        -
+                    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-toggle="tooltip" title="Novo" data-target="#myModal2">
+                            <span class="glyphicon glyphicon-plus"></span>
                     </button>   
                 </span>
     </form> 
@@ -40,6 +43,7 @@
 
 
 @include('modals.profissao')
+@include('modals.carreira')
            
 
       

@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('index');
     }
 
     /**
@@ -41,22 +41,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //$this->validate($request, $this->user->Regras(), $this->user->messages);
-        dd($request);
-        $user = new User(
-                ['user_login' => $request->get('user_login')],
-                ['user_nome' => $request->get('user_nome')],
-                ['user_hash' => bcrypt($request->get('user_hash'))]
-        );
+        $user = new User([
+                'user_login' => $request->user_login,
+                'user_nome' => $request->user_nome,
+                'user_hash' => Hash::make($request->user_hash),
+                ]);
         try
         {
            $user->save();
+           redirect('/');
         } 
         catch (\Illuminate\Database\QueryException $ex) 
         {
-            dd($user->save());
+            //dd($user->save());
         }
     }
 
@@ -118,12 +117,16 @@ class UserController extends Controller
             }
             else
             {
-                return redirect()->with('error', 'Senha incorreta');
-            }
+                return redirect('/')->with('error', 'Senha incorreta');            }
         }
         else
         {
             return redirect('/')->with('error', 'Usuario inexistente');
         }
+    }
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/');        
     }
 }

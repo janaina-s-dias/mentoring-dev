@@ -4,9 +4,10 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
             <br /><br /><br />
-               @section ('login_panel_title','Sign In')
+               @section ('login_panel_title','Acessar')
                @section ('login_panel_body')
-                        <form role="form">
+               <form role="form" action="{{ route ('acessar') }}" method="post">
+                        @csrf
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Usuario" name="user_login" type="text" value="{{old('user_login')}}" autofocus>
@@ -20,7 +21,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ url ('/') }}" class="btn btn-md btn-primary btn-block">Sign in</a> 
+                                <button type="submit" class="btn btn-md btn-primary btn-block">Sign in</button>
                                 <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#modalCadastro">Sign up</a>
                             </fieldset>
                         </form>

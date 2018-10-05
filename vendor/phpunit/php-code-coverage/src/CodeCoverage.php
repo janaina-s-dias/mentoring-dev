@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\CodeCoverage;
 
 use PHPUnit\Framework\TestCase;
@@ -189,7 +188,6 @@ final class CodeCoverage
 
     /**
      * Returns the collected code coverage data.
-     * Set $raw = true to bypass all filters.
      */
     public function getData(bool $raw = false): array
     {
@@ -229,7 +227,6 @@ final class CodeCoverage
      * Start collection of code coverage information.
      *
      * @param PhptTestCase|string|TestCase $id
-     * @param bool                         $clear
      *
      * @throws RuntimeException
      */
