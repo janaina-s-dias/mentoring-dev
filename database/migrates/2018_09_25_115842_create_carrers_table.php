@@ -15,12 +15,12 @@ class CreateCarrersTable extends Migration
     {
         Schema::create('carrers', function (Blueprint $table) {
             $table->increments('carrer_id');
-            $table->string('carrer_descrition');
+            $table->string('carrer_name')->unique();
             $table->boolean('carrer_active')->default(false);; //idem
-            $table->unsignedInteger('fk_carrer_area');
-            $table->foreign('fk_carrer_area')
-                    ->references('area_id')
-                    ->on('areas')
+            $table->unsignedInteger('fk_carrer_profession');
+            $table->foreign('fk_carrer_profession')
+                    ->references('profession_id')
+                    ->on('professions')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
             $table->timestamps();
