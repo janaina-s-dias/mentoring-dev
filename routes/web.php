@@ -35,6 +35,7 @@ Route::get('/', function(Request $request){
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
+Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegadados');
 
 Route::get('tables', function(){
     return view('table');

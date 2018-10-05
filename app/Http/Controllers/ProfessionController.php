@@ -98,4 +98,29 @@ class ProfessionController extends Controller
         $retorno = $this->profession->Destroy($id);
         redirect()->with('mensagem', $retorno);
     }
+
+
+    public function PegaDados() {
+        $pegadados = $this->profession_model->criar_datatable();
+        $dados = array();
+        foreach ($pegadados as $row) {
+            $sub_dados = array();
+            $sub_dados[] = $row->profession_id;
+            $sub_dados[] = $row->profession_descrition;
+            $sub_dados[] = $row->profession_active;
+            $sub_dados[] = "<a href='".base_url('profession/editar')."/".$row->profession_id."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".base_url('profession/excluir')."/".$row->profession_id."' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $dados[] = $sub_dados;
+        }
+        
+        $output = array (
+            "draw"  => intval($_POST["draw"]),
+            "recordsTotal" => $this->categoria_model->getAllData(), 
+            "recordsFiltered" => $this->categoria_model->getFilteredData(),
+            "data" => $dados
+        );
+        echo json_encode($output);
+    }
+
+
 }
