@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Profession;
+use App\Profession;
+use Illuminate\Database\QueryException;
 
 class ProfessionController extends Controller
 {
@@ -24,14 +25,14 @@ class ProfessionController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, $this->profession->Rules(), $this->profession->messages);
-        $profession = new \App\Profession([
+        $profession = new Profession([
             'profession_name' => $request->profession_name
         ]);
         try {
             $profession->save();
             redirect('profession.index')->with('success', 'Profissão salva');
         } 
-        catch (\Illuminate\Database\QueryException $ex) {
+        catch (QueryException $ex) {
             redirect('profession.create')->with('failure', 'Não foi possivel cadastrar a profissão', $request);
         }
         
@@ -45,7 +46,7 @@ class ProfessionController extends Controller
      */
     public function show($id)
     {
-        $profession = \App\Profession::find($id)->first();
+        $profession = Profession::find($id)->first();
         redirect('profession.index')->with('finded', $profession);
     }
 
@@ -57,7 +58,7 @@ class ProfessionController extends Controller
      */
     public function edit($id)
     {
-        $profession = \App\Profession::find($id)->first();
+        $profession = Profession::find($id)->first();
         return view('profession.editar')->with('finded', $profession);
     }
 
@@ -71,13 +72,13 @@ class ProfessionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->profession->Rules('update'), $this->profession->messages);
-        $profession = \App\Profession::find($id)->first();
+        $profession = Profession::find($id)->first();
         $profession->profession_name = $request->profession_descrition;
         try
         {
             $profession->update();
             redirect('profession.index')->with('success', 'Profissão alterada');
-        } catch (\Illuminate\Database\QueryException$ex) {
+        } catch (QueryException $ex) {
             redirect('profession.editar')->with('failure', 'ERRO! Profissão não alterada');
         }
         
@@ -91,12 +92,12 @@ class ProfessionController extends Controller
      */
     public function destroy($id)
     {
-        $profession = \App\Profession::find($id)->first();
+        $profession = Profession::find($id)->first();
         try
         {
             $profession->delete();
             redirect('profession.index')->with('success', 'Profissão deletada');
-        } catch (\Illuminate\Database\QueryException$ex) {
+        } catch (QueryException $ex) {
             redirect('profession.editar')->with('failure', 'ERRO! Profissão não deletada');
         }
     }
@@ -124,7 +125,7 @@ class ProfessionController extends Controller
     
     public function CriarQuery(Request $request)
     {
-        $this->profession = \App\Profession::select($this->columnsSelect);
+        $this->profession = Profession::select($this->columnsSelect);
         if(isset($request->search->value))
         {
             $this->profession->where('profession_name', 'like' ,'%', $request->search->value);            
@@ -160,7 +161,7 @@ class ProfessionController extends Controller
     
     public function TodosRegistros()
     {
-        $profession = \App\Profession::all();
+        $profession = Profession::all();
         return $profession->count();
     }
 
