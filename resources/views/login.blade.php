@@ -4,6 +4,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{{ asset('js/jquery.mask.js') }}"></script>
 <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -61,6 +62,7 @@
         <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
                 <div class="form-group">
+<<<<<<< HEAD
                     <input class="form-control" name="user_nome" id="nome" required type="text" placeholder="Nome">
                 </div>
                 <div class="form-group">
@@ -87,15 +89,93 @@
                 </div>
                 <div class="form-group">
                     <input class="form-control" name="user_celular" id="celular" required type="tel" placeholder="Celular" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" title="No formato ((##) #####-####)">
+=======
+                    <input class="form-control{{ $errors->has('user_nome') ? ' is-invalid' : '' }}" name="user_nome" id="nome" type="text" placeholder="Nome">
+                @if ($errors->has('user_nome'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_nome') }}</strong>
+                    </span>
+                @endif
                 </div>
-        </form>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_login') ? ' is-invalid' : '' }}" name="user_login" id="user" type="text" placeholder="Usuario">
+                @if ($errors->has('user_login'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_login') }}</strong>
+                    </span>
+                @endif
+                </div>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_email') ? ' is-invalid' : '' }}" name="user_email" id="email" type="text" placeholder="E-mail">
+                @if ($errors->has('user_email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_email') }}</strong>
+                    </span>
+                @endif
+>>>>>>> 8f67151f793ffa1205744b431f1dc67eaadf6490
+                </div>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_cpf') ? ' is-invalid' : '' }}" name="user_cpf" id="cpf" type="text" placeholder="CPF">
+                @if ($errors->has('user_cpf'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_cpf') }}</strong>
+                    </span>
+                @endif
+                </div>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_rg') ? ' is-invalid' : '' }}" name="user_rg" id="rg" type="text" placeholder="RG">
+                @if ($errors->has('user_rg'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_rg') }}</strong>
+                    </span>
+                @endif
+                </div>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_telefone') ? ' is-invalid' : '' }}" name="user_telefone" id="telefone" type="tel" placeholder="Telefone">
+                @if ($errors->has('user_telefone'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_telefone') }}</strong>
+                    </span>
+                @endif
+                </div>
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_celular') ? ' is-invalid' : '' }}" name="user_celular" id="celular" type="tel" placeholder="Celular">
+                @if ($errors->has('user_celular'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_celular') }}</strong>
+                    </span>
+                @endif
+                </div>
+                <div class="form-group">
+                    <input name="user_knowledge" id="knowledge" type="checkbox">Deseja ser mentor?
+                </div>
+                <input name="user_role" type="hidden" value="user">
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_hash') ? ' is-invalid' : '' }}" name="user_hash" id="senha" type="password" placeholder="Senha">
+                </div>
+                @if ($errors->has('user_hash'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_hash') }}</strong>
+                    </span>
+                @endif
+                <div class="form-group">
+                    <input class="form-control{{ $errors->has('user_hash') ? ' is-invalid' : '' }}" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
+                @if ($errors->has('user_hash'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('user_hash') }}</strong>
+                    </span>
+                @endif
+                </div> 
+        
       </div>
       <div class="modal-footer">
         <input type="submit" class="btn btn-success col-auto mr-auto" value="Cadastrar" role="button" onclick="return validarSenha()">
         <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button>
+      </form>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
 
 <!-- Verifica a confirmação de senha -->
@@ -113,3 +193,6 @@
        }
 
 </script>
+=======
+</div>
+>>>>>>> 8f67151f793ffa1205744b431f1dc67eaadf6490

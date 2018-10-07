@@ -10,24 +10,25 @@ class User extends Model
     protected $fillable = [
             'user_login'
         ,   'user_hash'
-        //,   'user_cpf'
+        ,   'user_cpf'
         ,   'user_nome' 
-//        ,   'user_rg' 
-//        ,   'user_email' 
-//        ,   'user_telefone' 
-//        ,   'user_celular' 
-//        ,   'user_knowledge' 
-//        ,   'user_account' 
-//        ,   'user_role' 
+        ,   'user_rg' 
+        ,   'user_email' 
+        ,   'user_telefone' 
+        ,   'user_celular' 
+        ,   'user_knowledge' 
+        ,   'user_role' 
     ];
     protected $rules;
     public $messages = [ 
             'user_login.unique' => 'Este usuario ja está sendo usado'
         ,   'user_login.max' => 'Coloque no maximo 50 caracteres'
         ,   'user_login.required' => 'O username é obrigatorio'
+        ,   'user_login.alpha_num' => 'O username deve ser somente letras e numeros'
         ,   'user_hash.required' => 'A senha é obrigatoria' 
         ,   'user_hash.min' => 'A senha deve conter no minimo 8 caracteres'          
         ,   'user_hash.max' => 'A senha deve conter no maximo 50 caracteres'          
+        ,   'user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem'          
         ,   'user_cpf.unique' => 'Este CPF ja esta cadastrado'          
         ,   'user_cpf.min' => 'O CPF deve conter exatamente 11 digitos'          
         ,   'user_cpf.max' => 'O CPF deve conter exatemente 11 digitos'          
@@ -48,8 +49,8 @@ class User extends Model
         switch ($tipo) {
             case 'insert':
                 $this->rules = [
-                        'user_login'        => 'bail|unique:users,user_login|max:50|required'
-                    ,   'user_hash'         => 'bail|required||min:8|max:50'
+                        'user_login'        => 'bail|unique:users,user_login|max:50|required|alpha_num'
+                    ,   'user_hash'         => 'bail|required||min:8|max:50|confirmed'
                     ,   'user_cpf'          => 'bail|unique:users,user_cpf|min:11|max:11|required'
                     ,   'user_nome'         => 'bail|required|max:100'
                     ,   'user_rg'           => 'bail|required|min:9|max:9'
@@ -59,7 +60,7 @@ class User extends Model
                 ];
             break;
             case 'update':
-                $this->rules = ['user_login' => 'bail|max:50|required', 'user_hash' => 'bail|required||min:8|max:50', 'user_cpf' => 'bail|min:11|max:11|required'
+                $this->rules = ['user_login' => 'bail|max:50|required|alpha_num', 'user_hash' => 'bail|required||min:8|max:50', 'user_cpf' => 'bail|min:11|max:11|required'
                     ,           'user_nome'  => 'bail|required|max:100', 'user_rg'  => 'bail|required|min:9|max:9',   'user_email' => 'bail|max:100|required' 
                     ,           'user_telefone' => 'bail|max:11', 'user_celular'=> 'bail|max:11'];
         }
