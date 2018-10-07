@@ -35,9 +35,9 @@
                                     </label>
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary btn-block">Entrar</button>
-                                <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#modalCadastro">Cadastrar</a>
+                                <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-backdrop="static" data-target="#modalCadastro">Cadastrar</a>
                             </fieldset>
-                        </form>
+                   </form>
                     
                 @endsection
                 @include('widgets.panel', array('as'=>'login', 'header'=>true))
@@ -61,20 +61,55 @@
         <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
                 <div class="form-group">
-                    <input class="form-control" name="user_nome" id="nome" type="text" placeholder="Nome">
+                    <input class="form-control" name="user_nome" id="nome" required type="text" placeholder="Nome">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario">
+                    <input class="form-control" name="user_login" id="user" required type="text" placeholder="Usuario">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
+                    <input class="form-control" name="user_hash" id="senha" required type="password" placeholder="Senha">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_hash_confirmed" id="confirmar_senha" required type="password" placeholder="Confirmar Senha">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_email" id="email" required type="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_rg" id="rg" required type="text" placeholder="RG" pattern="\d{2}\.\d{3}\.\d{3}-\d{1}" title="No formato (##.###.###-#)">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_cpf" id="cpf" required type="text" placeholder="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="No formato (###.###.###-##)">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_telefone" id="telefone" required type="tel" placeholder="Telefone"
+                    pattern="[0-9]{2} [0-9]{4}-[0-9]{4}" title="No formato ((##) ####-####)">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user_celular" id="celular" required type="tel" placeholder="Celular" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" title="No formato ((##) #####-####)">
                 </div>
         </form>
       </div>
       <div class="modal-footer">
-        <input type="submit" class="btn btn-success col-auto mr-auto" value="Cadastrar" role="button">
+        <input type="submit" class="btn btn-success col-auto mr-auto" value="Cadastrar" role="button" onclick="return validarSenha()">
         <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Verifica a confirmação de senha -->
+<script>
+    
+    function validarSenha(){
+        senha = document.getElementsByName('senha').value;
+        confirmar_senha = document.getElementsByName('confirmar_senha').value;
+
+       if(senha!= confirmar_senha) {
+          senha2.setCustomValidity("Senhas diferentes!");
+          return false; 
+       }
+          return true;
+       }
+
+</script>
