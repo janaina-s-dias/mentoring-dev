@@ -6,9 +6,21 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
+    private $regras = [
+        'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
+        'user_hash' => 'bail|required|max:100|min:8' 
+    ];
+    private $messages = [
+        'user_login.required' => 'Usuario é obrigatorio',
+        'user_login.unique' => 'Usuario ja utilizado',
+        'user_login.max' => 'Usuario muito grande',
+        'user_login.min' => 'Usuario muito pequeno',
+        'user_hash.required' => 'Senha obrigatoria',
+        'user_hash.min' => 'Senha muito pequena',
+        'user_hash.max' => 'Senha muito grande'
+    ];
     private $user;
     function __construct(User $user) {
         $this->user = $user;
@@ -106,6 +118,7 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
+        $this->validate($request, $this->regras, $this->messages);
         $user = User::where('user_login', '=', $request->user_login)->count();
         if($user > 0)
         {

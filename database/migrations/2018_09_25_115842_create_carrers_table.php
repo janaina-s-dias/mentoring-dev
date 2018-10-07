@@ -15,7 +15,7 @@ class CreateCarrersTable extends Migration
     {
         Schema::create('carrers', function (Blueprint $table) {
             $table->increments('carrer_id');
-            $table->string('carrer_name')->unique();
+            $table->string('carrer_name');
             $table->boolean('carrer_active')->default(false);; //idem
             $table->unsignedInteger('fk_carrer_profession');
             $table->foreign('fk_carrer_profession')
