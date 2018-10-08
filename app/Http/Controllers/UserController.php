@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -57,24 +58,17 @@ class UserController extends Controller
         $this->validate($request, $this->user->Regras(), $this->user->messages);
         $user = new User([
                 'user_login' => $request->user_login
-            ,   'user_nome' => $request->user_nome
             ,   'user_hash' => Hash::make($request->user_hash)
-            ,   'user_cpf' => $request->user_cpf
-            ,   'user_rg'  => $request->user_rg
             ,   'user_email'  => $request->user_email
-            ,   'user_telefone'  => $request->user_telefone
-            ,   'user_celular'  => $request->user_celular
-            ,   'user_knowledge' => $request->user_knowledge
-            ,   'user_role' => $request->user_role
                 ]);
         try
         {
            $user->save();
            $user = User::where('user_email', '=', $request->user_email)->get();
            $request->session()->put('user', $user);
-           redirect('/')->with('succes', 'Cadastrado e conectado');
+           redirect('cadastro')->with('success', 'Continue seu cadastro');
         } 
-        catch (\Illuminate\Database\QueryException $ex) 
+        catch (QueryException $ex) 
         {
             redirect('/')->with('failure', 'Não foi possivel cadastrar');
         }

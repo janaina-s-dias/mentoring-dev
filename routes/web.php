@@ -12,12 +12,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('welcome', function () {
-    return view('welcome');
-});
-
-Route::get('home', function(){
-    return view('home');
+Route::get('cadastro', function()
+{
+    return view('cadastroUsuario');
 });
 
 Route::get('/', function(Request $request){
