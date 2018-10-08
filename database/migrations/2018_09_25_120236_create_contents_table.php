@@ -15,10 +15,10 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->increments('content_id');
-            $table->string('content_content')->nullable();
-            $table->string('content_title');
-            $table->string('content_url')->nullable(); //caminho do arquivo ou url do video
-            $table->string('content_type')->default('archive'); //tipo archive, tipo video, tipo conteudo(texto no site)
+            $table->text('content_content')->nullable();
+            $table->string('content_title', 100);
+            $table->string('content_url', 200)->nullable(); //caminho do arquivo ou url do video
+            $table->string('content_type', 20)->default('archive'); //tipo archive, tipo video, tipo conteudo(texto no site)
             $table->boolean('content_active')->default(true);
             $table->unsignedInteger('fk_content_knowledge');
             $table->foreign('fk_content_knowledge')

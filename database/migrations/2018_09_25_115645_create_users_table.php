@@ -15,16 +15,16 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('user_id');
-            $table->string('user_login'); //coloca como unique direto no banco
-            $table->string('user_hash');
-            $table->string('user_cpf'); //coloca como unique direto no banco
-            $table->string('user_nome');
-            $table->string('user_rg');
-            $table->string('user_email'); //coloca como unique direto no banco
-            $table->string('user_telefone');
-            $table->string('user_celular');
-            $table->boolean('user_knowledge')->default(true); //se deseja ser mentor ou não, caso sim, fica true, caso não, fica false
-            $table->string('user_role')->default('user'); //user, mentor, moderator, admin
+            $table->string('user_login', 40)->unique(); //coloca como unique direto no banco
+            $table->string('user_hash', 100);
+            $table->string('user_cpf', 11)->nullable()->unique(); //coloca como unique direto no banco
+            $table->string('user_nome', 100)->nullable();
+            $table->string('user_rg', 9)->nullable();
+            $table->string('user_email', 100)->unique(); //coloca como unique direto no banco
+            $table->string('user_telefone', 15)->nullable();
+            $table->string('user_celular', 15)->nullable();
+            $table->boolean('user_knowledge')->default(false); //se deseja ser mentor ou não, caso sim, fica true, caso não, fica false
+            $table->string('user_role', 9)->default('user'); //user, mentor, moderator, admin
             $table->rememberToken(); //um bang pra recuperar senha
             $table->timestamps();
         });
