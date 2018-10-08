@@ -12,9 +12,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('cadastro', function()
+Route::get('cadastro', function(Request $request)
 {
-    return view('cadastroUsuario');
+    if($request->session()->exists('user'))
+    {
+        return view('cadastroUsuario');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 Route::get('/', function(Request $request){
@@ -30,6 +37,7 @@ Route::get('/', function(Request $request){
 });
 
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
+Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegadados');
