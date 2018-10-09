@@ -20,7 +20,7 @@ class UserController extends Controller
     private $regras = [
         'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
         'user_hash' => 'bail|required|max:100|min:8|confirmed',
-        'user_email' => 'bail|required|email|max:100|min:20|unique:users, user_email'
+        'user_email' => 'bail|required|email|max:100|min:20|unique:users,user_email'
     ];
     private $mensagem = [
         'user_login.required' => 'Usuario é obrigatorio',
@@ -65,15 +65,15 @@ class UserController extends Controller
      */
     public function store(Request $request) {
         $this->validate($request, $this->regras, $this->mensagem);
-        $user = new User([
+        $users = new User([
                 'user_login' => $request->user_login
             ,   'user_hash' => Hash::make($request->user_hash)
             ,   'user_email'  => $request->user_email
                 ]);
         try
         {
-           $user->save();
-           $user = User::where('user_email', '=', $request->user_email)->get();
+           $users->save();
+           $user = User::where('user_email', '=', $request->user_email)->get()->first();
            $request->session()->put('user', $user);
            return view('cadastroUsuario')->with('success', 'Continue seu cadastro');
         } 

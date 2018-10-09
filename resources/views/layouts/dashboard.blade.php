@@ -2,7 +2,7 @@
 
 @section('body')
  <div id="wrapper">
-
+        <?php $user = Session::get('user'); ?>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -25,7 +25,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong>{{$user->user_login }}</strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -245,8 +245,9 @@
                             <!-- /input-group -->
                         </li>
                         <li {{ (Request::is('') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{ url ('/') }}"><i class="fa fa-dashboard fa-fw"></i> Paginal Inicial</a>
                         </li>
+                        @if($user->user_role == 'dev')
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->
@@ -326,10 +327,12 @@
                         <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                             <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                         </li>
+                        @endif
+                        @if($user->user_role == 'dev' ||$user->user_role == 'admin' || $user->user_role == 'moderador')
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
                             <a href="{{ url ('admin') }}"><i class="fa fa-file-word-o fa-fw"></i>Acessar Layout Mentoring</a>
                         </li>
-                        
+                        @endif
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
