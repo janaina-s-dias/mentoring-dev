@@ -10,17 +10,12 @@ use Illuminate\Database\QueryException;
 class UserController extends Controller
 {
     private $rules = [
-        'user_login' => 'bail|required', 
-        'user_hash' => 'bail|required|max:100|min:8' 
+        'user_login-login' => 'bail|required', 
+        'user_hash-login' => 'bail|required' 
     ];
     private $messages = [
-        'user_login.required' => 'Usuario é obrigatorio',
-        'user_login.unique' => 'Usuario ja utilizado',
-        'user_login.max' => 'Usuario muito grande',
-        'user_login.min' => 'Usuario muito pequeno',
-        'user_hash.required' => 'Senha obrigatoria',
-        'user_hash.min' => 'Senha muito pequena',
-        'user_hash.max' => 'Senha muito grande'
+        'user_login-login.required' => 'Usuario é obrigatorio',
+        'user_hash-login.required' => 'Senha obrigatoria',
     ];
     private $regras = [
         'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
@@ -136,11 +131,11 @@ class UserController extends Controller
     public function logar(Request $request)
     {
         $this->validate($request, $this->rules, $this->messages);
-        $user = User::where('user_login', '=', $request->user_login)->count();
+        $user = User::where('user_login', '=', $request->get('user_login-login'))->count();
         if($user > 0)
         {
-            $user = User::where('user_login', '=', $request->user_login)->first();
-            if(Hash::check($request->user_hash, $user->user_hash))
+            $user = User::where('user_login', '=', $request->get('user_login-login'))->first();
+            if(Hash::check($request->get('user_hash-login'), $user->user_hash))
             {
                 $request->session()->put('user', $user);
                 return redirect('/');
