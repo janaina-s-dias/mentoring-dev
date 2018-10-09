@@ -35,81 +35,194 @@ Route::get('/', function(Request $request){
     }
         
 });
-
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegadados');
 
-Route::get('tables', function(){
-    return view('table');
+Route::get('tables', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('table');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('forms', function(){
-    return view('form');
+Route::get('forms', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('form');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 
-Route::get('charts', function(){
-    return view('mcharts');
+Route::get('charts', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('mcharts');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('blank', function(){
-    return view('blank');
+Route::get('blank', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('blank');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('panel', function(){
-    return view('panel');
+Route::get('panel', function(Request $request){
+    
+    if($request->session()->exists('user'))
+    {
+    	return view('panel');
+    }
+    else
+    {
+        return view('login');
+    }
+
 });
 
-Route::get('collapse', function(){
-    return view('collapse');
+Route::get('collapse', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('collapse');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('documentation', function(){
-    return view('documentation');
+Route::get('documentation', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('documentation');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('icons', function(){
-    return view('icons');
+Route::get('icons', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('icons');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('notifications', function(){
-    return view('notifications');
+Route::get('notifications', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('notifications');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 Route::get('panels', function(){
-    return view('panel');
+    if($request->session()->exists('user'))
+    {
+    	return view('panel');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 // Route::get('', function(){
 //     return view('progressbars');
 // });
 
-Route::get('stats', function(){
-    return view('stats');
+Route::get('stats', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('stats');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('typography', function(){
-    return view('typography');
+Route::get('typography', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('typography');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('buttons', function(){
-    return view('buttons');
+Route::get('buttons', function(Request $request){
+  if($request->session()->exists('user'))
+    {
+    	return view('buttons');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('grid', function(){
-    return view('grid');
+Route::get('grid', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('grid');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 
-Route::get('admin', function(){
-    return view('layouts.dashboardAdmin');
+Route::get('admin', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('layouts.dashboardAdmin');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
-Route::get('pageTipos', function(){
-    return view('pageTipos');
+Route::get('pageTipos', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('pageTipos');
+    }
+    else
+    {
+        return view('login');
+    }
 });
 
 

@@ -12,8 +12,6 @@ class DumpServerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -22,13 +20,12 @@ class DumpServerServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('debug-server.php'),
             ], 'config');
+
         }
     }
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -40,16 +37,16 @@ class DumpServerServiceProvider extends ServiceProvider
             'command.dumpserver',
         ]);
 
-        $host = $this->app['config']->get('debug-server.host');
+        $host = config('debug-server.host');
 
         $this->app->when(DumpServer::class)->needs('$host')->give($host);
 
         $connection = new Connection($host, [
             'request' => new RequestContextProvider($this->app['request']),
-            'source' => new SourceContextProvider('utf-8', base_path()),
+            'source' => new SourceContextProvider('utf-8', base_path())
         ]);
 
-        VarDumper::setHandler(function ($var) use ($connection) {
+        VarDumper::setHandler(function($var) use ($connection) {
             (new Dumper($connection))->dump($var);
         });
     }

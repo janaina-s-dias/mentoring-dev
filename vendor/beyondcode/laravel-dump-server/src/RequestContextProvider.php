@@ -8,41 +8,22 @@ use Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface;
 
 class RequestContextProvider implements ContextProviderInterface
 {
-    /**
-     * The current request.
-     *
-     * @var \Illuminate\Http\Request|null
-     */
+    /** @var Request */
     private $currentRequest;
 
-    /**
-     * The variable cloner.
-     *
-     * @var \Symfony\Component\VarDumper\Cloner\VarCloner
-     */
+    /** @var VarCloner  */
     private $cloner;
 
-    /**
-     * RequestContextProvider constructor.
-     *
-     * @param  \Illuminate\Http\Request|null  $currentRequest
-     * @return void
-     */
     public function __construct(Request $currentRequest = null)
     {
         $this->currentRequest = $currentRequest;
-        $this->cloner = new VarCloner;
+        $this->cloner = new VarCloner();
         $this->cloner->setMaxItems(0);
     }
 
-    /**
-     * Get the context.
-     *
-     * @return array|null
-     */
     public function getContext(): ?array
     {
-        if ($this->currentRequest === null) {
+        if (null === $this->currentRequest) {
             return null;
         }
 
@@ -56,11 +37,11 @@ class RequestContextProvider implements ContextProviderInterface
             }
         }
 
-        return [
+        return array(
             'uri' => $this->currentRequest->getUri(),
             'method' => $this->currentRequest->getMethod(),
             'controller' => $controller ? $this->cloner->cloneVar(class_basename($controller)) : $controller,
             'identifier' => spl_object_hash($this->currentRequest),
-        ];
+        );
     }
 }

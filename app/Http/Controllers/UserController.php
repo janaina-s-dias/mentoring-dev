@@ -9,11 +9,25 @@ use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-    private $regras = [
-        'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
+    private $rules = [
+        'user_login' => 'bail|required', 
         'user_hash' => 'bail|required|max:100|min:8' 
     ];
     private $messages = [
+        'user_login.required' => 'Usuario é obrigatorio',
+        'user_login.unique' => 'Usuario ja utilizado',
+        'user_login.max' => 'Usuario muito grande',
+        'user_login.min' => 'Usuario muito pequeno',
+        'user_hash.required' => 'Senha obrigatoria',
+        'user_hash.min' => 'Senha muito pequena',
+        'user_hash.max' => 'Senha muito grande'
+    ];
+    private $regras = [
+        'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
+        'user_hash' => 'bail|required|max:100|min:8|confirmed',
+        'user_email' => 'bail|required|email|max:100|min:20|unique:users, user_email'
+    ];
+    private $mensagem = [
         'user_login.required' => 'Usuario é obrigatorio',
         'user_login.unique' => 'Usuario ja utilizado',
         'user_login.max' => 'Usuario muito grande',
@@ -55,7 +69,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $this->validate($request, $this->user->Regras(), $this->user->messages);
+        $this->validate($request, $this->regras, $this->mensagem);
         $user = new User([
                 'user_login' => $request->user_login
             ,   'user_hash' => Hash::make($request->user_hash)
@@ -66,7 +80,7 @@ class UserController extends Controller
            $user->save();
            $user = User::where('user_email', '=', $request->user_email)->get();
            $request->session()->put('user', $user);
-           redirect('cadastro')->with('success', 'Continue seu cadastro');
+           return view('cadastroUsuario')->with('success', 'Continue seu cadastro');
         } 
         catch (QueryException $ex) 
         {
@@ -121,7 +135,7 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
-        $this->validate($request, $this->regras, $this->messages);
+        $this->validate($request, $this->rules, $this->messages);
         $user = User::where('user_login', '=', $request->user_login)->count();
         if($user > 0)
         {

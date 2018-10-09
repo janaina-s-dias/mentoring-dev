@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url ('home') }}">Mentoring</a>
+                <a class="navbar-brand" href="{{ url ('/') }}">Mentoring</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -245,7 +245,7 @@
                             <!-- /input-group -->
                         </li>
                         <li {{ (Request::is('') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{ url ('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>

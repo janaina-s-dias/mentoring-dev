@@ -9,20 +9,10 @@ use Symfony\Component\VarDumper\Server\Connection;
 
 class Dumper
 {
-    /**
-     * The connection.
-     *
-     * @var \Symfony\Component\VarDumper\Server\Connection|null
-     */
+    /** @var Connection */
     private $connection;
 
-    /**
-     * Dumper constructor.
-     *
-     * @param  \Symfony\Component\VarDumper\Server\Connection|null  $connection
-     * @return void
-     */
-    public function __construct(Connection $connection = null)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
@@ -36,10 +26,11 @@ class Dumper
     public function dump($value)
     {
         if (class_exists(CliDumper::class)) {
+            $dumper = in_array(PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper : new HtmlDumper;
+
             $data = (new VarCloner)->cloneVar($value);
 
-            if ($this->connection === null || $this->connection->write($data) === false) {
-                $dumper = in_array(PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper : new HtmlDumper;
+            if (!$this->connection || !$this->connection->write($data)) {
                 $dumper->dump($data);
             }
         } else {
