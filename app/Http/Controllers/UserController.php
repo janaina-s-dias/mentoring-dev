@@ -139,6 +139,41 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        {
+        $this->validate($request, $this->user->Regras('update'), $this->user->messages);
+        $user = User::find($id)->first();
+        $user->user_login = $request->user_login;
+        $user->user_hash = $request->user_hash;
+        $user->user_cpf = $request->user_cpf;
+        $user->user_nome = $request->user_nome;
+        $user->user_rg = $request->user_rg;
+        $user->user_email = $request->user_email;
+        $user->user_telefone = $request->user_telefone;
+        $user->user_celular = $request->user_celular;
+        $user->user_knowledge = $request->user_knowledge;
+        
+        /*'user_login'
+        ,   'user_hash'
+        ,   'user_cpf'
+        ,   'user_nome' 
+        ,   'user_rg' 
+        ,   'user_email' 
+        ,   'user_telefone' 
+        ,   'user_celular' 
+        ,   'user_knowledge' 
+        ,   'user_role' */
+        
+        
+        try
+        {
+            $user->update();
+           // redirect('profession.index')->with('success', 'Profissão alterada');
+        } catch (QueryException $ex) {
+            //redirect('profession.editar')->with('failure', 'ERRO! Profissão não alterada');
+        }
+        
+    }
+        
     }
 
     /**
