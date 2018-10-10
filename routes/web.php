@@ -35,6 +35,31 @@ Route::get('/', function(Request $request){
     }
         
 });
+
+Route::get('perfil', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+        return view('perfil');
+    }
+    else
+    {
+        return view('login');
+    }
+        
+});
+
+Route::get('cadastroAssunto', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+        return view('cadastroAssunto');
+    }
+    else
+    {
+        return view('login');
+    }
+        
+});
+
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
