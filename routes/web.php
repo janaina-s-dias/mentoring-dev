@@ -39,7 +39,7 @@ Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
-Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegadados');
+Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))

@@ -16,24 +16,21 @@
 
 		</tr>
 	</tbody>
-</table>
+</table>-->
  
-@include('modals.profissao')-->
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+<?php //@include('modals.profissao'); ?>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <script type="text/javascript"> 
     $(document).ready(function (){
-       var dataTable = $('#tabelaCategoria').DataTable({
+       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+       $('#tabelaProfissao').DataTable({
            "processing": true,
            "serverSide": true,
            "order": [],
            "ajax": {
                "url": "{{ route('pegaDados') }}", //url Controller Profession - PegaDados
-               "type": "POST"
+               "type": "POST",
+               "data": {_token: CSRF_TOKEN}
            },
            "columnsDefs": [
                 {
@@ -62,7 +59,7 @@
     });
 </script>
 
-<table id="tabelaCategoria" class="table-responsive">
+<table id="tabelaProfissao" class="table-responsive">
     <thead>
         <tr>
             <th>#</th>

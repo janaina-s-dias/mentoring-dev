@@ -11,11 +11,12 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<meta content="" name="description"/>
 	<meta content="" name="author"/>
-
+        <script src="{{ asset("assets/scripts/frontend.js") }}" type="text/javascript"></script>
+        <script src="{{ asset('DataTables/datatables.min.js') }}" type="text/javascript"></script>
+        <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="{{ asset("assets/stylesheets/styles.css") }}" />
 </head>
 <body>
 	@yield('body')
-	<script src="{{ asset("assets/scripts/frontend.js") }}" type="text/javascript"></script>
 </body>
 </html>

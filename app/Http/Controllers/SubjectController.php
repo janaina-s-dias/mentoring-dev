@@ -116,7 +116,7 @@ class SubjectController extends Controller
             $subject->delete();
             redirect('subject.index')->with('success', 'Assunto deletado');
         } catch (QueryException $ex) {
-            redirect('subject.editar')->with('failure', 'ERRO! Assunto não deletado');
+            redirect('subject.index')->with('failure', 'ERRO! Assunto não deletado');
         }
     }
 }

@@ -96,10 +96,10 @@ class ProfessionController extends Controller
         );
         echo json_encode($output);
     }
-    
+    private $order = ['profession_id','profession_name', 'profession_active', null, null ];
     public function CriarQuery(Request $request)
     {
-        $this->profession = Profession::select($this->columnsSelect);
+        $this->profession = Profession::select('profession_id','profession_name', 'profession_active');
         if(isset($request->search->value))
         {
             $this->profession->where('profession_name', 'like' ,'%', $request->search->value);            
