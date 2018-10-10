@@ -168,7 +168,7 @@ Route::get('notifications', function(Request $request){
     }
 });
 
-Route::get('panels', function(){
+Route::get('panels', function(Request $request){
     if($request->session()->exists('user'))
     {
     	return view('panel');

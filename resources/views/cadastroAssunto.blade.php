@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('page_heading','Perfil')
 @section('section')
-  
+<script type="text/javascript" src="{{ asset('js/PopularCadastroAssuntoUser') }}"></script>  
          <section class="arcus" style="height: 200px; padding: 55px 55px; background: #666666;">
              
             <form> 
