@@ -4,6 +4,7 @@
   
          <section class="arcus" style="height: 200px; padding: 55px 55px; background: #666666;">
              
+            <form> 
             <div>    
             <label for="estado">Profissão</label>
             <select id="continent" onchange="comboDinamicaprof(this);">
@@ -22,7 +23,13 @@
             <select id="atributo2">
             <option value="0">Assunto</option>
             </select>
+
+            <div id="sub" style = "visibility: hidden;">
+               <input type="submit" name="Submit" value="Enviar" id="Submit">
             </div>
+
+            </div>
+            </form>
               
          </section>  
 
@@ -79,7 +86,10 @@
          catch (e) { 
              cSelect.appendChild(newOption); 
          } 
-         }       
+         }
+
+         document.getElementById("sub").style.visibility = "hidden";
+
          } 
 
 
@@ -129,6 +139,9 @@
              cSelect2.appendChild(newOption2); 
          } 
          }
+         
+          document.getElementById("sub").style.visibility = "visible";
+
          } 
 
 
