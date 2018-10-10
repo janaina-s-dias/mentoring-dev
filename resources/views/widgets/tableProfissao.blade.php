@@ -34,7 +34,7 @@
            },
            "columnsDefs": [
                 {
-                    "target": [3, 4], //quais colunas não possuirão a ordenação - editar/excluir
+                    "target": [], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -62,11 +62,7 @@
 <table id="tabelaProfissao" class="table-responsive">
     <thead>
         <tr>
-            <th>#</th>
             <th>Profession</th>
-            <th>Status</th>
-            <th>Editar</th>
-            <th>Deletar</th>
         </tr>
     </thead>
     <tbody>

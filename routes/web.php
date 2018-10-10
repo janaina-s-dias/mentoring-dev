@@ -46,7 +46,7 @@ Route::get('perfil', function(Request $request){
         return view('login');
     }
         
-});
+})->name('perfil');
 
 Route::get('cadastroAssunto', function(Request $request){
     if($request->session()->exists('user'))

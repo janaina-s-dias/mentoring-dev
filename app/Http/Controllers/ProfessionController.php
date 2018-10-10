@@ -83,8 +83,8 @@ class ProfessionController extends Controller
         foreach ($pegadados as $row) {
             $sub_dados = array();
             $sub_dados[] = $row->profession_name;
-            $sub_dados[] = "<a href='". route('profession/edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<a href='". route('profession/delete', $row->profession_id)."' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            //$sub_dados[] = "<a href='". route('profession/edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            //s$sub_dados[] = "<a href='". route('profession/delete', $row->profession_id)."' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
             $dados[] = $sub_dados;
         }
         
@@ -100,11 +100,11 @@ class ProfessionController extends Controller
     public function CriarQuery(Request $request)
     {
         $this->profession = Profession::select('profession_id','profession_name', 'profession_active');
-        if(isset($request->search->value))
+        if($request->input('search.value') != null)
         {
-            $this->profession->where('profession_name', 'like' ,'%', $request->search->value);            
+            $this->profession->where('profession_name', 'like' ,'%', $request->input('search.value'));            
         }
-        if(isset($request->order))
+        if($request->order!= null)
         {
             $this->profession->orderBy(array_get($this->order, $request->input('order.0.column')),
                                 $request->input('order.0.dir'));
@@ -120,7 +120,7 @@ class ProfessionController extends Controller
         $this->CriarQuery($request);
         if($request->length != -1)
         {
-            $this->profession->take($request->lenght)->skip($request->start);
+            $this->profession->offset($request->start)->limit($request->length);
         }
         $query = $this->profession->get();
         return $query;

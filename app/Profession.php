@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profession extends Model
 {
-    protected $table = ['professions'];
+    protected $table = 'professions';
     protected $fillable = ['profession_name'];
     private $rules;
     public $message = [
