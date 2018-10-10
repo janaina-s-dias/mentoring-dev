@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Carrer extends Model
 {
     protected $table = 'carrers';
-    protected $fillable ['carrer_nome', 'fk_carrer_profession'];
+    protected $fillable = ['carrer_nome', 'fk_carrer_profession'];
     protected $rules;
     protected $messages = [
     	'carrer_nome.required' => 'Nome da Carreira é obrigatorio',

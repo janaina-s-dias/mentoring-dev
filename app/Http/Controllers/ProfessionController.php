@@ -15,12 +15,12 @@ class ProfessionController extends Controller
 
     public function index()
     {
-        //
+        //retorna a home do profession
     }
 
     public function create()
     {
-        //
+        //retorna a tela de cadastro do profession
     }
 
     public function store(Request $request) {
@@ -38,37 +38,18 @@ class ProfessionController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $profession = Profession::find($id)->first();
         redirect('profession.index')->with('finded', $profession);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $profession = Profession::find($id)->first();
         return view('profession.editar')->with('finded', $profession);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->profession->Rules('update'), $this->profession->messages);
@@ -84,12 +65,6 @@ class ProfessionController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $profession = Profession::find($id)->first();
@@ -101,7 +76,6 @@ class ProfessionController extends Controller
             redirect('profession.editar')->with('failure', 'ERRO! Profissão não deletada');
         }
     }
-
 
     public function PegaDados(Request $request) {
         $pegadados = $this->CriarDataTable($request);

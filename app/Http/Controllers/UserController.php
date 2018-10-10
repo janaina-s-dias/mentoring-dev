@@ -82,6 +82,30 @@ class UserController extends Controller
             redirect('/')->with('failure', 'Não foi possivel cadastrar');
         }
     }
+    
+    public function store2(Request $request, $id)
+    {
+        $this->validate($request, $this->user->Regras(), $this->user->messages);
+        $users = User::find($id);
+        $users->user_nome =         $request->user_nome;
+        $users->user_rg =           $request->user_rg;
+        $users->user_cpf  =         $request->user_cpf;
+        $users->user_telefone  =    $request->user_telefone;
+        $users->user_celular  =     $request->user_celular;
+        $users->user_knowledge  =   $request->user_knowledge;
+        try
+        {
+           $users->update();
+           $user = User::where('user_email', '=', $request->user_email)->get()->first();
+           $request->session()->flush();
+           $request->session()->put('user', $user);
+           return view('/')->with('success', 'Continue seu cadastro');
+        } 
+        catch (QueryException $ex) 
+        {
+            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar');
+        }
+    }
 
     /**
      * Display the specified resource.
