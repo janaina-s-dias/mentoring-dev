@@ -16,18 +16,18 @@
                         @csrf
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_login-login') ? ' is-invalid' : '' }}" placeholder="Usuario" name="user_login-login" type="text" value="{{old('user_login')}}" autofocus>
-                                    @if ($errors->has('user_login-login'))
+                                    <input class="form-control{{ $errors->has('user_login_login') ? ' is-invalid' : '' }}" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
+                                    @if ($errors->has('user_login_login'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('user_login-login') }}</strong>
+                                        <strong>{{ $errors->first('user_login_login') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_hash-login') ? ' is-invalid' : '' }}" placeholder="Senha" name="user_hash-login" type="password">
-                                    @if ($errors->has('user_hash-login'))
+                                    <input class="form-control{{ $errors->has('user_hash_login') ? ' is-invalid' : '' }}" placeholder="Senha" name="user_hash_login" type="password">
+                                    @if ($errors->has('user_hash_login'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('user_hash-login') }}</strong>
+                                        <strong>{{ $errors->first('user_hash_login') }}</strong>
                                     </span>
                                     @endif
                                 </div>

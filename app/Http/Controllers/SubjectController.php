@@ -21,7 +21,15 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subject = Subject::all();
+        $dados = array();
+        foreach ($subject as $value) {
+            $subdados = array();
+            $subdados['subject_id'] = $value->subject_id;
+            $subdados['subject_nome'] = $value->subject_name;
+            $dados[] = $subdados;
+        }
+        echo json_encode($dados);
     }
     /**
      * Show the form for creating a new resource.
