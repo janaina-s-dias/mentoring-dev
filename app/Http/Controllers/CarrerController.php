@@ -108,4 +108,73 @@ class CarrerController extends Controller
             redirect('carrer.index')->with('failure', 'ERRO! Carreira não deletada');
         }
     }
+
+    public function PegaDadosCarreira(Request $request) {
+        $pegadados = $this->CriarDataTable($request);
+        $dados = array();
+        foreach ($pegadados as $row) {
+             $sub_dados = array();
+             $sub_dados[] = $row->carrer_id;
+             $sub_dados[] = $row->carrer_name;
+             $sub_dados[] = $row->carrer_active;
+             $sub_dados[] = $row->fk_carrer_profession;
+             $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+             $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $dados[] = $sub_dados;
+        }
+        
+        $output = array (
+            "draw"  => intval($request->draw),
+            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsFiltered" => $this->RegistrosFiltrados($request),
+            "data" => $dados
+        );
+        echo json_encode($output);
+    }
+    private $order = ['carrer_id','carrer_name', 'carrer_active','fk_carrer_profession', null, null ];
+
+    public function CriarQuery(Request $request)
+    {
+        $this->carrer = Carrer::select('carrer_id','carrer_name', 'carrer_active')
+            ->join('professions', 'profession_id', '=', 'fk_carrer_profession');
+           
+       
+        if($request->input('search.value') != null)
+        {
+            $this->carrer->where('carrer_name', 'like' ,'%', $request->input('search.value'));            
+        }
+        if($request->order!= null)
+        {
+            $this->carrer->orderBy(array_get($this->order, $request->input('order.0.column')),
+                                $request->input('order.0.dir'));
+        }
+        else
+        {
+            $this->carrer->orderBy('carrer_id', 'desc');
+        }
+    }
+    
+    public function CriarDataTable(Request $request)
+    {
+        $this->CriarQuery($request);
+        if($request->length != -1)
+        {
+            $this->carrer->offset($request->start)->limit($request->length);
+        }
+        $query = $this->carrer->get();
+        return $query;
+    }
+    
+    public function RegistrosFiltrados(Request $request)
+    {
+        $this->CriarQuery($request);
+        $query = $this->carrer->count();
+        return $query;
+    }
+    
+    public function TodosRegistros()
+    {
+        $carrer = Carrer::all();
+        return $carrer->count();
+    }
 }

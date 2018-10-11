@@ -119,4 +119,77 @@ class SubjectController extends Controller
             redirect('subject.index')->with('failure', 'ERRO! Assunto não deletado');
         }
     }
+
+    
+    public function PegaDadosAssunto(Request $request) {
+        $pegadados = $this->CriarDataTable($request);
+        $dados = array();
+        foreach ($pegadados as $row) {
+            $sub_dados = array();
+            $sub_dados[] = $row->subject_id;
+            $sub_dados[] = $row->subject_name;
+            $sub_dados[] = $row->subject_active;
+            $sub_dados[] = $row->fk_subject_carrer;
+            $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $dados[] = $sub_dados;
+        }
+        
+        $output = array (
+            "draw"  => intval($request->draw),
+            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsFiltered" => $this->RegistrosFiltrados($request),
+            "data" => $dados
+        );
+        echo json_encode($output);
+    }
+    private $order = ['subject_id','subject_name', 'subject_active','fk_subject_carrer', null, null ];
+    
+    public function CriarQuery(Request $request)
+    {
+        $this->subject = Subject::select('subject_id','subject_name', 'subject_active')
+            ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')->join('professions', 'profession_id', '=', 'fk_carrer_profession');
+
+       
+        if($request->input('search.value') != null)
+        {
+            $this->subject->where('subject_name', 'like' ,'%', $request->input('search.value'));            
+        }
+        if($request->order!= null)
+        {
+            $this->subject->orderBy(array_get($this->order, $request->input('order.0.column')),
+                                $request->input('order.0.dir'));
+        }
+        else
+        {
+            $this->subject->orderBy('subject_id', 'desc');
+        }
+    }
+    
+    public function CriarDataTable(Request $request)
+    {
+        $this->CriarQuery($request);
+        if($request->length != -1)
+        {
+            $this->subject->offset($request->start)->limit($request->length);
+        }
+        $query = $this->subject->get();
+        return $query;
+    }
+    
+    public function RegistrosFiltrados(Request $request)
+    {
+        $this->CriarQuery($request);
+        $query = $this->subject->count();
+        return $query;
+    }
+    
+    public function TodosRegistros()
+    {
+        $subject = Subject::all();
+        return $subject->count();
+    }
+
+
+
 }

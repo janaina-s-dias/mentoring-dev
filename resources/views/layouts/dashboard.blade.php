@@ -1,5 +1,4 @@
 @extends('layouts.plane')
-
 @section('body')
  <div id="wrapper">
         <?php $user = Session::get('user'); ?>

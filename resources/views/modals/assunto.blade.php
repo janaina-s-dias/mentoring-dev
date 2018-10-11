@@ -1,9 +1,9 @@
-<div class="modal fade" id="myModal2">
+<div class="modal fade" id="myModal3">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="Fechar">&times;</button>
-        <h4 class="modal-title">Carreira</h4>
+        <h4 class="modal-title">Assunto</h4>
       </div>
       <div class="modal-body">
       <form role="form">
@@ -13,9 +13,9 @@
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
             </div>
               <div class="form-group">
-                  <label>Profissão</label>
+                  <label>Carreira</label>
                   <input class="form-control">
-                 <!-- Combo com profissões existentes -->
+                 <!-- Combo com carreiras existentes -->
               </div>
               <div class="form-group">
                 <label>Status</label>
@@ -29,4 +29,6 @@
             <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
       </div>
-    </div></div></div>  
+    </div>
+  </div>
+</div>  

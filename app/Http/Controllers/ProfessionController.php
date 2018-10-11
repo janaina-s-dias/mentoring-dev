@@ -82,9 +82,11 @@ class ProfessionController extends Controller
         $dados = array();
         foreach ($pegadados as $row) {
             $sub_dados = array();
+            $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
-            //$sub_dados[] = "<a href='". route('profession/edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            //s$sub_dados[] = "<a href='". route('profession/delete', $row->profession_id)."' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $sub_dados[] = $row->profession_active;
+            $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
             $dados[] = $sub_dados;
         }
         

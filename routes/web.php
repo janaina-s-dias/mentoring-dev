@@ -65,6 +65,8 @@ Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuari
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
+Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
+Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
 
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))
@@ -239,7 +241,7 @@ Route::get('admin', function(Request $request){
     }
 });
 
-Route::get('pageTipos', function(Request $request){
+Route::get('Profissoes', function(Request $request){
     if($request->session()->exists('user'))
     {
     	return view('pageTipos');
@@ -249,6 +251,31 @@ Route::get('pageTipos', function(Request $request){
         return view('login');
     }
 });
+
+
+Route::get('Carreiras', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('manterCarreira');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+
+Route::get('Assuntos', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('manterAssunto');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
 
 
 

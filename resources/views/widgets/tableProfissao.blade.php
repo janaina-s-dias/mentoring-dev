@@ -1,24 +1,3 @@
-<!--<table class="table {{ $class }}">
-	<thead>
-		<tr>
-			<th>Nome</th>
-			<th>Status</th>
-			<th colspan="2">Ações</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Tecnologia da Informação</td>
-			<td>Ativo</td>
-			<td><button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-toggle="tooltip" title="Alterar" data-target="#myModal"><i class="fa fa-edit"></i></button> </td>
-			<td><button type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" title="Excluir"><i class="fa fa-trash-o"></i></button> </td>
-
-
-		</tr>
-	</tbody>
-</table>-->
- 
-<?php //@include('modals.profissao'); ?>
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <script type="text/javascript"> 
     $(document).ready(function (){
@@ -32,10 +11,10 @@
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
-           "columnsDefs": [
+           "columnDefs": [
                 {
-                    "target": [], //quais colunas não possuirão a ordenação - editar/excluir
-                    "orderable":false
+                    "targets": [ 3,  4 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "orderable": false
                 }
            ],
            "language": {
@@ -54,18 +33,23 @@
                 "processing":     "Processando..."
         },
             "lengthChange": false,
-            "pageLength": 15
+            "pageLength": 10
        }); 
     });
 </script>
 
+<div>
 <table id="tabelaProfissao" class="table-responsive">
     <thead>
         <tr>
-            <th>Profession</th>
+            <th>Código</th>
+            <th>Profissão</th>
+            <th>Status</th>
+            <th>Alterar</th>
+            <th>Excluir</th>
         </tr>
     </thead>
     <tbody>
-
     </tbody>
 </table>
+</div>

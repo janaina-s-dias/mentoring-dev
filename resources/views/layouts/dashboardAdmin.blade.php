@@ -224,30 +224,34 @@
                         <li><a href="{{ url ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
-                    <li><a href="{{ url ('pageTipos') }}"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="{{ url ('admin') }}"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
+         <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i> Área Administrativa</a>
+                    <li >
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Área Administrativa<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li {{ (Request::is('*Profissoes') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('Profissoes') }}">Profissões</a>
+                                </li>
+                                <li {{ (Request::is('*Carreiras') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('Carreiras') }}">Carreiras</a>
+                                </li>
+                                <li {{ (Request::is('*Assuntos') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('Assuntos') }}">Assuntos</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
-                            <a href="{{ route ('perfil') }}"><i class="fa fa-wrench fa-fw"></i> Área do Usuário</a>
-                        </li>
-                        <li {{ (Request::is('dashboard') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/') }}"><i class="fa fa-backward"></i> Voltar Layout Exemplo</a>
-                        </li>
-                    </ul>
+                        </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-            <!-- /.navbar-static-side -->
         </nav>
 
         <div id="page-wrapper">
