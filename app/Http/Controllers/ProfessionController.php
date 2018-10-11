@@ -15,7 +15,15 @@ class ProfessionController extends Controller
 
     public function index()
     {
-        //retorna a home do profession
+        $profession = Profession::all();
+        $dados = array();
+        foreach ($profession as $value) {
+            $subdados = array();
+            $subdados['profession_id'] = $value->profession_id;
+            $subdados['profession_nome'] = $value->profession_name;
+            $dados[] = $subdados;
+        }
+        echo json_encode($dados);
     }
 
     public function create()

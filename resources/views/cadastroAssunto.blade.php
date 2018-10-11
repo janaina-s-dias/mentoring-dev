@@ -1,34 +1,68 @@
 @extends('layouts.dashboard')
 @section('page_heading','Perfil')
 @section('section')
-<script type="text/javascript" src="{{ asset('js/PopularCadastroAssuntoUser') }}"></script>  
-         <section class="arcus" style="height: 200px; padding: 55px 55px; background: #666666;">
-             
-            <form> 
-            <div>    
-            <label for="estado">Profissão</label>
-            <select id="continent" onchange="comboDinamicaprof(this);">
-            <option value="empty">Selecione uma Profissão</option>
-            <option value="Profissão 1">Profissão 1</option>
-            <option value="Profissão 2">Profissão 2</option>
-            <option value="Profissão 3">Profissão 3</option>
-            </select>
-            <br/><br/>
-            <label>Carreira</label>
-            <select id="atributo1" onchange="comboDinamicacarrer(this);">
-            <option value="0">Carreira</option>
-            </select>
-            <br/><br/>
-            <label>Assunto</label>
-            <select id="atributo2">
-            <option value="0">Assunto</option>
-            </select>
+<script type="text/javascript">
+    $(document).ready(function (){
+    $.getJSON("{{ route('usAssunto') }}", function(dados){
+        if (dados.length > 0){
+            
+            var option = "<option value=''>Selecione Assunto</option>"; 
+            $.each(dados, function(i, obj){
+                option += "<option value='"+obj.subject_id+"'>"+
+                    obj.subject_nome+"</option>";
+            });
+        }
+        $("#subjectCombo").html(option).show();
+    });
+    $('#subjectCombo').change(function (){
+        if($(this).val() != '')
+        {
+            $('#btnEnviar').removeClass('hidden');
+        }
+        else
+        {
+            $('#btnEnviar').addClass('hidden');
+        }
+    });
+});
 
-            <div id="sub" style = "visibility: hidden;">
-               <input type="submit" name="Submit" value="Enviar" id="Submit">
-            </div>
-
-            </div>
+</script>  
+         <section class="arcus" style="height: 200px; padding: 55px 55px;">
+             <?php $user = Session::get('user'); ?>
+             <form method="POST" action="{{ route('usersubject.store')}}"> 
+                <table class="table-responsive">
+                <tr>
+                    <!--<th class="col-sm">
+                        <label for="professionCombo">Profissão</label>
+                    </th>
+                    <th class="col-sm">
+                        <label for="carrerCombo">Carreira</label>
+                    </th>-->
+                    <th class="col-sm">
+                        <label for="subjectCombo">Assunto</label>
+                    </th>
+                    <td></td>
+                </tr>
+                <input type="hidden" name="fk_subject_user" value="{{ $user->user_id }}">
+                <tr>
+                    <!-- <th class="col-sm">
+                        <select id="professionCombo">
+                            <option value="">Carregando Profissão</option>
+                        </select>           
+                    </th>
+                    <th class="col-sm">
+                        <select id="carrerCombo">
+                            <option value="">Carregando Carreira</option>
+                        </select>
+                    </th>-->
+                    <th class="col-sm">
+                        <select id="subjectCombo" name="fk_user_subject">
+                            <option value=""> Carregando Assunto</option>
+                        </select>
+                    </th>
+                    <th><input class="btn btn-primary" style = "display: none;" type="submit" name="Submit" value="Enviar" id="Submit"></th>
+                </tr>
+            </table>
             </form>
               
          </section>  

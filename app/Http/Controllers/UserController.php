@@ -42,7 +42,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $this->validate($request, $this->user->Regras(), $this->mensagem);
+        $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = new User([
                 'user_login' => $request->user_login
             ,   'user_hash' => Hash::make($request->user_hash)
@@ -63,7 +63,7 @@ class UserController extends Controller
     
     public function store2(Request $request, $id)
     {
-        $this->validate($request, $this->user->Regras(), $this->user->messages);
+        $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = User::find($id);
         $users->user_nome =         $request->user_nome;
         $users->user_rg =           $request->user_rg;
@@ -197,12 +197,12 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
-        $this->validate($request, $this->user->Regras('login'), $this->mensagens);
-        $user = User::where('user_login', '=', $request->get('user_login-login'))->count();
+        $this->validate($request, $this->user->Regras('login'), $this->user->mensagens);
+        $user = User::where('user_login', '=', $request->get('user_login_login'))->count();
         if($user > 0)
         {
-            $user = User::where('user_login', '=', $request->get('user_login-login'))->first();
-            if(Hash::check($request->get('user_hash-login'), $user->user_hash))
+            $user = User::where('user_login', '=', $request->get('user_login_login'))->first();
+            if(Hash::check($request->get('user_hash_login'), $user->user_hash))
             {
                 $request->session()->put('user', $user);
                 return redirect('/');

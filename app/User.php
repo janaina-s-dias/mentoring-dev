@@ -21,8 +21,8 @@ class User extends Model
     ];
     protected $rules;
     public $mensagens = [
-        'user_login-login.required' => 'Usuario é obrigatorio',
-        'user_hash-login.required' => 'Senha obrigatoria',
+        'user_login_login.required' => 'Usuario é obrigatorio',
+        'user_hash_login.required' => 'Senha obrigatoria',
         'user_login.required' => 'Usuario é obrigatorio',
         'user_login.unique' => 'Usuario ja utilizado',
         'user_login.max' => 'Usuario muito grande',
@@ -73,8 +73,8 @@ class User extends Model
                 break;
             case 'login':
                 $this->rules = [
-                    'user_login-login' => 'bail|required', 
-                    'user_hash-login' => 'bail|required' 
+                    'user_login_login' => 'bail|required', 
+                    'user_hash_login' => 'bail|required' 
                 ];
             break;
             case 'senha':

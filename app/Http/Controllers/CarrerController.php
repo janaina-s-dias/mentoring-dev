@@ -13,7 +13,14 @@ class CarrerController extends Controller
     } 
     public function index()
     {
-        //home do carrer
+        $carrer = Profession::where('fk_carrer_profession', $id);
+        $dados = array();
+        foreach ($carrer as $value) {
+            $subdados = array();
+            $subdados['carrer_nome'] = $value->carrer_name;
+            $dados[] = $subdados;
+        }
+        echo json_encode($dados);
     }
 
     public function create()
