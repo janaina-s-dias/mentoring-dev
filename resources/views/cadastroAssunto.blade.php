@@ -3,6 +3,7 @@
 @section('section')
 <script type="text/javascript">
     $(document).ready(function (){
+        $('#Submit').hide();
     $.get('/profissao', function(dados){
         if (dados.length > 0){
             
@@ -56,11 +57,11 @@
     $('#subjectCombo').change(function (){
         if($(this).val() != '')
         {
-            $('#btnEnviar').removeClass('hidden');
+            $('#Submit').show();
         }
         else
         {
-            $('#btnEnviar').addClass('hidden');
+            $('#Submit').hide();
         }
     });
 });
@@ -99,7 +100,7 @@
                             <option value=""> Carregando Assunto</option>
                         </select>
                     </th>
-                    <th><input class="btn btn-primary" style = "display: none;" type="submit" name="Submit" value="Enviar" id="Submit"></th>
+                    <th><button class="btn btn-success btn-sm btn-circle" type="submit" name="Submit" id="Submit">   <span class="glyphicon glyphicon-ok"></span></button></th>
                 </tr>
             </table>
             </form>
