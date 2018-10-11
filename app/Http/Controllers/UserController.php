@@ -9,28 +9,6 @@ use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-    private $rules = [
-        'user_login-login' => 'bail|required', 
-        'user_hash-login' => 'bail|required' 
-    ];
-    private $messages = [
-        'user_login-login.required' => 'Usuario é obrigatorio',
-        'user_hash-login.required' => 'Senha obrigatoria',
-    ];
-    private $regras = [
-        'user_login' => 'bail|required|unique:users,user_login|max:100|min:5', 
-        'user_hash' => 'bail|required|max:100|min:8|confirmed',
-        'user_email' => 'bail|required|email|max:100|min:20|unique:users,user_email'
-    ];
-    private $mensagem = [
-        'user_login.required' => 'Usuario é obrigatorio',
-        'user_login.unique' => 'Usuario ja utilizado',
-        'user_login.max' => 'Usuario muito grande',
-        'user_login.min' => 'Usuario muito pequeno',
-        'user_hash.required' => 'Senha obrigatoria',
-        'user_hash.min' => 'Senha muito pequena',
-        'user_hash.max' => 'Senha muito grande'
-    ];
     private $user;
     function __construct(User $user) {
         $this->user = $user;
@@ -64,7 +42,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $this->validate($request, $this->regras, $this->mensagem);
+        $this->validate($request, $this->user->Regras(), $this->mensagem);
         $users = new User([
                 'user_login' => $request->user_login
             ,   'user_hash' => Hash::make($request->user_hash)
@@ -138,11 +116,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateSenha(Request $request, $id){
+        $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);
+        $user = UserController::find($id);
+        if(Hash::check($request->get('user_hash-last'), $user->user_hash))
+        {
+            $user->user_hash = Hash::make($request->get('user_hash'));
+            try
+            {
+                $user->update();
+                redirect('senha')->with('success', 'Senha alterada com sucesso');
+                
+            } catch (QueryException $ex) {
+                redirect('senha')->with('failure', 'Senha não alterada');
+            }
+        }
+        else
+        {
+            redirect('senha')->with('failure', 'Senha antiga errada');
+        }
+    }
+    
     public function update(Request $request, $id)
     {
         //
         {
-        $this->validate($request, $this->user->Regras('update'), $this->user->messages);
+        $this->validate($request, $this->user->Regras('update'), $this->user->mensagens);
         $user = User::find($id)->first();
         $user->user_login = $request->user_login;
         $user->user_hash = $request->user_hash;
@@ -198,7 +197,7 @@ class UserController extends Controller
     
     public function logar(Request $request)
     {
-        $this->validate($request, $this->rules, $this->messages);
+        $this->validate($request, $this->user->Regras('login'), $this->mensagens);
         $user = User::where('user_login', '=', $request->get('user_login-login'))->count();
         if($user > 0)
         {
