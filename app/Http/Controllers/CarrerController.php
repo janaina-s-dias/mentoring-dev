@@ -29,7 +29,7 @@ class CarrerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, $this->subject->Regras(), $this->subject->messages);
+        $this->validate($request, $this->carrer->Regras(), $this->subject->messages);
         $carrer = new Carrer([
            'carrer_name' => $request->carrer_name, 
            'carrer_active' => $request->carrer_active, 
