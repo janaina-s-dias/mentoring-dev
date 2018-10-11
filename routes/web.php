@@ -65,10 +65,14 @@ Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuari
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
+Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
+Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
 Route::resource('usersubject', 'UserSubjectController');
 Route::get('/pegaProfissao', 'ProfessionController@index')->name('usProfissao');
 Route::get('/pegaCarreira', 'CarrerController@index')->name('usCarreira');
 Route::get('/pegaAssunto', 'SubjectController@index')->name('usAssunto');
+
+
 
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))
