@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url ('home') }}">Mentoring</a>
+                <a class="navbar-brand" href="{{ url ('/') }}">Mentoring</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -216,12 +216,12 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{ url ('blank')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="{{ url ('perfil')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{{ url ('/') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{ url ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <li><a href="{{ url ('pageTipos') }}"><i class="fa fa-gear fa-fw"></i> Settings</a>
@@ -238,10 +238,10 @@
                             <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i> Área Administrativa</a>
                         </li>
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i> Área do Usuário</a>
+                            <a href="{{ route ('perfil') }}"><i class="fa fa-wrench fa-fw"></i> Área do Usuário</a>
                         </li>
                         <li {{ (Request::is('dashboard') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('home') }}"><i class="fa fa-backward"></i> Voltar Layout Exemplo</a>
+                            <a href="{{ url ('/') }}"><i class="fa fa-backward"></i> Voltar Layout Exemplo</a>
                         </li>
                     </ul>
                 </div>
