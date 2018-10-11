@@ -72,7 +72,46 @@ Route::get('/pegaProfissao', 'ProfessionController@index')->name('usProfissao');
 Route::get('/pegaCarreira', 'CarrerController@index')->name('usCarreira');
 Route::get('/pegaAssunto', 'SubjectController@index')->name('usAssunto');
 
+Route::get('/profissao', function(){
+    $profession = \App\Profession::all();
+    $dados = array();
+    foreach ($profession as $value) {
+        $subarray = array();
+        $subarray['profession_id'] = $value->profession_id;
+        $subarray['profession_nome'] = $value->profession_name;
+        $dados[]=$subarray;
+    }
+    return Response::json($dados);
+    
+});
 
+Route::get('/carreira', function(Request $request){
+    $profession = $request->get('profissao');
+    $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->get();
+    $dados = array();
+    foreach ($carrer as $value) {
+        $subarray = array();
+        $subarray['carrer_id'] = $value->carrer_id;
+        $subarray['carrer_nome'] = $value->carrer_name;
+        $dados[]=$subarray;
+    }
+    return Response::json($dados);
+    
+});
+
+Route::get('/assunto', function(Request $request){
+    $carrer = $request->get('carreira');
+    $subject = \App\Subject::where('fk_subject_carrer', $carrer)->get();
+    $dados = array();
+    foreach ($subject as $value) {
+        $subarray = array();
+        $subarray['subject_id'] = $value->subject_id;
+        $subarray['subject_nome'] = $value->subject_name;
+        $dados[]=$subarray;
+    }
+    return Response::json($dados);
+    
+});
 
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))
