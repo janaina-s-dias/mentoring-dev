@@ -115,7 +115,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id)->first();
+        redirect('user.index')->with('finded', $user);
     }
 
     /**
@@ -126,7 +127,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id)->first();
+        return view('user.editar')->with('finded', $user);
     }
 
     /**
@@ -166,10 +168,10 @@ class UserController extends Controller
         
         try
         {
-            $user->update();
-           // redirect('profession.index')->with('success', 'Profissão alterada');
+           $user->update();
+           redirect('user.index')->with('success', 'informações alteradas');
         } catch (QueryException $ex) {
-            //redirect('profession.editar')->with('failure', 'ERRO! Profissão não alterada');
+           redirect('user.editar')->with('failure', 'ERRO! informações não alteradas');
         }
         
     }
@@ -184,7 +186,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id)->first();
+        try
+        {
+            $user->delete();
+            redirect('user.index')->with('success', 'Usuário deletado');
+        } catch (QueryException $ex) {
+            redirect('user.editar')->with('failure', 'ERRO! Usuário não deletado');
+        }
     }
     
     public function logar(Request $request)
