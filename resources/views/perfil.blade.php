@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboardPerfil')
 @section('page_heading','Perfil')
 @section('section')
          
