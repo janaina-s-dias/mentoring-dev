@@ -74,12 +74,13 @@ class UserController extends Controller
         try
         {
            $users->update();
-           $user = User::where('user_email', '=', $request->user_email)->get()->first();
+           $usua = $request->session()->get('user');
+           $user = User::where('user_email', '=', $usua->user_email)->get()->first();
            $request->session()->flush();
            $request->session()->put('user', $user);
-           return view('/')->with('success', 'Continue seu cadastro');
+           return redirect('/')->with('success', 'Continue seu cadastro');
         } 
-        catch (QueryException $ex) 
+        catch (Exception $ex) 
         {
             redirect('cadastro')->with('failure', 'Não foi possivel cadastrar');
         }

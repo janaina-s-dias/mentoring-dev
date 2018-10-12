@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $table = 'users';
     protected $fillable = [
             'user_login'
@@ -38,31 +39,25 @@ class User extends Model
         'user_email.min' => 'Email muito pequeno',
         'user_email.unique' => 'Email já utilizado',
         'user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
-        'user_cpf.unique' => 'Este CPF ja esta cadastrado'  ,        
-        'user_cpf.min' => 'O CPF deve conter exatamente 11 digitos' ,         
-        'user_cpf.max' => 'O CPF deve conter exatemente 11 digitos'  ,        
+        'user_cpf.unique' => 'Este CPF ja esta cadastrado'  ,                 
+        'user_cpf.digits' => 'O CPF deve conter 11 digitos e ser numerico'  ,        
         'user_cpf.required' => 'O CPF é obrigatorio'  ,        
         'user_nome.max' => 'O nome deve conter no maximo 100 caracteres' ,         
-        'user_nome.required' => 'O nome é obrigatorio',
-        'user_rg.min' => 'O RG deve ter exatamente 9 digitos'  ,        
-        'user_rg.max' => 'O RG deve ter exatamente 9 digitos' ,         
+        'user_nome.required' => 'O nome é obrigatorio',       
+        'user_rg.digits' => 'O RG deve ter 9 digitos e ser numerico' ,         
         'user_rg.required' => 'RG é obrigatorio',
-        'user_telefone.max' => 'O telefone deve ter no maximo 11 caracteres'    ,      
-        'user_celular.max' => 'O telefone celular deve ter no maximo 11 caracteres',
-        'user_cpf.numeric' => 'O CPF deve ser numero',
-        'user_rg.numeric' => 'O RG deve ser numero',
-        'user_celular.numeric' => 'O Telefone deve ser numero',
-        'user_telefone.numeric' => 'O Celular deve ser numero'
+        'user_telefone.max' => 'O telefone deve ter no maximo 15 digitos'    ,      
+        'user_celular.max' => 'O telefone celular deve ter no maximo 15 digitos'
     ];   
     public function Regras($tipo = 'insert1') {
         switch ($tipo) {
             case 'insert2':
                 $this->rules = [
-                        'user_cpf'          => 'bail|unique:users,user_cpf|min:11|max:11|required|numeric'
+                        'user_cpf'          => 'bail|unique:users,user_cpf|required|digits:11'
                     ,   'user_nome'         => 'bail|required|max:100'
-                    ,   'user_rg'           => 'bail|required|min:9|max:9|numeric'
-                    ,   'user_telefone'     => 'bail|max:11|numeric' 
-                    ,   'user_celular'      => 'bail|max:11|numeric'
+                    ,   'user_rg'           => 'bail|required|digits:9'
+                    ,   'user_telefone'     => 'bail|max:15' 
+                    ,   'user_celular'      => 'bail|max:15'
                 ];
             break;
             case 'insert1':
@@ -86,12 +81,12 @@ class User extends Model
             case 'update':
                 $this->rules = [
                     'user_login' => 'bail|max:50|required|alpha_num', 
-                    'user_cpf' => 'bail|min:11|max:11|required|numeric',           
-                    'user_nome'  => 'bail|required|max:100|numeric', 
-                    'user_rg'  => 'bail|required|max:9|numeric',   
+                    'user_cpf' => 'bail|digits:11|required',           
+                    'user_nome'  => 'bail|required|max:100', 
+                    'user_rg'  => 'bail|required|digits:9',   
                     'user_email' => 'bail|max:100|required|email|min:10',           
-                    'user_telefone' => 'bail|max:11|numeric', 
-                    'user_celular'=> 'bail|max:11|numeric'
+                    'user_telefone' => 'bail|max:15', 
+                    'user_celular'=> 'bail|max:15'
                 ];
         }
         return $this->rules;

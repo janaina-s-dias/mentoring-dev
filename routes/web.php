@@ -85,6 +85,7 @@ Route::get('alterarSenha', function(Request $request){
 });
 
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
+Route::any('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
