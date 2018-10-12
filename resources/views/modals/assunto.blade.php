@@ -6,7 +6,8 @@
         <h4 class="modal-title">Assunto</h4>
       </div>
       <div class="modal-body">
-      <form role="form">
+          <form role="form" method="POST" action="{{route('subject.store')}}">
+              @csrf
             <div class="form-group">
                 <label>Nome</label>
                 <input class="form-control">

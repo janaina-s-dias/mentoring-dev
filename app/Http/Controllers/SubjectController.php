@@ -86,7 +86,7 @@ class SubjectController extends Controller
     public function edit($id)
     {
         $subject = Subject::find($id)->first();
-        redirect('subject.edit')->with('finded', $subject);
+        return redirect('subject.edit')->with('finded', $subject);
     }
 
     /**
@@ -137,9 +137,12 @@ class SubjectController extends Controller
             $sub_dados[] = $row->subject_id;
             $sub_dados[] = $row->subject_name;
             $sub_dados[] = $row->subject_active;
-            $sub_dados[] = $row->fk_subject_carrer;
-            $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $sub_dados[] = $row->carrer_name;
+            $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<form method='POST' action=".route('subject.destroy', $row->subject_id)."'>".
+                            method_field('DELETE').
+                            csrf_field().
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
             $dados[] = $sub_dados;
         }
         
@@ -151,12 +154,12 @@ class SubjectController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['subject_id','subject_name', 'subject_active','fk_subject_carrer', null, null ];
+    private $order = ['subject_id','subject_name', 'subject_active','carrer_name', null, null ];
     
     public function CriarQuery(Request $request)
     {
         $this->subject = Subject::select('subject_id','subject_name', 'subject_active')
-            ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')->join('professions', 'profession_id', '=', 'fk_carrer_profession');
+            ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer');
 
        
         if($request->input('search.value') != null)

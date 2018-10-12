@@ -8,12 +8,14 @@
         <script src="{{ asset('js/jquery.mask.js') }}"></script>
     </head>
     <body>
+        <?php $user = Session::get('user'); ?>
         <div class="container" style="margin-top: 50px">
-            <form class="form-horizontal" method="POST" action="{{ route('atualizarUsuario') }}">
+            <form class="form-horizontal" method="POST" action="{{ route('inserirUser') }}">
+                @csrf
     <div class="form-group">
         <label class="control-label col-sm-2" for="nome">Nome:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_nome') ? ' is-invalid' : '' }}" name="user_nome" id="nome" type="text" placeholder="Nome">
+            <input class="form-control{{ $errors->has('user_nome') ? ' is-invalid' : '' }}"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
             </div>
             @if ($errors->has('user_nome'))
             <span class="invalid-feedback" role="alert">
@@ -21,10 +23,11 @@
             </span>
         @endif
         </div>
+        <input type="hidden" value="{{ $user->user_id }}" name="user_id">
         <div class="form-group">
             <label class="control-label col-sm-2" for="rg">RG:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_rg') ? ' is-invalid' : '' }}" name="user_rg" id="rg" type="text" placeholder="RG"  pattern="\d{2}\d{3}\d{3}\d{1}" title="No formato (##.###.###-#)">
+            <input class="form-control{{ $errors->has('user_rg') ? ' is-invalid' : '' }}" value="{{old('user_rg')}}" name="user_rg" id="rg" type="text" placeholder="RG">
         </div>
             @if ($errors->has('user_rg'))
             <span class="invalid-feedback" role="alert">
@@ -36,7 +39,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="nome">CPF:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_cpf') ? ' is-invalid' : '' }}" name="user_cpf" id="cpf" type="text" placeholder="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="No formato (###.###.###-##)">
+            <input class="form-control{{ $errors->has('user_cpf') ? ' is-invalid' : '' }}" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="text" placeholder="CPF">
         </div>
             @if ($errors->has('user_cpf'))
             <span class="invalid-feedback" role="alert">
@@ -47,8 +50,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="telefone">Telefone:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_telefone') ? ' is-invalid' : '' }}" name="user_telefone" id="telefone" type="tel" placeholder="Telefone" 
-                   pattern="[0-9]{2} [0-9]{4}-[0-9]{4}" title="No formato ((##) ####-####)">
+            <input value="{{old('user_telefone')}}" class="form-control{{ $errors->has('user_telefone') ? ' is-invalid' : '' }}" name="user_telefone" id="telefone" type="tel" placeholder="Telefone">
         </div>
             @if ($errors->has('user_telefone'))
             <span class="invalid-feedback" role="alert">
@@ -59,8 +61,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="celular">Celular:</label>
         <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_celular') ? ' is-invalid' : '' }}" name="user_celular" id="celular" type="tel" placeholder="Celular"  
-                   pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" title="No formato ((##) #####-####)">
+            <input class="form-control{{ $errors->has('user_celular') ? ' is-invalid' : '' }}" value="{{old('user_celular')}}" name="user_celular" id="celular" type="tel" placeholder="Celular">
         </div>
             @if ($errors->has('user_celular'))
             <span class="invalid-feedback" role="alert">

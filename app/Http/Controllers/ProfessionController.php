@@ -32,16 +32,17 @@ class ProfessionController extends Controller
     }
 
     public function store(Request $request) {
-        $this->validate($request, $this->profession->Rules(), $this->profession->messages);
+        $this->validate($request, $this->profession->Rules(), $this->profession->message);
         $profession = new Profession([
-            'profession_name' => $request->profession_name
+            'profession_name' => $request->profession_name,
+            'profession_active' => $request->profession_active
         ]);
         try {
             $profession->save();
-            redirect('profession.index')->with('success', 'Profissão salva');
+            return view('pageTipos')->with('success', 'Profissão salva');
         } 
         catch (QueryException $ex) {
-            redirect('profession.create')->with('failure', 'Não foi possivel cadastrar a profissão', $request);
+            return view('pageTipos')->with('failure', 'Não foi possivel cadastrar a profissão', $request);
         }
         
     }
@@ -75,13 +76,13 @@ class ProfessionController extends Controller
 
     public function destroy($id)
     {
-        $profession = Profession::find($id)->first();
+        $profession = Profession::find($id);
         try
         {
             $profession->delete();
-            redirect('profession.index')->with('success', 'Profissão deletada');
+            return redirect('/Profissoes')->with('success', 'Profissão deletada');
         } catch (QueryException $ex) {
-            redirect('profession.editar')->with('failure', 'ERRO! Profissão não deletada');
+            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não deletada');
         }
     }
 
@@ -93,8 +94,11 @@ class ProfessionController extends Controller
             $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
             $sub_dados[] = $row->profession_active;
-            $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+            $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id) ."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<form method='POST' action=".route('profession.destroy', $row->profession_id)."'>".
+                            method_field('DELETE').
+                            csrf_field().
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
             $dados[] = $sub_dados;
         }
         
@@ -107,7 +111,8 @@ class ProfessionController extends Controller
         echo json_encode($output);
     }
     private $order = ['profession_id','profession_name', 'profession_active', null, null ];
-    public function CriarQuery(Request $request)
+    
+    public function CriarDataTable(Request $request)
     {
         $this->profession = Profession::select('profession_id','profession_name', 'profession_active');
         if($request->input('search.value') != null)
@@ -123,11 +128,6 @@ class ProfessionController extends Controller
         {
             $this->profession->orderBy('profession_id', 'desc');
         }
-    }
-    
-    public function CriarDataTable(Request $request)
-    {
-        $this->CriarQuery($request);
         if($request->length != -1)
         {
             $this->profession->offset($request->start)->limit($request->length);
@@ -138,7 +138,7 @@ class ProfessionController extends Controller
     
     public function RegistrosFiltrados(Request $request)
     {
-        $this->CriarQuery($request);
+        $this->CriarDataTable($request);
         $query = $this->profession->count();
         return $query;
     }

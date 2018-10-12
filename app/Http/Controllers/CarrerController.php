@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Carrer;
+use Illuminate\Database\QueryException;
 
 class CarrerController extends Controller
 {
@@ -123,10 +125,13 @@ class CarrerController extends Controller
              $sub_dados = array();
              $sub_dados[] = $row->carrer_id;
              $sub_dados[] = $row->carrer_name;
+             $sub_dados[] = $row->profession_name;
              $sub_dados[] = $row->carrer_active;
-             $sub_dados[] = $row->fk_carrer_profession;
-             $sub_dados[] = "<a href='' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-             $sub_dados[] = "<a href='' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+             $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+             $sub_dados[] = "<form method='POST' action=".route('carrer.destroy', $row->carrer_id)."'>".
+                            method_field('DELETE').
+                            csrf_field().
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
             $dados[] = $sub_dados;
         }
         
@@ -138,11 +143,11 @@ class CarrerController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['carrer_id','carrer_name', 'carrer_active','fk_carrer_profession', null, null ];
+    private $order = ['carrer_id','carrer_name', 'carrer_active','profession_name', null, null ];
 
     public function CriarQuery(Request $request)
     {
-        $this->carrer = Carrer::select('carrer_id','carrer_name', 'carrer_active')
+        $this->carrer = Carrer::select('carrer_id','carrer_name', 'carrer_active', 'profession_name')
             ->join('professions', 'profession_id', '=', 'fk_carrer_profession');
            
        

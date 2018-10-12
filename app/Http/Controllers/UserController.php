@@ -61,10 +61,10 @@ class UserController extends Controller
         }
     }
     
-    public function store2(Request $request, $id)
+    public function store2(Request $request)
     {
-        $this->validate($request, $this->user->Regras(), $this->user->mensagens);
-        $users = User::find($id);
+        $this->validate($request, $this->user->Regras('insert2'), $this->user->mensagens);
+        $users = User::find($request->user_id);
         $users->user_nome =         $request->user_nome;
         $users->user_rg =           $request->user_rg;
         $users->user_cpf  =         $request->user_cpf;

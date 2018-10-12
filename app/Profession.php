@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profession extends Model
 {
-    protected $table = 'professions';
-    protected $fillable = ['profession_name'];
+    protected $primaryKey = 'profession_id';
+    protected $fillable = ['profession_name', 'profession_active'];
     private $rules;
     public $message = [
         'profession_name.required' => 'A profissão é obrigatoria',
@@ -19,7 +19,7 @@ class Profession extends Model
         switch ($type) {
             case 'insert':
                 return $this->rules = [
-                    'profession_name' => 'bail|required|unique:professions,profession_descrition|max:50'
+                    'profession_name' => 'bail|required|unique:professions,profession_name|max:50'
                 ];
             case 'update':
                 return $this->rules = [

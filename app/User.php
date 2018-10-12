@@ -88,7 +88,7 @@ class User extends Model
                     'user_login' => 'bail|max:50|required|alpha_num', 
                     'user_cpf' => 'bail|min:11|max:11|required|numeric',           
                     'user_nome'  => 'bail|required|max:100|numeric', 
-                    'user_rg'  => 'bail|required|min:9|max:9|numeric',   
+                    'user_rg'  => 'bail|required|max:9|numeric',   
                     'user_email' => 'bail|max:100|required|email|min:10',           
                     'user_telefone' => 'bail|max:11|numeric', 
                     'user_celular'=> 'bail|max:11|numeric'

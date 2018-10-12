@@ -6,6 +6,7 @@
            "processing": true,
            "serverSide": true,
            "order": [],
+           "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
                "url": "{{ route('pegaDados') }}", //url Controller Profession - PegaDados
                "type": "POST",

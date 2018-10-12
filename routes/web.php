@@ -92,6 +92,9 @@ Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
 Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
 Route::resource('usersubject', 'UserSubjectController');
+Route::resource('subject', 'SubjectController');
+Route::resource('carrer', 'CarrerController');
+Route::resource('profession', 'ProfessionController');
 Route::get('/pegaProfissao', 'ProfessionController@index')->name('usProfissao');
 Route::get('/pegaCarreira', 'CarrerController@index')->name('usCarreira');
 Route::get('/pegaAssunto', 'SubjectController@index')->name('usAssunto');
@@ -319,7 +322,7 @@ Route::get('Profissoes', function(Request $request){
     {
         return view('login');
     }
-});
+})->name('Profissoes');
 
 
 Route::get('Carreiras', function(Request $request){

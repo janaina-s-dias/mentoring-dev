@@ -6,17 +6,18 @@
         <h4 class="modal-title">Profissão</h4>
       </div>
       <div class="modal-body">
-      <form role="form">
+      <form role="form" method="POST" action="{{route('profession.store')}}">
+          @csrf
             <div class="form-group">
                 <label>Nome</label>
-                <input class="form-control">
+                <input class="form-control" name="profession_name">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
             </div>
               <div class="form-group">
                 <label>Status</label>
-                <select class="form-control">
-                    <option>Ativo</option>
-                    <option>Inativo</option>
+                <select class="form-control" name="profession_active">
+                    <option value="1">Ativo</option>
+                    <option value="0">Inativo</option>
                 </select>
             </div>
 

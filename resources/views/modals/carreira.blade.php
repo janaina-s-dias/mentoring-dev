@@ -1,4 +1,4 @@
-<div class="modal fade" id="myModal2">
+ <div class="modal fade" id="myModal2">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,7 +6,8 @@
         <h4 class="modal-title">Carreira</h4>
       </div>
       <div class="modal-body">
-      <form role="form">
+      <form role="form"  method="POST" action="{{route('carrer.store')}}">
+          @csrf
             <div class="form-group">
                 <label>Nome</label>
                 <input class="form-control">
