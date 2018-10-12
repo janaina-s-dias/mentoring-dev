@@ -15,6 +15,13 @@
             
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-2" for="login">Login:</label>
+                  <div class="col-sm-10">
+                       <input class="form-control{{ $errors->has('user_login') ? ' is-invalid' : '' }}" name="user_login" id="login" type="text" placeholder="Login">
+                  </div>
+            
+            </div>
+            <div class="form-group">
                  <label class="control-label col-sm-2" for="rg">RG:</label>
                  <div class="col-sm-10">
                     <input class="form-control{{ $errors->has('user_rg') ? ' is-invalid' : '' }}" name="user_rg" id="rg" type="text" placeholder="RG"  pattern="\d{2}\.\d{3}\.\d{3}-\d{1}" title="No formato (##.###.###-#)">
