@@ -92,13 +92,11 @@ Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
 Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
+Route::post('/pegaDadosUsuario', 'SubjectController@PegaDadosUsuario')->name('pegaDadosUsuario');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
-Route::get('/pegaProfissao', 'ProfessionController@index')->name('usProfissao');
-Route::get('/pegaCarreira', 'CarrerController@index')->name('usCarreira');
-Route::get('/pegaAssunto', 'SubjectController@index')->name('usAssunto');
 
 Route::get('/profissao', function(){
     $profession = \App\Profession::all();
