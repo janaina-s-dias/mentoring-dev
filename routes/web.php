@@ -139,6 +139,21 @@ Route::get('/assunto', function(Request $request){
     
 });
 
+Route::get('/userassunto', function(Request $request){
+    $user = $request->get('user');
+    $userSubject = \App\UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
+            ->where('fk_subject_user', '=', $user);
+    $dados = array();
+    foreach ($userSubject as $value) {
+        $subdados = array();
+        $subdados['subject_name'] = $value->subject_name;
+        $dados[] = $subdados;
+    }
+    return Response::json($dados);
+});
+
+
+
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))
     {

@@ -1,4 +1,4 @@
-<div class="modal fade" id="myModal3">
+<div class="modal fade" id="myModal4">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,3 +13,27 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function (){
+    function popularListaAssuntos(user)
+{
+         $('#myModall4').modal("show");
+         $("#subjectsUsuario").empty();   
+         $.get('/userassunto?user='+user, function(dados){
+            if (dados.length > 0){
+                var option = "<li><strong>Assuntos:</strong></li>"; 
+                $.each(dados, function(i, obj){
+                    option += "<li>"+
+                        obj.subject_name+"</li>";
+                });
+            } else {
+                $("#subjectsUsuario").empty();
+                var option = "<li>Nenhum assunto</li>"; 
+            }
+            
+            
+        $("#subjectsUsuario").html(option).show();
+         }); 
+}
+});
+</script>
