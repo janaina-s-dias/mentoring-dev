@@ -106,17 +106,11 @@
 </div>
 
 <!-- Verifica a confirmação de senha -->
-<script>
-    
-    function validarSenha(){
-        senha = document.getElementsByName('senha').value;
-        confirmar_senha = document.getElementsByName('confirmar_senha').value;
-
-       if(senha!= confirmar_senha) {
-          senha2.setCustomValidity("Senhas diferentes!");
-          return false; 
+<script type="text/javascript">
+    $(document).ready(function(){
+       if({{$errors->has('user_hash')}} || {{$errors->has('user_login')}} || {{$errors->has('user_email')}})
+       {
+           $('#modalCadastro').modal('show');
        }
-          return true;
-       }
-
+    });
 </script>
