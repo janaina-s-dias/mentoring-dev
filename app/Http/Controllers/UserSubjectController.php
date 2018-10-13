@@ -137,7 +137,7 @@ class UserSubjectController extends Controller
 
     public function CriarQuery(Request $request)
     {
-        $this->user = User::select('*')
+        $this->user = UserSubject::select('*')
                 ->join('users', 'user_id', '=', 'fk_subject_user')
                 ->join('subjects', 'subject_id', '=', 'fk_user_subject')
                 ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
@@ -156,7 +156,7 @@ class UserSubjectController extends Controller
         }
         else
         {
-            $this->user->orderBy('created_at', 'desc');
+              $this->user->orderBy('user_id', 'desc'); //troquei o created_at por user_id na coluna de ordenação, pois estava retornando violação do SQL State
         }
     }
     
@@ -180,7 +180,7 @@ class UserSubjectController extends Controller
     
     public function TodosRegistros()
     {
-        $user = User::all();
+        $user = UserSubject::all();
         return $user->count();
     }
 }

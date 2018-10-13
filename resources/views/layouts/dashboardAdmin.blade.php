@@ -246,6 +246,9 @@
                                 <li {{ (Request::is('*Assuntos') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('Assuntos') }}">Assuntos</a>
                                 </li>
+                                <li {{ (Request::is('*userSubjects') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('userSubjects') }}">Usuários</a>
+                                </li>
                             </ul>
                         </li>
                         </ul>
