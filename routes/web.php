@@ -97,6 +97,7 @@ Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
+Route::resource('user', 'UserController');
 
 Route::get('/profissao', function(){
     $profession = \App\Profession::all();

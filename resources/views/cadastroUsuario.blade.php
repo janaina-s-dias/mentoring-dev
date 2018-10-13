@@ -29,7 +29,7 @@
             <div class="col-sm-10">
             <input class="form-control{{ $errors->has('user_nome') ? ' is-invalid' : '' }}"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
             </div>
-            @if ($errors->has('user_nome'))
+        @if ($errors->has('user_nome'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('user_nome') }}</strong>
             </span>

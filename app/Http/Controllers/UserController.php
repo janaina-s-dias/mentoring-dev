@@ -63,6 +63,7 @@ class UserController extends Controller
     
     public function store2(Request $request)
     {
+        
         $this->validate($request, $this->user->Regras('insert2'), $this->user->mensagens);
         $users = User::find($request->user_id);
         $users->user_nome =         $request->user_nome;
@@ -140,12 +141,10 @@ class UserController extends Controller
     
     public function update(Request $request, $id)
     {
-        //
-        {
+        
         $this->validate($request, $this->user->Regras('update'), $this->user->mensagens);
         $user = User::find($id)->first();
         $user->user_login = $request->user_login;
-        $user->user_hash = $request->user_hash;
         $user->user_cpf = $request->user_cpf;
         $user->user_nome = $request->user_nome;
         $user->user_rg = $request->user_rg;
@@ -153,28 +152,18 @@ class UserController extends Controller
         $user->user_telefone = $request->user_telefone;
         $user->user_celular = $request->user_celular;
         $user->user_knowledge = $request->user_knowledge;
-        
-        /*'user_login'
-        ,   'user_hash'
-        ,   'user_cpf'
-        ,   'user_nome' 
-        ,   'user_rg' 
-        ,   'user_email' 
-        ,   'user_telefone' 
-        ,   'user_celular' 
-        ,   'user_knowledge' 
-        ,   'user_role' */
-        
-        
         try
         {
            $user->update();
-           redirect('user.index')->with('success', 'informações alteradas');
-        } catch (QueryException $ex) {
-           redirect('user.editar')->with('failure', 'ERRO! informações não alteradas');
+           $usua = $request->session()->get('user');
+           $users = User::where('user_email', '=', $usua->user_email)->get()->first();
+           $request->session()->flush();
+           $request->session()->put('user', $users);
+           redirect('alterarPerfil')->with('success', 'Informações alteradas');
+        } catch (Exception $ex) {
+           redirect('alterarPerfil')->with('failure', 'ERRO! Informações não alteradas');
         }
         
-    }
         
     }
 
