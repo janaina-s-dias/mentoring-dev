@@ -92,12 +92,14 @@ class CarrerController extends Controller
         $this->validate($request, $this->carrer->Regras('update'), $this->carrer->messages);
         $carrer = Carrer::find($id)->first();
         $carrer->carrer_name = $request->carrer_name;
+        $carrer->carrer_active = $request->carrer_active;
+        $carrer->fk_carrer_profession = $request->fk_carrer_profession;
         try
         {
             $carrer->update();
-            redirect('carrer.index')->with('success', 'Carreira alterada');
+            return redirect('/Carreiras')->with('success', 'Carreira alterada');
         } catch (QueryException $ex) {
-            redirect('subject.editar')->with('failure', 'ERRO! Carreira não alterada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada');
         }
     }
 

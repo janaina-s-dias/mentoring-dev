@@ -64,7 +64,8 @@ class ProfessionController extends Controller
     {
         $this->validate($request, $this->profession->Rules('update'), $this->profession->messages);
         $profession = Profession::find($id)->first();
-        $profession->profession_name = $request->profession_descrition;
+        $profession->profession_name = $request->profession_name;
+        $profession->profession_active = $request->profession_active;
         try
         {
             $profession->update();
