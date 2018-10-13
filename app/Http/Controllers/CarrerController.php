@@ -166,7 +166,7 @@ class CarrerController extends Controller
         }
         else
         {
-            $this->carrer->orderBy('carrer_id', 'desc');
+            $this->carrer->orderBy('carrer_id', 'asc');
         }
     }
     

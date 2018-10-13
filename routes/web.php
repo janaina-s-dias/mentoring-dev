@@ -92,7 +92,7 @@ Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
 Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
-Route::post('/pegaDadosUsuario', 'SubjectController@PegaDadosUsuario')->name('pegaDadosUsuario');
+Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
 Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuario')->name('pegaDadosUsuarioAssunto');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
@@ -368,6 +368,18 @@ Route::get('userSubjects', function(Request $request){
     if($request->session()->exists('user'))
     {
     	return view('manteruserSubject');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+
+Route::get('users', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	return view('manterUsuario');
     }
     else
     {

@@ -58,11 +58,12 @@ class ProfessionController extends Controller
         $profession = Profession::find($id)->first();
         $request->session()->put('profissao', $profession);
         return view('edits.profissaoEdit');
+    
     }
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->profession->Rules('update'), $this->profession->messages);
+        $this->validate($request, $this->profession->Rules('update'), $this->profession->message);
         $profession = Profession::find($id)->first();
         $profession->profession_name = $request->profession_name;
         $profession->profession_active = $request->profession_active;
@@ -128,7 +129,7 @@ class ProfessionController extends Controller
         }
         else
         {
-            $this->profession->orderBy('profession_id', 'desc');
+            $this->profession->orderBy('profession_id', 'asc');
         }
         if($request->length != -1)
         {

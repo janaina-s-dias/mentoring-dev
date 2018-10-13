@@ -242,14 +242,14 @@ class UserController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
+    private $order = ['user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
 
     public function CriarQuery(Request $request)
     {
-        $this->user = User::select('user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
+        $this->user = User::select('user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
         if($request->input('search.value') != null)
         {
-            $this->carrer->where('user_name', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->where('user_nome', 'like' ,'%', $request->input('search.value'));            
         }
         if($request->order!= null)
         {
@@ -258,7 +258,7 @@ class UserController extends Controller
         }
         else
         {
-            $this->user->orderBy('carrer_id', 'desc');
+            $this->user->orderBy('user_id', 'desc');
         }
     }
     
