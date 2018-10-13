@@ -38,7 +38,7 @@ class CarrerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, $this->carrer->Regras(), $this->subject->messages);
+        $this->validate($request, $this->carrer->Regras(), $this->carrer->messages);
         $carrer = new Carrer([
            'carrer_name' => $request->carrer_name, 
            'carrer_active' => $request->carrer_active, 
@@ -47,10 +47,10 @@ class CarrerController extends Controller
         try
         {
             $carrer->save();
-            redirect('carrer.index')->with('success', 'Carreira salva');
+            return redirect('/Carreiras')->with('success', 'Carreira salva');
         } 
         catch (QueryException $ex) {
-            redirect('carrer.create')->with('failure', 'Não foi possivel cadastrar a carreira', $request);
+            return redirect('/Carreiras')->with('failure', 'Não foi possivel cadastrar a carreira', $request);
         }
     }
     
@@ -73,10 +73,11 @@ class CarrerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $carrer = Carrer::find($id)->first();
-        redirect('carrer.edit')->with('finded', $carrer);
+        $request->session()->put('carreira', $carrer);
+        return view('edits.carreiraEdit');
     }
 
     /**
@@ -126,7 +127,8 @@ class CarrerController extends Controller
              $sub_dados[] = $row->carrer_id;
              $sub_dados[] = $row->carrer_name;
              $sub_dados[] = $row->profession_name;
-             $sub_dados[] = $row->carrer_active;
+             if($row->carrer_active) $sub_dados[] = 'Ativa';
+             else $sub_dados[] = 'Inativa';
              $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
              $sub_dados[] = "<form method='POST' action=".route('carrer.destroy', $row->carrer_id)."'>".
                             method_field('DELETE').

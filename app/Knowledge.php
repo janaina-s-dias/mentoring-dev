@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Knowledge extends Model
 {
+    protected $primaryKey = 'knowledge_id';
     protected $table = 'knowledges';
     protected $fillable = [
         'knowledge_rank',

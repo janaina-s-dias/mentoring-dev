@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
+    protected $primaryKey = 'content_id';
     protected $table = 'contents';
     protected $fillable = [
         'content_description', 'content_title', 'content_url', 'content_type', 'fk_content_knowledge'

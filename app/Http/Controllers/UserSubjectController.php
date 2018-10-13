@@ -98,14 +98,89 @@ class UserSubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id1,$id2)
     {
-        $us = UserSubject::find($id);
+        $us = UserSubject::where('fk_user_subject', '=', $id1)->
+                           where('fk_subject_user', '=', $id2);
         try {
             $us->delete();
             redirect('assuntosUser')->with('success', 'Assunto removido dos interesses');
         } catch (QueryException $exc) {
             redirect('assuntosUser')->with('failure', 'Assunto não removido dos interesses');
         }
+    }
+    public function PegaDadosUsuario(Request $request) {
+        $pegadados = $this->CriarDataTable($request);
+        $dados = array();
+        foreach ($pegadados as $row) {
+             $sub_dados = array();
+             $sub_dados[] = $row->user_name;
+             $sub_dados[] = $row->subject_name;
+             $sub_dados[] = $row->carrer_name;
+             $sub_dados[] = $row->profession_name;
+             $sub_dados[] = "<form method='POST' action=".route('user.destroy', $row->fk_subject_user, $row->fk_user_subject)."'>".
+                            method_field('DELETE').
+                            csrf_field().
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+            $dados[] = $sub_dados;
+        }
+        
+        $output = array (
+            "draw"  => intval($request->draw),
+            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsFiltered" => $this->RegistrosFiltrados($request),
+            "data" => $dados
+        );
+        echo json_encode($output);
+    }
+    private $order = ['user_name', 'subject_name','carrer_name', 'profession_name', null ];
+
+    public function CriarQuery(Request $request)
+    {
+        $this->user = User::select('*')
+                ->join('users', 'user_id', '=', 'fk_subject_user')
+                ->join('subjects', 'subject_id', '=', 'fk_user_subject')
+                ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
+                ->join('professions', 'profession_id', '=', 'fk_carrer_profession');
+        if($request->input('search.value') != null)
+        {
+            $this->carrer->where('user_name', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->Orwhere('subject_name', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->Orwhere('carrer_name', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->Orwhere('profession_name', 'like' ,'%', $request->input('search.value'));            
+        }
+        if($request->order!= null)
+        {
+            $this->user->orderBy(array_get($this->order, $request->input('order.0.column')),
+                                $request->input('order.0.dir'));
+        }
+        else
+        {
+            $this->user->orderBy('created_at', 'desc');
+        }
+    }
+    
+    public function CriarDataTable(Request $request)
+    {
+        $this->CriarQuery($request);
+        if($request->length != -1)
+        {
+            $this->user->offset($request->start)->limit($request->length);
+        }
+        $query = $this->user->get();
+        return $query;
+    }
+    
+    public function RegistrosFiltrados(Request $request)
+    {
+        $this->CriarQuery($request);
+        $query = $this->user->count();
+        return $query;
+    }
+    
+    public function TodosRegistros()
+    {
+        $user = User::all();
+        return $user->count();
     }
 }

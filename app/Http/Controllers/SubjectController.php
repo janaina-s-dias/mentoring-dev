@@ -83,10 +83,11 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        $subject = Subject::find($id)->first();
-        return redirect('subject.edit')->with('finded', $subject);
+        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->first();
+        $request->session()->put('assunto', $subject);
+        return view('edits.assuntoEdit');
     }
 
     /**
@@ -100,13 +101,15 @@ class SubjectController extends Controller
     {
         $this->validate($request, $this->subject->Rules('update'), $this->subject->messages);
         $subject = Subject::find($id)->first();
-        $subject->subject_name = $request->subject_descrition;
+        $subject->subject_name = $request->subject_name;
+        $subject->subject_active = $request->subject_active;
+        $subject->fk_subject_carrer = $request->fk_subject_carrer;
         try
         {
             $subject->update();
-            redirect('subject.index')->with('success', 'Assunto alterado');
+            return redirect('/Assuntos')->with('success', 'Assunto alterado');
         } catch (QueryException $ex) {
-            redirect('subject.editar')->with('failure', 'ERRO! Assunto não alterado');
+            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado');
         }
     }
 

@@ -227,7 +227,6 @@ class UserController extends Controller
              $sub_dados[] = $row->user_celular;
              $sub_dados[] = $row->user_knowledge;
              $sub_dados[] = "<button onclick='popularListaAssuntos(".$row->user_id.") role='button' class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span></a>";
-             $sub_dados[] = "<a href='".route('user.edit', $row->user_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
              $sub_dados[] = "<form method='POST' action=".route('user.destroy', $row->user_id)."'>".
                             method_field('DELETE').
                             csrf_field().

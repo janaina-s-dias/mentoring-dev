@@ -53,10 +53,11 @@ class ProfessionController extends Controller
         redirect('profession.index')->with('finded', $profession);
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $profession = Profession::find($id)->first();
-        return view('profession.editar')->with('finded', $profession);
+        $request->session()->put('profissao', $profession);
+        return view('edits.profissaoEdit');
     }
 
     public function update(Request $request, $id)
@@ -94,7 +95,7 @@ class ProfessionController extends Controller
             $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
             $sub_dados[] = $row->profession_active;
-            $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id) ."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action=".route('profession.destroy', $row->profession_id)."'>".
                             method_field('DELETE').
                             csrf_field().

@@ -21,7 +21,6 @@
                     </button>    -->
                 </span>
     </form> 
-    <div>
 </div>       
 
 
@@ -40,10 +39,8 @@
 
 
 
-
+@include('inc.feedback')
 @include('modals.carreira')
-           
-
       
             
 @stop
