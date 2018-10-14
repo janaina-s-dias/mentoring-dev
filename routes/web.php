@@ -92,13 +92,15 @@ Route::get('/sair', 'UserController@logout')->name('sair');
 Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
 Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
-Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
-Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuario')->name('pegaDadosUsuarioAssunto');
+Route::post('/pegaDadosUsuario', 'SubjectController@PegaDadosUsuario')->name('pegaDadosUsuario');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
 Route::resource('user', 'UserController');
+
+Route::post('/alterarSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
+        
 
 Route::get('/profissao', function(){
     $profession = \App\Profession::all();
@@ -357,29 +359,6 @@ Route::get('Assuntos', function(Request $request){
     if($request->session()->exists('user'))
     {
     	return view('manterAssunto');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('userSubjects', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	return view('manteruserSubject');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-
-Route::get('users', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	return view('manterUsuario');
     }
     else
     {

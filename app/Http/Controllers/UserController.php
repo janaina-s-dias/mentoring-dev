@@ -118,24 +118,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateSenha(Request $request, $id){
-        $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);
-        $user = UserController::find($id);
-        if(Hash::check($request->get('user_hash-last'), $user->user_hash))
+    public function updateSenha(Request $request, $user_id){
+        $user = UserController::find($user_id);
+        $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);        
+        if(Hash::check($request->get('new_user_hash'), $user->user_hash))
         {
-            $user->user_hash = Hash::make($request->get('user_hash'));
+            $user->user_hash = Hash::make($request->get('new_user_hash'));
             try
             {
                 $user->update();
-                redirect('senha')->with('success', 'Senha alterada com sucesso');
+                return view('alterarSenha')->with('success', 'Senha alterada com sucesso');
                 
             } catch (QueryException $ex) {
-                redirect('senha')->with('failure', 'Senha não alterada');
+                redirect('alterarSenha')->with('failure', 'Senha não alterada');
             }
         }
         else
         {
-            redirect('senha')->with('failure', 'Senha antiga errada');
+            redirect('alterarSenha')->with('failure', 'Senha antiga errada');
         }
     }
     
@@ -242,14 +242,14 @@ class UserController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
+    private $order = ['user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
 
     public function CriarQuery(Request $request)
     {
-        $this->user = User::select('user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
+        $this->user = User::select('user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
         if($request->input('search.value') != null)
         {
-            $this->carrer->where('user_nome', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->where('user_name', 'like' ,'%', $request->input('search.value'));            
         }
         if($request->order!= null)
         {
@@ -258,7 +258,7 @@ class UserController extends Controller
         }
         else
         {
-            $this->user->orderBy('user_id', 'desc');
+            $this->user->orderBy('carrer_id', 'desc');
         }
     }
     
