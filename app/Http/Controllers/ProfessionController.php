@@ -96,7 +96,7 @@ class ProfessionController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
-            $sub_dados[] = $row->profession_active;
+            $sub_dados[] = ($row->profession_active) ? 'Ativa' : 'Inativa';
             $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action=".route('profession.destroy', $row->profession_id)."'>".
                             method_field('DELETE').

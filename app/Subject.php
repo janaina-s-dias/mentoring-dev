@@ -31,5 +31,6 @@ class Subject extends Model
             case 'update':
                 $this->rules = ['subject_name' => 'required|max:50', 'fk_subject_carrer' =>'required'];
         }
+        return $this->rules;
     }
 }

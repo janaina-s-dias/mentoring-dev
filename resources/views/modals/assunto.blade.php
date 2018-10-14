@@ -17,7 +17,7 @@
 
               <div class="form-group">
                   <label>Carreira</label>
-                  <select class="form-control" name="fk_carrer_subject" id="carrerCombo">
+                  <select class="form-control" name="fk_subject_carrer" id="carrerCombo">
                       <option value="">Carregando Carreira</option>
                   </select>
                  <!-- Combo com carreiras existentes -->
@@ -30,7 +30,7 @@
             
               <div class="form-group">
                 <label>Status</label>
-                <select class="form-control" name="carrer_active">
+                <select class="form-control" name="subject_active">
                     <option value="1">Ativo</option>
                     <option value="0">Inativo</option>
                 </select>

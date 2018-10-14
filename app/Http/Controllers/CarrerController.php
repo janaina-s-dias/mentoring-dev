@@ -129,8 +129,7 @@ class CarrerController extends Controller
              $sub_dados[] = $row->carrer_id;
              $sub_dados[] = $row->carrer_name;
              $sub_dados[] = $row->profession_name;
-             if($row->carrer_active) $sub_dados[] = 'Ativa';
-             else $sub_dados[] = 'Inativa';
+             $sub_dados[] = ($row->carrer_active) ? 'Ativa' : 'Inativa';
              $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
              $sub_dados[] = "<form method='POST' action=".route('carrer.destroy', $row->carrer_id)."'>".
                             method_field('DELETE').
