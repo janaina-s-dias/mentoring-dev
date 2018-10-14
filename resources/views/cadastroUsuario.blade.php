@@ -27,10 +27,10 @@
     <div class="form-group row">
         <label class="col-form-label col-sm-2" for="nome">Nome:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_nome') ? ' is-invalid' : '' }}"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
+            <input class="form-control{{ $errors->has('user_nome') ? ' has-error' : '' }}"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
             </div>
         @if ($errors->has('user_nome'))
-            <span class="invalid-feedback" role="alert">
+           <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_nome') }}</strong>
             </span>
         @endif
@@ -39,10 +39,10 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-2" for="rg">RG:</label>
             <div class="col-sm-10">
-                <input class="form-control{{ $errors->has('user_rg') ? ' is-invalid' : '' }}" value="{{old('user_rg')}}" name="user_rg" id="rg" type="number" placeholder="RG">
+                <input class="form-control{{ $errors->has('user_rg') ? ' has-error' : '' }}" value="{{old('user_rg')}}" name="user_rg" id="rg" type="number" placeholder="RG">
         
             @if ($errors->has('user_rg'))
-            <span class="invalid-feedback" role="alert">
+            <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_rg') }}</strong>
             </span>
         @endif
@@ -52,9 +52,9 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-2" for="nome">CPF:</label>
             <div class="col-sm-10">
-                <input class="form-control{{ $errors->has('user_cpf') ? ' is-invalid' : '' }}" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="number" style="-moz-appearance:textfield;"placeholder="CPF">
+                <input class="form-control{{ $errors->has('user_cpf') ? ' has-error' : '' }}" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="number" style="-moz-appearance:textfield;"placeholder="CPF">
             @if ($errors->has('user_cpf'))
-            <span class="invalid-feedback" role="alert">
+            <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_cpf') }}</strong>
             </span>
         @endif
@@ -63,9 +63,9 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-2" for="telefone">Telefone:</label>
             <div class="col-sm-10">
-                <input value="{{old('user_telefone')}}" class="form-control{{ $errors->has('user_telefone') ? ' is-invalid' : '' }}" name="user_telefone" id="telefone" type="number" placeholder="Telefone">
+                <input value="{{old('user_telefone')}}" class="form-control{{ $errors->has('user_telefone') ? ' has-error' : '' }}" name="user_telefone" id="telefone" type="number" placeholder="Telefone">
             @if ($errors->has('user_telefone'))
-            <span class="invalid-feedback" role="alert">
+            <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_telefone') }}</strong>
             </span>
         @endif
@@ -74,9 +74,9 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-2" for="celular">Celular:</label>
         <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_celular') ? ' is-invalid' : '' }}" value="{{old('user_celular')}}" name="user_celular" id="celular" type="number" placeholder="Celular">
+            <input class="form-control{{ $errors->has('user_celular') ? ' has-error' : '' }}" value="{{old('user_celular')}}" name="user_celular" id="celular" type="number" placeholder="Celular">
             @if ($errors->has('user_celular'))
-            <span class="invalid-feedback" role="alert">
+            <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_celular') }}</strong>
             </span>
         @endif
