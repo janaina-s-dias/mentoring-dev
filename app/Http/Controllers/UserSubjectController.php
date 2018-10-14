@@ -44,14 +44,23 @@ class UserSubjectController extends Controller
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
         $us = new UserSubject([
-            'fk_user_subject' => $request->subject,
-            'fk_subject_user' => $request->user
+            'fk_user_subject' => $request->fk_user_subject,
+            'fk_subject_user' => $request->fk_subject_user
         ]);
-        try {
-            $us->save();
-            redirect('cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
-        } catch (QueryException $exc) {
-            redirect('cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');
+        $existe = UserSubject::where('fk_user_subject','=',$request->fk_user_subject)
+                ->where('fk_subject_user','=',$request->fk_subject_user)->count();
+        if($existe == 0)
+        {
+            try {
+                $us->save();
+                return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
+            } catch (QueryException $exc) {
+                return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');
+            }
+        }
+        else
+        {
+            return redirect('/cadastroAssunto')->with('failure', 'Assunto já cadastrado em seus interesses');
         }
     }
 

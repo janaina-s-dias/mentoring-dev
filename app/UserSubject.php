@@ -10,6 +10,10 @@ class UserSubject extends Model
     protected $fillable = [
         'fk_user_subject', 'fk_subject_user',
     ];
-    protected $rules = [];
-    protected $messages = [];
+    public $rules = [
+        'fk_user_subject' => 'required'
+    ];
+    public $messages = [
+        'fk_user_subject' => 'Assunto obrigatorio'
+    ];
 }
