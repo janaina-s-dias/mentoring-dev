@@ -32,7 +32,7 @@
         @if ($errors->has('user_nome'))
            <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_nome') }}</strong>
-            </span>
+            </small>
         @endif
         </div>
         <input type="hidden" value="{{ $user->user_id }}" name="user_id">
@@ -44,7 +44,7 @@
             @if ($errors->has('user_rg'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_rg') }}</strong>
-            </span>
+            </small>
         @endif
         </div>
         </div>
@@ -56,7 +56,7 @@
             @if ($errors->has('user_cpf'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_cpf') }}</strong>
-            </span>
+            </small>
         @endif
         </div>
         </div>
@@ -67,7 +67,7 @@
             @if ($errors->has('user_telefone'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_telefone') }}</strong>
-            </span>
+            </small>
         @endif
         </div>
             </div>
@@ -78,7 +78,7 @@
             @if ($errors->has('user_celular'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_celular') }}</strong>
-            </span>
+            </small>
         @endif
         </div>
         </div>
