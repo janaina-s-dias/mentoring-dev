@@ -73,7 +73,11 @@ class UserController extends Controller
     public function updateSenha(Request $request, $user_id){
         $user = User::find($user_id);
         $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);        
-        if(Hash::check($request->get('user_hash'), $user->user_hash))
+        if($request->get('new_user_hash') != $request->get('new_user_hash_confirmation'))
+            {
+            return view('/alterarSenha')->with('failure', 'Senhas diferentes');            
+        } else {
+            if(Hash::check($request->get('user_hash'), $user->user_hash))
         {
             $user->user_hash = Hash::make($request->get('new_user_hash'));
             try
@@ -84,12 +88,14 @@ class UserController extends Controller
             } catch (QueryException $ex) {
                 return view('alterarSenha')->with('failure', 'Senha não alterada');
             }
-        }
-        else
-        {
+        } else {
             return view('/alterarSenha')->with('failure', 'Senha antiga errada');
         }
+            
+        }
     }
+    
+    
     
     public function update(Request $request, $id)
     {
