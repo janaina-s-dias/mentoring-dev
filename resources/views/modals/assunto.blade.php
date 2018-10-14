@@ -44,7 +44,7 @@
   </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
+  $(document).ready(function(){
        $.get('/profissao', function(dados) {
           if(dados.length > 0)
           {
@@ -53,8 +53,9 @@
               {
                   option += "<option value='"+ obj.profession_id +"'>"+ obj.profession_nome +"</option>"
               });
+              $("#profissaoCombo").html(option).show();
           }
-          $("#profissaoCombo").html(option).show();
+          
        });
        $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
@@ -73,6 +74,11 @@
         $("#carrerCombo").html(option).show();
          }); 
     });
+  });   
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
     if({{$errors->has('subject_name')}} || {{$errors->has('fk_subject_carrer')}})
        {
            $('#myModal3').modal('show');

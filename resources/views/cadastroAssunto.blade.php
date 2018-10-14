@@ -104,5 +104,5 @@
              </form>
               
          </section>
-            
+            @include('inc.feedback')
 @stop
