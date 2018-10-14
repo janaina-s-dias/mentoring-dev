@@ -74,8 +74,8 @@ class User extends Model
             break;
             case 'senha':
                 $this->rules = [
-                    'user_hash-last' => 'bail|required',
-                    'user_hash' => 'bail|required||min:8|max:50|confirmed'
+                    'user_hash' => 'bail|required',
+                    'new_user_hash' => 'bail|required||min:8|max:50|confirmed'
                     ];
             break;
             case 'update':
