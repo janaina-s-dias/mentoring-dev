@@ -16,8 +16,8 @@
 <script type="text/javascript">
 $(document).ready(function (){
     function popularListaAssuntos(user)
-{
-         $('#myModall4').modal("show");
+    {
+         $('#myModal4').modal("show");
          $("#subjectsUsuario").empty();   
          $.get('/userassunto?user='+user, function(dados){
             if (dados.length > 0){
@@ -34,6 +34,6 @@ $(document).ready(function (){
             
         $("#subjectsUsuario").html(option).show();
          }); 
-}
+    }
 });
 </script>

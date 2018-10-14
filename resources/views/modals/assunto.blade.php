@@ -73,5 +73,9 @@
         $("#carrerCombo").html(option).show();
          }); 
     });
+    if({{$errors->has('subject_name')}} || {{$errors->has('fk_subject_carrer')}})
+       {
+           $('#myModal3').modal('show');
+       }
     });
 </script>

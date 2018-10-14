@@ -15,16 +15,16 @@
                <form role="form" action="{{ route ('acessar') }}" method="post">
                         @csrf
                             <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_login_login') ? ' has-error' : '' }}" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
+                                <div class="form-group{{ $errors->has('user_login_login') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
                                     @if ($errors->has('user_login_login'))
                                     <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_login_login') }}</strong>
                                     </small>
                                     @endif
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_hash_login') ? ' has-error' : '' }}" placeholder="Senha" name="user_hash_login" type="password">
+                                <div class="form-group{{ $errors->has('user_hash_login') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Senha" name="user_hash_login" type="password">
                                     @if ($errors->has('user_hash_login'))
                                     <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_hash_login') }}</strong>
@@ -62,32 +62,32 @@
       <div class="modal-body">
         <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_email') ? ' has-error' : '' }}" name="user_email" id="email" type="text" placeholder="E-mail">
+                <div class="form-group{{ $errors->has('user_email') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail">
                 @if ($errors->has('user_email'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_email') }}</strong>
                     </small>
                 @endif
                 </div>
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_login') ? 'has-error' : '' }}" name="user_login" id="user" type="text" placeholder="Usuario">
+                <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario">
                 @if ($errors->has('user_login'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_login') }}</strong>
                     </small>
                 @endif
                 </div>
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' has-error' : '' }}" name="user_hash" id="senha" type="password" placeholder="Senha">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
                 </div>
                 @if ($errors->has('user_hash'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>
                     </small>
                 @endif
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' has-error' : '' }}" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
                 @if ($errors->has('user_hash'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>

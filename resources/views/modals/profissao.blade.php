@@ -28,3 +28,11 @@
     </div>
     </div>
     </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+       if({{$errors->has('profession_name')}})
+       {
+           $('#myModal').modal('show');
+       }
+    });
+</script>

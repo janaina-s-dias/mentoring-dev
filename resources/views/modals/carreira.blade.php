@@ -48,6 +48,10 @@
               $("#profissaoCombo").html(option).show();
         }
           
-       }); 
+       });
+       if({{$errors->has('carrer_name')}} || {{$errors->has('fk_carrer_profession')}})
+       {
+           $('#myModal2').modal('show');
+       }
     });
 </script>

@@ -69,41 +69,39 @@
 </script>  
          <section class="arcus" style="height: 200px; padding: 55px 55px;">
              <?php $user = Session::get('user'); ?>
-             <form method="POST" action="{{ route('usersubject.store')}}"> 
-                <table class="table-responsive">
-                <tr>
-                    <th class="col-sm">
-                        <label for="professionCombo">Profissão</label>
-                    </th>
-                    <th class="col-sm">
-                        <label for="carrerCombo">Carreira</label>
-                    </th>
-                    <th class="col-sm">
-                        <label for="subjectCombo">Assunto</label>
-                    </th>
-                    <td></td>
-                </tr>
+             <form method="POST" action="{{ route('usersubject.store')}}" class="form-horizontal"> 
+                @csrf
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="professionCombo">Profissão:</label>
+                        <div class="col-sm-10">
+                            <select id="professionCombo" class="form-control">
+                                <option value="">Carregando Profissão</option>
+                            </select>           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="carrerCombo">Carreira:</label>
+                        <div class="col-sm-10">
+                            <select id="carrerCombo" class="form-control">
+                                <option value="">Carregando Carreira</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="subjectCombo">Assunto:</label>
+                        <div class="col-sm-10">
+                            <select id="subjectCombo" name="fk_user_subject" class="form-control">
+                                <option value=""> Carregando Assunto</option>
+                            </select>
+                        </div>
+                    </div>
                 <input type="hidden" name="fk_subject_user" value="{{ $user->user_id }}">
-                <tr>
-                    <th class="col-sm">
-                        <select id="professionCombo">
-                            <option value="">Carregando Profissão</option>
-                        </select>           
-                    </th>
-                    <th class="col-sm">
-                        <select id="carrerCombo">
-                            <option value="">Carregando Carreira</option>
-                        </select>
-                    </th>
-                    <th class="col-sm">
-                        <select id="subjectCombo" name="fk_user_subject">
-                            <option value=""> Carregando Assunto</option>
-                        </select>
-                    </th>
-                    <th><button class="btn btn-success btn-sm btn-circle" type="submit" name="Submit" id="Submit">   <span class="glyphicon glyphicon-ok"></span></button></th>
-                </tr>
-            </table>
-            </form>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-success btn-sm btn-circle" type="submit" name="Submit" id="Submit"><span class="glyphicon glyphicon-ok"></span></button>
+                    </div>
+                </div>
+             </form>
               
          </section>
             
