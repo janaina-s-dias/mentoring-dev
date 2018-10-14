@@ -108,7 +108,7 @@ Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
-Route::resource('user', 'UserControllr');
+Route::resource('user', 'UserController');
 
 Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
 Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste

@@ -117,9 +117,9 @@ class UserController extends Controller
            $users = User::where('user_email', '=', $usua->user_email)->get()->first();
            $request->session()->flush();
            $request->session()->put('user', $users);
-           redirect('alterarPerfil')->with('success', 'Informações alteradas');
-        } catch (Exception $ex) {
-           redirect('alterarPerfil')->with('failure', 'ERRO! Informações não alteradas');
+           return redirect('/alterarPerfil')->with('success', 'Informações alteradas');
+        } catch (QueryException $ex) {
+           return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas');
         }
         
         
@@ -142,9 +142,9 @@ class UserController extends Controller
             {
                 $request->session()->flush();
             }
-            redirect('user.index')->with('success', 'Usuário deletado');
+            redirect('/Usuarios')->with('success', 'Usuário deletado');
         } catch (QueryException $ex) {
-            redirect('user.editar')->with('failure', 'ERRO! Usuário não deletado');
+            redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado');
         }
     }
     
@@ -162,11 +162,11 @@ class UserController extends Controller
             }
             else
             {
-                return redirect('/')->with('error', 'Senha incorreta');            }
+                return redirect('/')->with('failure', 'Senha incorreta');            }
         }
         else
         {
-            return redirect('/')->with('error', 'Usuario inexistente');
+            return redirect('/')->with('failure', 'Usuario inexistente');
         }
     }
     public function logout(Request $request)
