@@ -247,10 +247,10 @@
                                     <a href="{{ url ('Assuntos') }}">Assuntos</a>
                                 </li>
                                 <li {{ (Request::is('*userSubjects') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('userSubjects') }}">Assuntos Usuários</a>
+                                    <a href="{{ url ('AssuntosUsuarios') }}">Assuntos Usuários</a>
                                 </li>
                                 <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('users') }}">Usuários</a>
+                                    <a href="{{ url ('Usuarios') }}">Usuários</a>
                                 </li>
                             </ul>
                         </li>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Mentoring</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,6 +23,9 @@
     <body>
         <?php $user = Session::get('user'); ?>
         <div class="container" style="margin-top: 50px">
+            <fieldset>
+                <legend>Para prosseguir, conclua o cadastro</legend>
+                <br>
             <form class="form-horizontal" method="POST" action="{{ route('inserirUser') }}">
                 @csrf
     <div class="form-group row">
@@ -94,11 +98,15 @@
             </table>
         </div>
         <div class="form-group row"> 
-            <div style="margin-left: 1030px">
-                <button type="submit" class="btn btn-success">Cadastrar</button>
+            <div style="margin-left: 980px">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                    <a href="{{route('sair')}}" role="button" class="btn btn-warning">Sair</a>
+                </div>
             </div>
         </div>
     </form>
+    </fieldset>
     </div>
     </body>
 @include('inc.feedback')

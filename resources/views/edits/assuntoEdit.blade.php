@@ -4,20 +4,6 @@
 @section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
 
-<?php 
-                if(Session::exists('assunto'))
-                {
-                    $subject = Session::get('assunto');
-                }
-                else
-                {
-                    $dados = array();
-                    $dados['subject_id'] = '';
-                    $dados['subject_name'] = '';
-                    Session::put('assunto', $dados);
-                    $subject = Session::get('assunto');
-                }
-          ?>
           <form role="form" method="POST" action="{{route('subject.update', $subject['subject_id']) }}">
               @method('PATCH')
               @csrf
@@ -62,9 +48,9 @@
                 if({{($subject->fk_carrer_profession)}} === obj.profession_id)  option += "<option value='"+ obj.profession_id +"' selected>" + obj.profession_nome + "</option>"
                 else option += "<option value='"+ obj.profession_id +"'>" + obj.profession_nome + "</option>";              });
               });
-          $("#profissaoComno").html(option).show();
+          $("#profissaoCombo").html(option).show();
        });
-       $('#professaoCombo').change(function (){
+       $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){
             if (dados.length > 0){

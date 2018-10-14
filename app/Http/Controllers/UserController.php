@@ -181,15 +181,15 @@ class UserController extends Controller
         foreach ($pegadados as $row) {
              $sub_dados = array();
              $sub_dados[] = $row->user_id;
-             $sub_dados[] = $row->user_name;
+             $sub_dados[] = $row->user_nome;
              $sub_dados[] = $row->user_login;
              $sub_dados[] = $row->user_email;
              $sub_dados[] = $row->user_cpf;
              $sub_dados[] = $row->user_rg;
              $sub_dados[] = $row->user_telefone;
              $sub_dados[] = $row->user_celular;
-             $sub_dados[] = $row->user_knowledge;
-             $sub_dados[] = "<button onclick='popularListaAssuntos(".$row->user_id.") role='button' class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span></a>";
+             $sub_dados[] = ($row->user_knowledge) ? 'Sim' : 'Não';
+             //$sub_dados[] = "<button id='assuntos' value='".$row->user_id."' role='button' class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span></a>";
              $sub_dados[] = "<form method='POST' action=".route('user.destroy', $row->user_id)."'>".
                             method_field('DELETE').
                             csrf_field().
@@ -205,11 +205,11 @@ class UserController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
+    private $order = ['user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge', null, null, null ];
 
     public function CriarQuery(Request $request)
     {
-        $this->user = User::select('user_id','user_name', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
+        $this->user = User::select('user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
         if($request->input('search.value') != null)
         {
             $this->carrer->where('user_name', 'like' ,'%', $request->input('search.value'));            
@@ -221,7 +221,7 @@ class UserController extends Controller
         }
         else
         {
-            $this->user->orderBy('carrer_id', 'desc');
+            $this->user->orderBy('user_id', 'desc');
         }
     }
     

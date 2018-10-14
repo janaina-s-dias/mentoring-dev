@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 9, 10 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 9 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable": false
                 }
            ],
@@ -52,7 +52,7 @@
             <th>Telefone</th>
             <th>Celular</th>
             <th>Mentor?</th>
-            <th>Ver assuntos</th>
+            <!--<th>Ver assuntos</th>-->
             <th>Excluir</th>
         </tr>
     </thead>

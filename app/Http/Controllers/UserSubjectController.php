@@ -98,27 +98,27 @@ class UserSubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id1,$id2)
+    public function deletar($id, $id2)
     {
-        $us = UserSubject::where('fk_user_subject', '=', $id1)->
-                           where('fk_subject_user', '=', $id2);
+        $us = UserSubject::where('fk_user_subject', '=', intval($id2))->
+                           where('fk_subject_user', '=', intval($id));
         try {
             $us->delete();
-            redirect('assuntosUser')->with('success', 'Assunto removido dos interesses');
+            return redirect('/UsuariosAssuntos')->with('success', 'Assunto removido dos interesses');
         } catch (QueryException $exc) {
-            redirect('assuntosUser')->with('failure', 'Assunto não removido dos interesses');
+            return redirect('/UsuariosAssuntos')->with('failure', 'Assunto não removido dos interesses');
         }
     }
-    public function PegaDadosUsuario(Request $request) {
+    public function PegaDadosUsuarioAssunto(Request $request) {
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
         foreach ($pegadados as $row) {
              $sub_dados = array();
-             $sub_dados[] = $row->user_name;
+             $sub_dados[] = $row->user_nome;
              $sub_dados[] = $row->subject_name;
              $sub_dados[] = $row->carrer_name;
              $sub_dados[] = $row->profession_name;
-             $sub_dados[] = "<form method='POST' action=".route('user.destroy', $row->fk_subject_user, $row->fk_user_subject)."'>".
+        $sub_dados[] = "<form method='POST' action=".route('usersubject.deletar',array('user' => $row->fk_subject_user, 'subject' => $row->fk_user_subject))."'>".
                             method_field('DELETE').
                             csrf_field().
                             "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
