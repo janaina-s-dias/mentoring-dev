@@ -89,7 +89,7 @@ class UserController extends Controller
                 return view('alterarSenha')->with('failure', 'Senha não alterada');
             }
         } else {
-            return view('/alterarSenha')->with('failure', 'Senha antiga errada');
+            return view('alterarSenha')->with('failure', 'Senha antiga errada');
         }
             
         }

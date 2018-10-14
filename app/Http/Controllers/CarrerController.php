@@ -13,29 +13,7 @@ class CarrerController extends Controller
     function __construct(Carrer $carrer) {
         $this->carrer = $carrer;
     } 
-    public function index()
-    {
-        $carrer = Profession::where('fk_carrer_profession', $id);
-        $dados = array();
-        foreach ($carrer as $value) {
-            $subdados = array();
-            $subdados['carrer_nome'] = $value->carrer_name;
-            $dados[] = $subdados;
-        }
-        echo json_encode($dados);
-    }
 
-    public function create()
-    {
-        //cadstro do carrer
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, $this->carrer->Regras(), $this->carrer->messages);
@@ -54,25 +32,6 @@ class CarrerController extends Controller
         }
     }
     
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $carrer = Carrer::find($id)->first();
-        redirect('carrer.index')->with('finded', $carrer);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Request $request)
     {
         $carrer = Carrer::find($id)->first();
@@ -80,13 +39,6 @@ class CarrerController extends Controller
         return view('edits.carreiraEdit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->carrer->Regras('update'), $this->carrer->messages);
@@ -104,21 +56,15 @@ class CarrerController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $carrer = Carrer::find($id)->first();
         try
         {
             $carrer->delete();
-            redirect('carrer.index')->with('success', 'Carreira deletada');
+            return redirect('/Carreiras')->with('success', 'Carreira deletada');
         } catch (QueryException $ex) {
-            redirect('carrer.index')->with('failure', 'ERRO! Carreira não deletada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada');
         }
     }
 

@@ -361,13 +361,13 @@ Route::get('grid', function(Request $request){
 Route::get('admin', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('layouts.dashboardAdmin');
     }
     else
     {
         $user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('login');
     }
 });
@@ -376,7 +376,7 @@ Route::get('Profissoes', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('pageTipos');
     }
     else
@@ -390,7 +390,7 @@ Route::get('Carreiras', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterCarreira');
     }
     else
@@ -404,7 +404,7 @@ Route::get('Assuntos', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterAssunto');
     }
     else
@@ -417,7 +417,7 @@ Route::get('Usuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterUsuario');
     }
     else
@@ -431,7 +431,7 @@ Route::get('AssuntosUsuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' || $user->user_role != 'admin' || $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manteruserSubject');
     }
     else

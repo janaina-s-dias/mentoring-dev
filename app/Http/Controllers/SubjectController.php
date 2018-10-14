@@ -14,24 +14,6 @@ class SubjectController extends Controller
         $this->subject = $subject;
     } 
 
-    public function index()
-    {
-        $subject = Subject::all();
-        $dados = array();
-        foreach ($subject as $value) {
-            $subdados = array();
-            $subdados['subject_id'] = $value->subject_id;
-            $subdados['subject_nome'] = $value->subject_name;
-            $dados[] = $subdados;
-        }
-        echo json_encode($dados);
-    }
-
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, $this->subject->Regras(), $this->subject->messages);
@@ -48,12 +30,6 @@ class SubjectController extends Controller
         catch (QueryException $ex) {
             return redirect('/Assuntos')->with('failure', 'Não foi possivel cadastrar o assunto', $request);
         }
-    }
-
-    public function show($id)
-    {
-        $subject = Subject::find($id)->first();
-        redirect('subject.index')->with('finded', $subject);
     }
 
     public function edit($id, Request $request)
@@ -80,12 +56,6 @@ class SubjectController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $subject = Subject::find($id)->first();

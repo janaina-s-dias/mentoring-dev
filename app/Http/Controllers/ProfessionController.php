@@ -13,24 +13,6 @@ class ProfessionController extends Controller
         $this->profession = $profession;
     }
 
-    public function index()
-    {
-        $profession = Profession::all();
-        $dados = array();
-        foreach ($profession as $value) {
-            $subdados = array();
-            $subdados['profession_id'] = $value->profession_id;
-            $subdados['profession_nome'] = $value->profession_name;
-            $dados[] = $subdados;
-        }
-        echo json_encode($dados);
-    }
-
-    public function create()
-    {
-        //retorna a tela de cadastro do profession
-    }
-
     public function store(Request $request) {
         $this->validate($request, $this->profession->Rules(), $this->profession->message);
         $profession = new Profession([
@@ -45,12 +27,6 @@ class ProfessionController extends Controller
             return view('pageTipos')->with('failure', 'Não foi possivel cadastrar a profissão', $request);
         }
         
-    }
-
-    public function show($id)
-    {
-        $profession = Profession::find($id)->first();
-        redirect('profession.index')->with('finded', $profession);
     }
 
     public function edit($id, Request $request)
@@ -71,9 +47,9 @@ class ProfessionController extends Controller
         {
             $profession->update();
             $request->session()->forget('profissao');
-            redirect('profession.index')->with('success', 'Profissão alterada');
+            return redirect('/Profissoes')->with('success', 'Profissão alterada');
         } catch (QueryException $ex) {
-            redirect('profession.editar')->with('failure', 'ERRO! Profissão não alterada');
+            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não alterada');
         }
         
     }

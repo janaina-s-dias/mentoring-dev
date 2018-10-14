@@ -13,33 +13,6 @@ class UserSubjectController extends Controller
         $this->us = $us;
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
@@ -49,18 +22,12 @@ class UserSubjectController extends Controller
         ]);
                 try {
             $us->save();
-            redirect('cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
+            return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
         } catch (QueryException $exc) {
-            redirect('cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');  
+            return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');  
     }
    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $us = UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
@@ -69,35 +36,6 @@ class UserSubjectController extends Controller
          redirect('perfil')->with('assuntos', $us);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //não tem isso
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //não tem isso
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function deletar($id, $id2)
     {
         $us = UserSubject::where('fk_user_subject', '=', intval($id2))->
