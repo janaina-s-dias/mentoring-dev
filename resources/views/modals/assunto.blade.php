@@ -45,7 +45,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-       $get('/profissao', function(dados) {
+       $.get('/profissao', function(dados) {
           if(dados.length > 0)
           {
               var option = "<option value=''>Selecione Profissão</option>"
@@ -54,9 +54,9 @@
                   option += "<option value='"+ obj.profession_id +"'>"+ obj.profession_nome +"</option>"
               });
           }
-          $("#profissaoComno").html(option).show();
+          $("#profissaoCombo").html(option).show();
        });
-       $('#professaoCombo').change(function (){
+       $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){
             if (dados.length > 0){
