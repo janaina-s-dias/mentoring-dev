@@ -97,6 +97,7 @@ class CarrerController extends Controller
         try
         {
             $carrer->update();
+            $request->session()->forget('carreira');
             return redirect('/Carreiras')->with('success', 'Carreira alterada');
         } catch (QueryException $ex) {
             return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada');

@@ -125,12 +125,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $userSession = $request->session()->get('user');
         $user = User::find($id)->first();
         try
         {
             $user->delete();
+            if($id == $userSession->user_id)
+            {
+                $request->session()->flush();
+            }
             redirect('user.index')->with('success', 'Usuário deletado');
         } catch (QueryException $ex) {
             redirect('user.editar')->with('failure', 'ERRO! Usuário não deletado');

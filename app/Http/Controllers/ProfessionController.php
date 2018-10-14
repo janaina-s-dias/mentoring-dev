@@ -70,6 +70,7 @@ class ProfessionController extends Controller
         try
         {
             $profession->update();
+            $request->session()->forget('profissao');
             redirect('profession.index')->with('success', 'Profissão alterada');
         } catch (QueryException $ex) {
             redirect('profession.editar')->with('failure', 'ERRO! Profissão não alterada');
