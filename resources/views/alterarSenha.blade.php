@@ -5,13 +5,12 @@
          <section class="arcus" style="width: 550px; padding: 55px 55px;">
              <?php $user = Session::get('user'); 
                 //dd($user);
-                var_dump($user);
+                
                 
  
              ?>
              
-             <form method="POST" action="{{ url('alterarSenha',$user->user_id) }}" >
-                 @method('PATCH')
+             <form method="POST" action="{{ url('alterandoSenha',$user->user_id) }}" >
                  {{ csrf_field() }}
 
                 <div class="form-group">

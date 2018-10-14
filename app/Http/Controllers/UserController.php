@@ -14,33 +14,16 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request) {
         $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = new User([
@@ -87,41 +70,10 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = User::find($id)->first();
-        redirect('user.index')->with('finded', $user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id)->first();
-        return view('user.editar')->with('finded', $user);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function updateSenha(Request $request, $user_id){
-        $user = UserController::find($user_id);
+        $user = User::find($user_id);
         $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);        
-        if(Hash::check($request->get('new_user_hash'), $user->user_hash))
+        if(Hash::check($request->get('user_hash'), $user->user_hash))
         {
             $user->user_hash = Hash::make($request->get('new_user_hash'));
             try
@@ -130,12 +82,12 @@ class UserController extends Controller
                 return view('alterarSenha')->with('success', 'Senha alterada com sucesso');
                 
             } catch (QueryException $ex) {
-                redirect('alterarSenha')->with('failure', 'Senha não alterada');
+                return view('alterarSenha')->with('failure', 'Senha não alterada');
             }
         }
         else
         {
-            redirect('alterarSenha')->with('failure', 'Senha antiga errada');
+            return view('/alterarSenha')->with('failure', 'Senha antiga errada');
         }
     }
     

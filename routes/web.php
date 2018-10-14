@@ -99,7 +99,7 @@ Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
 Route::resource('user', 'UserController');
 
-Route::post('/alterarSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
+Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
         
 
 Route::get('/profissao', function(){
