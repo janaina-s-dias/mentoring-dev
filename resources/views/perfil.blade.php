@@ -1,26 +1,48 @@
 @extends('layouts.dashboardPerfil')
 @section('page_heading','Perfil')
 @section('section')
-         
-         <section class="arus" style="height: 250px; padding: 50px 50px; background: #b3ffd9;">
+        
+        <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
 
-         	<img class="tumbnail" src="{{ asset("svg/403.svg") }}"  alt="" style="width: 150px; height: 150px;">
+        <section class="astros">
+     
+        <header class="o-header">
+        <img class="tumbnail" src="{{ asset("logos/avatar.png") }}"  alt="">
+        </header>
+        <header class="e-header">
+        <div><h2>Nome</h2></div>
+        <div><h2>Alguma coisa</h2></div>
+        <div><h2>Alguma outra coisa</h2></div>
+        </header>
+        <aside class="o-aside">
+        <div>
+        <h2>ASSUNTOS</h2>
+        <ul class="aki">
+            <li>
+                Assuntos....
+            </li>
+            <li>
+                Assuntos....
+            </li>
+            <li>
+                Assuntos....
+            </li>
+            <li>
+                Assuntos....
+            </li>
 
-         	<div>
-         	<ul>
-            <li>Assunto...</li>
-            <li>Assunto...</li>
-            <li>Assunto...</li>
-            </ul>
-            </div>
+        </ul>
+       </div>
+       </aside>
+       <main class="o-main">
+       
+       <div><h2>Conteúdo</h2></div>
 
-         </section>
-  
-         <section class="arcus" style="height: 200px; padding: 55px 55px; background: #80d4ff;">
-             
-             <h3>Conexões</h3>
 
-              
-         </section>  
+       
+       </main>
+
+
+    </section>
             
 @stop

@@ -1,5 +1,5 @@
-@extends('layouts.dashboard')
-@section('page_heading','Perfil')
+@extends('layouts.dashboardPerfil')
+@section('page_heading','Cadastrar Assunto')
 @section('section')
 <script type="text/javascript">
     $(document).ready(function (){

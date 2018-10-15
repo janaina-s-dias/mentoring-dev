@@ -17,10 +17,10 @@
 
          <section class="arcus" style="width: 550px; padding: 55px 55px;">
 
-             <?php $user = Session::get('user'); ?>
+            <?php $user = Session::get('user'); ?>
             <form class="form-horizontal" method="POST" action="{{ route('user.update', $user->user_id) }}"> 
-                @method('PATCH')
-                @csrf
+                 @method('PATCH')
+                 @csrf
              <div class="form-group{{ $errors->has('user_nome') ? ' has-error' : '' }}">
                   <label class="control-label col-sm-2" for="nome">Nome:</label>
                   <div class="col-sm-10">
