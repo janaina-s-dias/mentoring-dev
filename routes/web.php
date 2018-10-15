@@ -137,7 +137,7 @@ Route::get('/carreira', function(Request $request){
         $subarray['carrer_nome'] = $value->carrer_name;
         $dados[]=$subarray;
     }
-    return Respone::json($dados);
+    return Response::json($dados);
     
 });
 
