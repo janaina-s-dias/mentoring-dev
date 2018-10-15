@@ -25,7 +25,7 @@ class SubjectController extends Controller
         try
         {
             $subject->save();
-            return redirect('/Assuntos')->with('success', 'Assunto salvo');
+            return redirect('/Assuntos')->with('success', 'Assunto salvo!');
         } 
         catch (QueryException $ex) {
             return redirect('/Assuntos')->with('failure', 'Não foi possivel cadastrar o assunto', $request);
@@ -50,9 +50,9 @@ class SubjectController extends Controller
         {
             $subject->update();
             $request->session()->forget('assunto');
-            return redirect('/Assuntos')->with('success', 'Assunto alterado');
+            return redirect('/Assuntos')->with('success', 'Assunto alterado!');
         } catch (QueryException $ex) {
-            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado');
+            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado!');
         }
     }
 
@@ -62,9 +62,9 @@ class SubjectController extends Controller
         try
         {
             $subject->delete();
-            return redirect('/Assuntos')->with('success', 'Assunto deletado');
+            return redirect('/Assuntos')->with('success', 'Assunto deletado!');
         } catch (QueryException $ex) {
-            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não deletado');
+            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não deletado!');
         }
     }
 
@@ -113,7 +113,7 @@ class SubjectController extends Controller
         }
         else
         {
-            $this->subject->orderBy('subject_id', 'desc');
+            $this->subject->orderBy('subject_id', 'asc');
         }
     }
     

@@ -25,7 +25,7 @@ class CarrerController extends Controller
         try
         {
             $carrer->save();
-            return redirect('/Carreiras')->with('success', 'Carreira salva');
+            return redirect('/Carreiras')->with('success', 'Carreira salva!');
         } 
         catch (QueryException $ex) {
             return redirect('/Carreiras')->with('failure', 'Não foi possivel cadastrar a carreira', $request);
@@ -50,9 +50,9 @@ class CarrerController extends Controller
         {
             $carrer->update();
             $request->session()->forget('carreira');
-            return redirect('/Carreiras')->with('success', 'Carreira alterada');
+            return redirect('/Carreiras')->with('success', 'Carreira alterada!');
         } catch (QueryException $ex) {
-            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada!');
         }
     }
 
@@ -62,9 +62,9 @@ class CarrerController extends Controller
         try
         {
             $carrer->delete();
-            return redirect('/Carreiras')->with('success', 'Carreira deletada');
+            return redirect('/Carreiras')->with('success', 'Carreira deletada!');
         } catch (QueryException $ex) {
-            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada!');
         }
     }
 

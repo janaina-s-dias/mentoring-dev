@@ -15,7 +15,7 @@ class UserSubject extends Model
        'fk_subject_user' => 'required'
    ];
    public $messages = [
-       'fk_user_subject.required' => 'É obrigatorio informar Assunto',
-       'fk_subject_user.required' => 'É obrigatorio informar Usuario'
+       'fk_user_subject.required' => 'É obrigatório informar Assunto',
+       'fk_subject_user.required' => 'É obrigatório informar Usuário'
    ];
 }

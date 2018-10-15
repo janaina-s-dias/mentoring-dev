@@ -21,7 +21,7 @@ class ProfessionController extends Controller
         ]);
         try {
             $profession->save();
-            return view('pageTipos')->with('success', 'Profissão salva');
+            return view('pageTipos')->with('success', 'Profissão salva!');
         } 
         catch (QueryException $ex) {
             return view('pageTipos')->with('failure', 'Não foi possivel cadastrar a profissão', $request);
@@ -47,9 +47,9 @@ class ProfessionController extends Controller
         {
             $profession->update();
             $request->session()->forget('profissao');
-            return redirect('/Profissoes')->with('success', 'Profissão alterada');
+            return redirect('/Profissoes')->with('success', 'Profissão alterada!');
         } catch (QueryException $ex) {
-            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não alterada');
+            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não alterada!');
         }
         
     }
@@ -60,9 +60,9 @@ class ProfessionController extends Controller
         try
         {
             $profession->delete();
-            return redirect('/Profissoes')->with('success', 'Profissão deletada');
+            return redirect('/Profissoes')->with('success', 'Profissão deletada!');
         } catch (QueryException $ex) {
-            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não deletada');
+            return redirect('/Profissoes')->with('failure', 'ERRO! Profissão não deletada!');
         }
     }
 

@@ -1,20 +1,11 @@
 @extends('layouts.dashboardAdmin') 
-@section('page_heading','')
+@section('page_heading','Assuntos por Usuários')
 
 @section('section')
 
-<div>
-
-<h3>Usuarios e Assuntos</h3>   
-</div>       
-
-
-<br/><br/>
-
-
 <div class="row">
 	<div>
-		@section ('table_panel_title','Assuntos por Usuarios')
+		@section ('table_panel_title','Listagem Assuntos por Usuários')
 		@section ('table_panel_body')
 		    @include('widgets.tableUserSubject', array('class'=>'table-condensed'))
 		@endsection

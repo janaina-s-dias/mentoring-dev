@@ -17,15 +17,15 @@ class Content extends Model
                         'content_type' => 'bail|required|file', //(???)
         
     ];    
-     protected $messages = ['content_description.required' => 'O campo descrição deve ser preenchido',                        
-                        'content_description.min' => 'O campo descrição deve conter mais de 10 caracteres',
-                        'content_description.max' => 'O campo nome deve ter no maximo 100 caracteres',
-                        'content_title.required' => 'O campo é obrigatório',
-                        'content_title..min' => 'O campo titulo deve conter mais de 10 caracteres',
-                        'content_title.max' => 'O campo titulo deve ter no maximo 20 caracteres',
-                        'content_url.required' => 'O campo é obrigatório',
-                        'content_url.active_url' => 'O campo deve ser preenchido com uma url válida',
-                        'content_type.required' => 'O campo é obrigatório'
+     protected $messages = ['content_description.required' => 'O campo descrição deve ser preenchido!',                        
+                        'content_description.min' => 'O campo descrição deve conter mais de 10 caracteres!',
+                        'content_description.max' => 'O campo nome deve conter no máximo 100 caracteres!',
+                        'content_title.required' => 'O campo é obrigatório!',
+                        'content_title..min' => 'O campo título deve conter mais de 10 caracteres!',
+                        'content_title.max' => 'O campo título deve ter no maximo 20 caracteres!',
+                        'content_url.required' => 'O campo é obrigatório!',
+                        'content_url.active_url' => 'O campo deve ser preenchido com uma url válida!',
+                        'content_type.required' => 'O campo é obrigatório!'
          ];    
     public function Regras($tipo)
     {

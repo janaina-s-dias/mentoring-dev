@@ -40,7 +40,7 @@ class UserController extends Controller
         } 
         catch (QueryException $ex) 
         {
-            redirect('/')->with('failure', 'Não foi possivel cadastrar');
+            redirect('/')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
     
@@ -66,7 +66,7 @@ class UserController extends Controller
         } 
         catch (QueryException $ex) 
         {
-            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar');
+            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
         $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);        
         if($request->get('new_user_hash') != $request->get('new_user_hash_confirmation'))
             {
-            return view('/alterarSenha')->with('failure', 'Senhas diferentes');            
+            return view('/alterarSenha')->with('failure', 'Senhas diferentes!');            
         } else {
             if(Hash::check($request->get('user_hash'), $user->user_hash))
         {
@@ -83,13 +83,13 @@ class UserController extends Controller
             try
             {
                 $user->update();
-                return view('alterarSenha')->with('success', 'Senha alterada com sucesso');
+                return view('alterarSenha')->with('success', 'Senha alterada com sucesso!');
                 
             } catch (QueryException $ex) {
-                return view('alterarSenha')->with('failure', 'Senha não alterada');
+                return view('alterarSenha')->with('failure', 'Senha não alterada!');
             }
         } else {
-            return view('alterarSenha')->with('failure', 'Senha antiga errada');
+            return view('alterarSenha')->with('failure', 'Senha antiga errada!');
         }
             
         }
@@ -116,9 +116,9 @@ class UserController extends Controller
            $users = User::find($id);
            $request->session()->flush();
            $request->session()->put('user', $users);
-           return redirect('/alterarPerfil')->with('success', 'Informações alteradas');
+           return redirect('/alterarPerfil')->with('success', 'Informações alteradas!');
         } catch (QueryException $ex) {
-           return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas');
+           return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas!');
         }
         
         
@@ -141,9 +141,9 @@ class UserController extends Controller
             {
                 $request->session()->flush();
             }
-            return redirect('/Usuarios')->with('success', 'Usuário deletado');
+            return redirect('/Usuarios')->with('success', 'Usuário deletado!');
         } catch (QueryException $ex) {
-            return redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado');
+            return redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado!');
         }
     }
     
@@ -161,11 +161,11 @@ class UserController extends Controller
             }
             else
             {
-                return redirect('/')->with('failure', 'Senha incorreta');            }
+                return redirect('/')->with('failure', 'Senha incorreta!');            }
         }
         else
         {
-            return redirect('/')->with('failure', 'Usuario inexistente');
+            return redirect('/')->with('failure', 'Usuario inexistente!');
         }
     }
     public function logout(Request $request)
@@ -220,7 +220,7 @@ class UserController extends Controller
         }
         else
         {
-            $this->user->orderBy('user_id', 'desc');
+            $this->user->orderBy('user_id', 'asc');
         }
     }
     

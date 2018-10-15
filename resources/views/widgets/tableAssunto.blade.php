@@ -20,13 +20,13 @@
            ],
            "language": {
                 "zeroRecords": "Nada encontrado - desculpe",
-                "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
                 "infoEmpty": "Nenhum registro disponivel",
                 "infoFiltered": "(filtrado do total de _MAX_ registros)",
                 "paginate": {
                     "first":      "Primeira",
-                    "last":       "Ultima",
-                    "next":       "Proxima",
+                    "last":       "Última",
+                    "next":       "Próxima",
                     "previous":   "Anterior"
                 },
                 "search":         "Pesquisar:",

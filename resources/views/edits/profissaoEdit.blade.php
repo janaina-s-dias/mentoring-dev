@@ -1,7 +1,7 @@
 @extends('layouts.dashboardAdmin') 
 @section('page_heading','')
 @section('section')
-@section ('table_panel_title','Editar Profisso')
+@section ('table_panel_title','Editar Profissão')
 @section ('table_panel_body')
 
 <?php $profession = Session::get('profissao') ?>

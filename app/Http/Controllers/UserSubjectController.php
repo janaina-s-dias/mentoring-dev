@@ -25,14 +25,14 @@ class UserSubjectController extends Controller
         if($user == 0){
             try {
                 $us->save();
-                return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
+                return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses!');
             } catch (QueryException $exc) {
-                return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');  
+                return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses!');  
             }
         }
         else
         {
-            return redirect('/cadastroAssunto')->with('failure', 'Assunto ja cadastrado em seus interesses'); 
+            return redirect('/cadastroAssunto')->with('failure', 'Assunto já cadastrado em seus interesses!'); 
         }
             
    }
@@ -51,9 +51,9 @@ class UserSubjectController extends Controller
                            where('fk_subject_user', '=', intval($id));
         try {
             $us->delete();
-            return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos interesses');
+            return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos seus interesses!');
         } catch (QueryException $exc) {
-            return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos interesses');
+            return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos seus interesses!');
         }
     }
     public function PegaDadosUsuarioAssunto(Request $request) {
@@ -103,7 +103,7 @@ class UserSubjectController extends Controller
         }
         else
         {
-              $this->user->orderBy('user_id', 'desc'); //troquei o created_at por user_id na coluna de ordenação, pois estava retornando violação do SQL State
+              $this->user->orderBy('user_id', 'asc'); //troquei o created_at por user_id na coluna de ordenação, pois estava retornando violação do SQL State
         }
     }
     

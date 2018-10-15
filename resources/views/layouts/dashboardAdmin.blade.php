@@ -218,7 +218,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="{{ url ('perfil')}}"><i class="fa fa-user fa-fw"></i> Perfil de Usuario</a>
                         </li>
-                        <li><a href="{{ url ('admin') }}"><i class="fa fa-gear fa-fw"></i> Area Administrativa</a>
+                        <li><a href="{{ url ('admin') }}"><i class="fa fa-gear fa-fw"></i> Área Administrativa</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{{ url ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -230,11 +230,11 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-         <div class="navbar-default sidebar" role="navigation">
+         <div class="navbar-default sidebar colapse" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                     <li >
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Área Administrativa<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Área Administrativa <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                             <li {{ (Request::is('*Profissoes') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('Profissoes') }}">Profissões</a>
@@ -262,13 +262,12 @@
         <div id="page-wrapper">
 			 <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">@yield('page_heading')</h1>
+                    <h1 class="page-header">@yield('page_heading', '')</h1>
                 </div>
                 <!-- /.col-lg-12 -->
            </div>
 			<div class="row">  
 				@yield('section')
-
             </div>
             <!-- /#page-wrapper -->
         </div>
