@@ -20,12 +20,21 @@ class UserSubjectController extends Controller
             'fk_user_subject' => $request->fk_user_subject,
             'fk_subject_user' => $request->fk_subject_user
         ]);
-                try {
-            $us->save();
-            return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
-        } catch (QueryException $exc) {
-            return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');  
-    }
+        $user = UserSubject::where('fk_user_subject', '=', $request->fk_user_subject)->
+                             where('fk_subject_user', '=', $request->fk_subject_user)->count();
+        if($user == 0){
+            try {
+                $us->save();
+                return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses');
+            } catch (QueryException $exc) {
+                return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses');  
+            }
+        }
+        else
+        {
+            return redirect('/cadastroAssunto')->with('failure', 'Assunto ja cadastrado em seus interesses'); 
+        }
+            
    }
 
     public function show($id)
