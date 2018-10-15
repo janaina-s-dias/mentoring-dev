@@ -64,7 +64,7 @@ class UserController extends Controller
            $request->session()->put('user', $user);
            return redirect('/')->with('success', 'Continue seu cadastro');
         } 
-        catch (Exception $ex) 
+        catch (QueryException $ex) 
         {
             redirect('cadastro')->with('failure', 'Não foi possivel cadastrar');
         }

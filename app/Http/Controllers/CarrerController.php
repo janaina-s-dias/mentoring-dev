@@ -63,7 +63,7 @@ class CarrerController extends Controller
         {
             $carrer->delete();
             return redirect('/Carreiras')->with('success', 'Carreira deletada');
-        } catch (Exception $ex) {
+        } catch (QueryException $ex) {
             return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada');
         }
     }

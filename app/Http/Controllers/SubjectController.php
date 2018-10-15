@@ -51,7 +51,7 @@ class SubjectController extends Controller
             $subject->update();
             $request->session()->forget('assunto');
             return redirect('/Assuntos')->with('success', 'Assunto alterado');
-        } catch (Exception $ex) {
+        } catch (QueryException $ex) {
             return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado');
         }
     }
