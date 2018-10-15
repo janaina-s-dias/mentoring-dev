@@ -101,7 +101,7 @@ class UserController extends Controller
     {
         
         $this->validate($request, $this->user->Regras('update'), $this->user->mensagens);
-        $user = User::find($id)->first();
+        $user = User::find($id);
         $user->user_login = $request->user_login;
         $user->user_cpf = $request->user_cpf;
         $user->user_nome = $request->user_nome;
@@ -134,7 +134,7 @@ class UserController extends Controller
     public function destroy($id, Request $request)
     {
         $userSession = $request->session()->get('user');
-        $user = User::find($id)->first();
+        $user = User::find($id);
         try
         {
             $user->delete();
@@ -142,9 +142,9 @@ class UserController extends Controller
             {
                 $request->session()->flush();
             }
-            redirect('/Usuarios')->with('success', 'Usuário deletado');
+            return redirect('/Usuarios')->with('success', 'Usuário deletado');
         } catch (QueryException $ex) {
-            redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado');
+            return redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado');
         }
     }
     
