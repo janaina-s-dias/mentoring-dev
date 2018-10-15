@@ -34,7 +34,7 @@ class CarrerController extends Controller
     
     public function edit($id, Request $request)
     {
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         $request->session()->put('carreira', $carrer);
         return view('edits.carreiraEdit');
     }
@@ -42,7 +42,7 @@ class CarrerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->carrer->Regras('update'), $this->carrer->messages);
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         $carrer->carrer_name = $request->carrer_name;
         $carrer->carrer_active = $request->carrer_active;
         $carrer->fk_carrer_profession = $request->fk_carrer_profession;
@@ -58,12 +58,12 @@ class CarrerController extends Controller
 
     public function destroy($id)
     {
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         try
         {
             $carrer->delete();
             return redirect('/Carreiras')->with('success', 'Carreira deletada');
-        } catch (QueryException $ex) {
+        } catch (Exception $ex) {
             return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada');
         }
     }
@@ -78,10 +78,10 @@ class CarrerController extends Controller
              $sub_dados[] = $row->profession_name;
              $sub_dados[] = ($row->carrer_active) ? 'Ativa' : 'Inativa';
              $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-             $sub_dados[] = "<form method='POST' action=".route('carrer.destroy', $row->carrer_id)."'>".
+             $sub_dados[] = "<form method='POST' action='".route('carrer.destroy', $row->carrer_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
         

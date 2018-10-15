@@ -31,7 +31,7 @@ class ProfessionController extends Controller
 
     public function edit($id, Request $request)
     {
-        $profession = Profession::find($id)->first();
+        $profession = Profession::find($id);
         $request->session()->put('profissao', $profession);
         return view('edits.profissaoEdit');
     
@@ -40,7 +40,7 @@ class ProfessionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->profession->Rules('update'), $this->profession->message);
-        $profession = Profession::find($id)->first();
+        $profession = Profession::find($id);
         $profession->profession_name = $request->profession_name;
         $profession->profession_active = $request->profession_active;
         try
@@ -75,10 +75,10 @@ class ProfessionController extends Controller
             $sub_dados[] = $row->profession_name;
             $sub_dados[] = ($row->profession_active) ? 'Ativa' : 'Inativa';
             $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<form method='POST' action=".route('profession.destroy', $row->profession_id)."'>".
+            $sub_dados[] = "<form method='POST' action='".route('profession.destroy', $row->profession_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
         

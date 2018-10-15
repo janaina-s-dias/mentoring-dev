@@ -34,7 +34,7 @@ class SubjectController extends Controller
 
     public function edit($id, Request $request)
     {
-        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->first();
+        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get();
         $request->session()->put('assunto', $subject);
         return view('edits.assuntoEdit');
     }
@@ -42,7 +42,7 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->subject->Regras('update'), $this->subject->messages);
-        $subject = Subject::find($id)->first();
+        $subject = Subject::find($id);
         $subject->subject_name = $request->subject_name;
         $subject->subject_active = $request->subject_active;
         $subject->fk_subject_carrer = $request->fk_subject_carrer;
@@ -58,7 +58,7 @@ class SubjectController extends Controller
 
     public function destroy($id)
     {
-        $subject = Subject::find($id)->first();
+        $subject = Subject::find($id);
         try
         {
             $subject->delete();
@@ -79,10 +79,10 @@ class SubjectController extends Controller
             $sub_dados[] = ($row->subject_active) ? 'Ativo' : 'Inativo';
             $sub_dados[] = $row->carrer_name;
             $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<form method='POST' action=".route('subject.destroy', $row->subject_id)."'>".
+            $sub_dados[] = "<form method='POST' action='".route('subject.destroy', $row->subject_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
         
