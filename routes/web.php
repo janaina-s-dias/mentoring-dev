@@ -143,13 +143,13 @@ Route::get('/carreira', function(Request $request){
 
 Route::get('/assunto', function(Request $request){
     $carrer = $request->get('carreira');
-    $subject = \App\Subject::where('fk_subject_carrer', $carrer)->get();
+    $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)->get();
     $dados = array();
     foreach ($subject as $value) {
         $subarray = array();
         $subarray['subject_id'] = $value->subject_id;
         $subarray['subject_nome'] = $value->subject_name;
-        $dads[]=$subarray;
+        $dados[]=$subarray;
     }
     return Response::json($dados);
     
