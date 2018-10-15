@@ -34,7 +34,7 @@ class SubjectController extends Controller
 
     public function edit($id, Request $request)
     {
-        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get();
+        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get()->first();
         $request->session()->put('assunto', $subject);
         return view('edits.assuntoEdit');
     }
@@ -51,7 +51,7 @@ class SubjectController extends Controller
             $subject->update();
             $request->session()->forget('assunto');
             return redirect('/Assuntos')->with('success', 'Assunto alterado');
-        } catch (QueryException $ex) {
+        } catch (Exception $ex) {
             return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado');
         }
     }

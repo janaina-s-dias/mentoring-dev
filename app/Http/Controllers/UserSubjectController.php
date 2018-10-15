@@ -17,8 +17,8 @@ class UserSubjectController extends Controller
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
         $us = new UserSubject([
-            'fk_user_subject' => $request->subject,
-            'fk_subject_user' => $request->user
+            'fk_user_subject' => $request->fk_user_subject,
+            'fk_subject_user' => $request->fk_subject_user
         ]);
                 try {
             $us->save();

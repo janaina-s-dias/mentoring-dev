@@ -28,10 +28,10 @@
                 <br>
             <form class="form-horizontal" method="POST" action="{{ route('inserirUser') }}">
                 @csrf
-    <div class="form-group row">
+    <div class="form-group row{{ $errors->has('user_nome') ? ' has-error' : '' }}">
         <label class="col-form-label col-sm-2" for="nome">Nome:</label>
             <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_nome') ? ' has-error' : '' }}"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
+            <input class="form-control"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
             </div>
         @if ($errors->has('user_nome'))
            <small class="text-danger" role="alert">
@@ -40,10 +40,10 @@
         @endif
         </div>
         <input type="hidden" value="{{ $user->user_id }}" name="user_id">
-        <div class="form-group row">
+        <div class="form-group row{{ $errors->has('user_rg') ? ' has-error' : '' }}">
             <label class="col-form-label col-sm-2" for="rg">RG:</label>
             <div class="col-sm-10">
-                <input class="form-control{{ $errors->has('user_rg') ? ' has-error' : '' }}" value="{{old('user_rg')}}" name="user_rg" id="rg" type="number" placeholder="RG">
+                <input class="form-control" value="{{old('user_rg')}}" name="user_rg" id="rg" type="number" placeholder="RG">
         
             @if ($errors->has('user_rg'))
             <small class="text-danger" role="alert">
@@ -53,10 +53,10 @@
         </div>
         </div>
         <input name="user_role" type="hidden" value="uset">
-        <div class="form-group row">
+        <div class="form-group row{{ $errors->has('user_cpf') ? ' has-error' : '' }}">
             <label class="col-form-label col-sm-2" for="nome">CPF:</label>
             <div class="col-sm-10">
-                <input class="form-control{{ $errors->has('user_cpf') ? ' has-error' : '' }}" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="number" style="-moz-appearance:textfield;"placeholder="CPF">
+                <input class="form-control" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="number" style="-moz-appearance:textfield;"placeholder="CPF">
             @if ($errors->has('user_cpf'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_cpf') }}</strong>
@@ -64,10 +64,10 @@
         @endif
         </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row{{ $errors->has('user_telefone') ? ' has-error' : '' }}">
             <label class="col-form-label col-sm-2" for="telefone">Telefone:</label>
             <div class="col-sm-10">
-                <input value="{{old('user_telefone')}}" class="form-control{{ $errors->has('user_telefone') ? ' has-error' : '' }}" name="user_telefone" id="telefone" type="number" placeholder="Telefone">
+                <input value="{{old('user_telefone')}}" class="form-control" name="user_telefone" id="telefone" type="number" placeholder="Telefone">
             @if ($errors->has('user_telefone'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_telefone') }}</strong>
@@ -75,10 +75,10 @@
         @endif
         </div>
             </div>
-        <div class="form-group row">
+        <div class="form-group row{{ $errors->has('user_celular') ? ' has-error' : '' }}">
             <label class="col-form-label col-sm-2" for="celular">Celular:</label>
         <div class="col-sm-10">
-            <input class="form-control{{ $errors->has('user_celular') ? ' has-error' : '' }}" value="{{old('user_celular')}}" name="user_celular" id="celular" type="number" placeholder="Celular">
+            <input class="form-control" value="{{old('user_celular')}}" name="user_celular" id="celular" type="number" placeholder="Celular">
             @if ($errors->has('user_celular'))
             <small class="text-danger" role="alert">
                 <strong>{{ $errors->first('user_celular') }}</strong>

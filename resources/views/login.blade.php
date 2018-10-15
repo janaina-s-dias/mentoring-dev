@@ -63,7 +63,7 @@
         <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
                 <div class="form-group{{ $errors->has('user_email') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail">
+                    <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail" value="{{old('user_email')}}">
                 @if ($errors->has('user_email'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_email') }}</strong>
@@ -71,7 +71,7 @@
                 @endif
                 </div>
                 <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario">
+                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario"value="{{old('user_login')}}">
                 @if ($errors->has('user_login'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_login') }}</strong>

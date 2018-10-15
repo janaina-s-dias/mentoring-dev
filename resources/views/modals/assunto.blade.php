@@ -15,17 +15,27 @@
                 </select>
             </div>
 
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('fk_subject_carrer') ? ' has-error' : '' }}">
                   <label>Carreira</label>
                   <select class="form-control" name="fk_subject_carrer" id="carrerCombo">
                       <option value="">Carregando Carreira</option>
                   </select>
                  <!-- Combo com carreiras existentes -->
+                 @if ($errors->has('fk_subject_carrer'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('fk_subject_carrer') }}</strong>
+                                </small>
+                @endif
               </div>
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('subject_name') ? ' has-error' : '' }}">
                 <label>Nome</label>
-                <input type="text" name="subject_name" class="form-control">
+                <input type="text" name="subject_name" class="form-control" value="{{old('subject_name')}}">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
+                @if ($errors->has('subject_name'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('subject_name') }}</strong>
+                                </small>
+                @endif
             </div>
             
               <div class="form-group">

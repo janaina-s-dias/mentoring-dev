@@ -8,10 +8,15 @@
       <form role="form" method="POST" action="{{route('profession.update', $profession->profession_id)}}">
           @method('PATCH')         
           @csrf
-            <div class="form-group">
+            <div class="form-group{{ $errors->has('profession_name') ? ' has-error' : '' }}">
                 <label>Nome</label>
                 <input class="form-control" name="profession_name" value="{{ $profession->profession_name}}">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
+                @if ($errors->has('profession_name'))
+                        <small class="text-danger" role="alert">
+                            <strong>{{ $errors->first('profession_name') }}</strong>
+                        </small>
+                @endif
             </div>
               <div class="form-group">
                 <label>Status</label>

@@ -113,8 +113,7 @@ class UserController extends Controller
         try
         {
            $user->update();
-           $usua = $request->session()->get('user');
-           $users = User::where('user_email', '=', $usua->user_email)->get()->first();
+           $users = User::find($id);
            $request->session()->flush();
            $request->session()->put('user', $users);
            return redirect('/alterarPerfil')->with('success', 'Informações alteradas');

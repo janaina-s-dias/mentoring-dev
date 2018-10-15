@@ -93,6 +93,11 @@
                             <select id="subjectCombo" name="fk_user_subject" class="form-control">
                                 <option value=""> Carregando Assunto</option>
                             </select>
+                            @if ($errors->has('fk_user_subject'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('fk_user_subject') }}</strong>
+                                </small>
+                            @endif
                         </div>
                     </div>
                 <input type="hidden" name="fk_subject_user" value="{{ $user->user_id }}">

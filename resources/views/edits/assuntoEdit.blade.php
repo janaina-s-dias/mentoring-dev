@@ -3,8 +3,8 @@
 @section('section')
 @section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
-
-          <form role="form" method="POST" action="{{route('subject.update', $subject['subject_id']) }}">
+            <?php $subject = Session::get('assunto'); ?>
+          <form role="form" method="POST" action="{{route('subject.update', $subject->subject_id) }}">
               @method('PATCH')
               @csrf
             <div class="form-group">
@@ -14,21 +14,31 @@
                 </select>
             </div>
 
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('fk_subject_carrer') ? ' has-error' : '' }}">
                   <label>Carreira</label>
-                  <select class="form-control" name="fk_carrer_subject" id="carrerCombo">
+                  <select class="form-control" name="fk_subject_carrer" id="carrerCombo">
                       <option value="">Carregando Carreira</option>
                   </select>
+                  @if ($errors->has('fk_subject_carrer'))
+                        <small class="text-danger" role="alert">
+                            <strong>{{ $errors->first('fk_subject_carrer') }}</strong>
+                        </small>
+                  @endif
                  <!-- Combo com carreiras existentes -->
               </div>
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('subject_name') ? ' has-error' : '' }}">
                 <label>Nome</label>
-                <input type="text" name="subject_name" class="form-control" value="{{$subject['subject_name']}}">
+                <input type="text" name="subject_name" class="form-control" value="{{$subject->subject_name}}">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
+                @if ($errors->has('subject_name'))
+                        <small class="text-danger" role="alert">
+                            <strong>{{ $errors->first('subject_name') }}</strong>
+                        </small>
+                @endif
             </div>
               <div class="form-group">
                 <label>Status</label>
-                <select class="form-control" name="carrer_active">
+                <select class="form-control" name="subject_active">
                     <option value="1" {{($subject->subject_active) ? ' selected' : ''}}>Ativo</option>
                     <option value="0" {{($subject->subject_active) ? '' : ' selected'}}>Inativo</option>
                 </select>
@@ -46,10 +56,26 @@
               $.each(dados, function(i, obj)
               {
                 if({{($subject->fk_carrer_profession)}} === obj.profession_id)  option += "<option value='"+ obj.profession_id +"' selected>" + obj.profession_nome + "</option>"
-                else option += "<option value='"+ obj.profession_id +"'>" + obj.profession_nome + "</option>";              });
+                else option += "<option value='"+ obj.profession_id +"'>" + obj.profession_nome + "</option>";              
               });
           $("#profissaoCombo").html(option).show();
+            }
        });
+       var profissao = {{$subject->fk_carrer_profession}};
+        $.get('/carreira?profissao='+profissao, function(dados){
+            if (dados.length > 0){
+                var option = "<option value=''>Selecione Carreira</option>"; 
+                $.each(dados, function(i, obj){
+                    if({{($subject->fk_subject_carrer)}} === obj.carrer_id)  option += "<option value='"+ obj.carrer_id +"' selected>" + obj.carrer_nome + "</option>"
+                    else option += "<option value='"+ obj.carrer_id +"'>" + obj.carrer_nome + "</option>";
+                });
+                 
+            } else {
+                $("#carrerCombo").empty();
+                var option = "<option value=''>Carregando Carreira</option>";
+            }
+            $("#carrerCombo").html(option).show();
+            }); 
        $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){

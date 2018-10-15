@@ -24,16 +24,16 @@
              <form method="POST" action="{{ url('alterandoSenha',$user->user_id) }}" >
                  {{ csrf_field() }}
 
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' has-error' : '' }}" name="user_hash" id="senha" type="password" placeholder="Senha Atual">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha Atual">
                 </div>
 
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' has-error' : '' }}" name="new_user_hash" id="novasenha" type="password" placeholder="Nova Senha">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="new_user_hash" id="novasenha" type="password" placeholder="Nova Senha">
                 </div>
 
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' has-error' : '' }}" name="new_user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="new_user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
 
                 </div> 
 
