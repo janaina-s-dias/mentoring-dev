@@ -42,9 +42,9 @@ class UserSubjectController extends Controller
                            where('fk_subject_user', '=', intval($id));
         try {
             $us->delete();
-            return redirect('/UsuariosAssuntos')->with('success', 'Assunto removido dos interesses');
+            return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos interesses');
         } catch (QueryException $exc) {
-            return redirect('/UsuariosAssuntos')->with('failure', 'Assunto não removido dos interesses');
+            return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos interesses');
         }
     }
     public function PegaDadosUsuarioAssunto(Request $request) {
