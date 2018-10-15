@@ -216,15 +216,14 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{ url ('perfil')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="{{ url ('perfil')}}"><i class="fa fa-user fa-fw"></i> Perfil de Usuario</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="{{ url ('admin') }}"><i class="fa fa-gear fa-fw"></i> Area Administrativa</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{{ url ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{ url ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
-                    <li><a href="{{ url ('admin') }}"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->

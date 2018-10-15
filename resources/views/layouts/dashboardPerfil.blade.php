@@ -219,11 +219,11 @@
                         <li><a href="{{ route('perfil')}}"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
                         </li>
                         @if($user->user_role == 'dev' ||$user->user_role == 'admin' || $user->user_role == 'moderador')
-                        <li><a href="{{ url('pageTipos')}}"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="{{ url('admin')}}"><i class="fa fa-gear fa-fw"></i> Area Administrativa</a>
                         </li>
                         @endif
                         <li class="divider"></li>
-                        <li><a href="{{ route ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Deslogar</a>
+                        <li><a href="{{ route ('sair') }}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -341,7 +341,7 @@
                         @endif
                         @if($user->user_role == 'dev' ||$user->user_role == 'admin' || $user->user_role == 'moderador')
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('admin') }}"><i class="fa fa-file-word-o fa-fw"></i>Acessar Layout Mentoring</a>
+                            <a href="{{ url ('admin') }}"><i class="fa fa-file-word-o fa-fw"></i>Area Administrativa</a>
                         </li>
                         @endif
                     </ul>
