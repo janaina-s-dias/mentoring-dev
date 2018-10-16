@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     protected $primaryKey = 'contact_id';
-    protected $table;
-    protected $fillable;
+    protected $table = 'contacts';
+    protected $fillable = [
+    	'contact_type',
+    	'contact_description',
+    	'fk_contact_user'
+    ];
     protected $rules;
     protected $messages;
-            $table->string('contact_type', 20);
-            $table->string('contact_description', 100);
-            $table->unsignedInteger('fk_contact_user');
-
-    
+            
 }
