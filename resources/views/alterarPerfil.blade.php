@@ -85,46 +85,40 @@
                      <input class="form-control" 
                             name="user_cpf" id="cpf" type="number" placeholder="CPF"
                             value="{{ $user->user_cpf }}">
-        @if ($errors->has('user_cpf'))
-            <small class="text-danger" role="alert" style="margin-left: 95px">
-                <strong>{{ $errors->first('user_cpf') }}</strong>
-            </small>
-        @endif
-
+                            @if ($errors->has('user_cpf'))
+                                <small class="text-danger" role="alert" style="margin-left: 95px">
+                                    <strong>{{ $errors->first('user_cpf') }}</strong>
+                                </small>
+                            @endif
                  </div>
-            
             </div>
         
             <div class="form-group{{ $errors->has('user_telefone') ? ' has-error' : '' }}">
                  <label class="control-label col-sm-2" for="telefone">Telefone:</label>
-                 <div class="col-sm-10">
+                <div class="col-sm-10">
                      <input class="form-control"
                             name="user_telefone" id="telefone" type="number" placeholder="Telefone"
                             value="{{ $user->user_telefone }}">
-        @if ($errors->has('user_telefone'))
-            <small class="text-danger" role="alert" style="margin-left: 95px">
-                <strong>{{ $errors->first('user_telefone') }}</strong>
-            </small>
-        @endif
-
-                 </div>
-            
+                            @if ($errors->has('user_telefone'))
+                                <small class="text-danger" role="alert" style="margin-left: 95px">
+                                    <strong>{{ $errors->first('user_telefone') }}</strong>
+                                </small>
+                            @endif
+                </div>
             </div>
         
             <div class="form-group{{ $errors->has('user_celular') ? ' has-error' : '' }}">
-                 <label class="control-label col-sm-2" for="celular">Celular:</label>
-                 <div class="col-sm-10">
+                <label class="control-label col-sm-2" for="celular">Celular:</label>
+                <div class="col-sm-10">
                 <input class="form-control" 
                        name="user_celular" id="celular" type="number" placeholder="Celular"
                        value="{{ $user->user_celular }}">
-        @if ($errors->has('user_celular'))
-            <small class="text-danger" role="alert">
-                <strong>{{ $errors->first('user_celular') }}</strong>
-            </small>
-        @endif
-                 </div>
-        
-        
+                        @if ($errors->has('user_celular'))
+                            <small class="text-danger" role="alert">
+                                <strong>{{ $errors->first('user_celular') }}</strong>
+                            </small>
+                        @endif
+                </div>
             </div>
             <div class="form-group">
                 <table style="margin-left: 95px">
