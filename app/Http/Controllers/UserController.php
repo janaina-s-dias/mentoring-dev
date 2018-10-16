@@ -36,7 +36,7 @@ class UserController extends Controller
            $users->save();
            $user = User::where('user_email', '=', $request->user_email)->get()->first();
            $request->session()->put('user', $user);
-           return view('cadastroUsuario')->with('success', 'Continue seu cadastro');
+           return redirect('cadastro')->with('success', 'Continue seu cadastro');
         } 
         catch (QueryException $ex) 
         {
