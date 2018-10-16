@@ -43,7 +43,7 @@
                     <div class="form-group row{{ $errors->has('user_rg') ? ' has-error' : '' }}">
                             <label class="col-form-label col-sm-2" for="rg">RG:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" value="{{old('user_rg')}}" name="user_rg" id="rg" type="number" placeholder="RG">
+                                    <input class="form-control" value="{{old('user_rg')}}" name="user_rg" id="rg" type="text" placeholder="RG" maxlength="9">
                                     @if ($errors->has('user_rg'))
                                     <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_rg') }}</strong>
@@ -56,7 +56,7 @@
                     <div class="form-group row{{ $errors->has('user_cpf') ? ' has-error' : '' }}">
                         <label class="col-form-label col-sm-2" for="nome">CPF:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="number" style="-moz-appearance:textfield;"placeholder="CPF">
+                                <input class="form-control" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="text" placeholder="CPF">
                                 @if ($errors->has('user_cpf'))
                                 <small class="text-danger" role="alert">
                                     <strong>{{ $errors->first('user_cpf') }}</strong>
@@ -68,7 +68,7 @@
                     <div class="form-group row{{ $errors->has('user_telefone') ? ' has-error' : '' }}">
                         <label class="col-form-label col-sm-2" for="telefone">Telefone:</label>
                             <div class="col-sm-10">
-                                <input value="{{old('user_telefone')}}" class="form-control" name="user_telefone" id="telefone" type="number" placeholder="Telefone">
+                                <input value="{{old('user_telefone')}}" class="form-control" name="user_telefone" id="telefone" type="text" placeholder="Telefone">
                                 @if ($errors->has('user_telefone'))
                                 <small class="text-danger" role="alert">
                                     <strong>{{ $errors->first('user_telefone') }}</strong>
@@ -80,7 +80,7 @@
                     <div class="form-group row{{ $errors->has('user_celular') ? ' has-error' : '' }}">
                             <label class="col-form-label col-sm-2" for="celular">Celular:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" value="{{old('user_celular')}}" name="user_celular" id="celular" type="number" placeholder="Celular">
+                                    <input class="form-control" value="{{old('user_celular')}}" name="user_celular" id="celular" type="text" placeholder="Celular">
                                     @if ($errors->has('user_celular'))
                                     <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_celular') }}</strong>
@@ -112,6 +112,15 @@
                 </form>
         </fieldset>
     </div>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+               $("#rg").mask('99.999.999-9'); 
+               $("#cpf").mask('999.999.999-99'); 
+               $("#telefone").mask('(99) 9999-9999'); 
+               $("#celular").mask('(99) 99999-9999', options);
+            });
+        </script>
 </body>
 @include('inc.feedback')                  
 </html>
