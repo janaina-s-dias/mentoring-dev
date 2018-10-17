@@ -53,9 +53,9 @@ class User extends Model
         switch ($tipo) {
             case 'insert2':
                 $this->rules = [
-                        'user_cpf'          => 'bail|unique:users,user_cpf|required|digits:11'
+                        'user_cpf'          => 'bail|unique:users,user_cpf|required|max:14'
                     ,   'user_nome'         => 'bail|required|max:100'
-                    ,   'user_rg'           => 'bail|required|digits:9'
+                    ,   'user_rg'           => 'bail|required|max:12'
                     ,   'user_telefone'     => 'bail|max:15' 
                     ,   'user_celular'      => 'bail|max:15'
                 ];
@@ -81,9 +81,9 @@ class User extends Model
             case 'update':
                 $this->rules = [
                     'user_login' => 'bail|max:50|required|alpha_num', 
-                    'user_cpf' => 'bail|digits:11|required',           
+                    'user_cpf' => 'bail||required|max:14',           
                     'user_nome'  => 'bail|required|max:100', 
-                    'user_rg'  => 'bail|required|digits:9',   
+                    'user_rg'  => 'bail|required|max:12',   
                     'user_email' => 'bail|max:100|required|email|min:10',           
                     'user_telefone' => 'bail|max:15', 
                     'user_celular'=> 'bail|max:15'
