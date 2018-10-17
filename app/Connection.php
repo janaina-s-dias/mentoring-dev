@@ -12,9 +12,6 @@ class Connection extends Model
         'connection_start',
         'connection_end',
         'fk_connection_user',
-        'fk_connection_knwledge'
+        'fk_connection_knowledge'
     ];
-    protected $rules;
-    protected $messages;
-
 }
