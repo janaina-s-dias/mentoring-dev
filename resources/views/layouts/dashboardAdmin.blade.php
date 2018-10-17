@@ -124,6 +124,9 @@
                             <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
                                 <a href="{{ url ('Usuarios') }}">Usuários</a>
                             </li>
+                            <li {{ (Request::is('*Contatos') ? 'class="active"' : '') }}>
+                                <a href="{{ url ('Contatos') }}">Contatos</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
