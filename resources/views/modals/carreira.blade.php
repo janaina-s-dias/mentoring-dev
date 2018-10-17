@@ -63,10 +63,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-       if({{$errors->has('carrer_name')}} || {{$errors->has('fk_carrer_profession')}})
-       {
+       if({{$errors->hasAny(array('carrer_name', 'fk_carrer_profession'))}})
            $('#myModal2').modal('show');
-       }
- 
-    });
+        });
     </script>

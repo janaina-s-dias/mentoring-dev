@@ -89,7 +89,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    if({{$errors->has('subject_name')}} || {{$errors->has('fk_subject_carrer')}})
+    if({{$errors->hasAny(array('subject_name', 'fk_subject_carrer'))}})
        {
            $('#myModal3').modal('show');
        }

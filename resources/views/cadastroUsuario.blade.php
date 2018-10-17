@@ -24,12 +24,12 @@
         <?php $user = Session::get('user'); ?>
     <div class="container" style="margin-top: 50px">
         <fieldset>
-            <legend>Para prosseguir, conclua o cadastro</legend><br>
-                <form class="form-horizontal" method="POST" action="{{ route('inserirUser') }}">
+            <center><legend>Para prosseguir, conclua o cadastro...</legend></center><br>
+                <form class="form-horizontal mx-auto" method="POST" action="{{ route('inserirUser') }}" style="width: 800px">
                     @csrf
                     <div class="form-group row{{ $errors->has('user_nome') ? ' has-error' : '' }}">
                         <label class="col-form-label col-sm-2" for="nome">Nome:</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-8">
                                 <input class="form-control"  value="{{old('user_nome')}}" name="user_nome" id="nome" type="text" placeholder="Nome">
                                 @if ($errors->has('user_nome'))
                                 <small class="text-danger" role="alert">
@@ -42,7 +42,7 @@
 
                     <div class="form-group row{{ $errors->has('user_rg') ? ' has-error' : '' }}">
                             <label class="col-form-label col-sm-2" for="rg">RG:</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input class="form-control" value="{{old('user_rg')}}" name="user_rg" id="rg" type="text" placeholder="RG" maxlength="9">
                                     @if ($errors->has('user_rg'))
                                     <small class="text-danger" role="alert">
@@ -55,7 +55,7 @@
 
                     <div class="form-group row{{ $errors->has('user_cpf') ? ' has-error' : '' }}">
                         <label class="col-form-label col-sm-2" for="nome">CPF:</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-8">
                                 <input class="form-control" value="{{old('user_cpf')}}" name="user_cpf" id="cpf" type="text" placeholder="CPF">
                                 @if ($errors->has('user_cpf'))
                                 <small class="text-danger" role="alert">
@@ -67,7 +67,7 @@
 
                     <div class="form-group row{{ $errors->has('user_telefone') ? ' has-error' : '' }}">
                         <label class="col-form-label col-sm-2" for="telefone">Telefone:</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-8">
                                 <input value="{{old('user_telefone')}}" class="form-control" name="user_telefone" id="telefone" type="text" placeholder="Telefone">
                                 @if ($errors->has('user_telefone'))
                                 <small class="text-danger" role="alert">
@@ -79,7 +79,7 @@
 
                     <div class="form-group row{{ $errors->has('user_celular') ? ' has-error' : '' }}">
                             <label class="col-form-label col-sm-2" for="celular">Celular:</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input class="form-control" value="{{old('user_celular')}}" name="user_celular" id="celular" type="text" placeholder="Celular">
                                     @if ($errors->has('user_celular'))
                                     <small class="text-danger" role="alert">
@@ -88,9 +88,8 @@
                                     @endif
                                 </div>
                     </div>
-
                     <div class="form-group row">
-                        <table style="margin-left: 202px">
+                        <table style="margin-left: 150px">
                             <tr>
                                 <td colspan="2"><label class="col-form-label" for="knowledge">Deseja ser mentor?</label></td>
                             </tr>
@@ -101,12 +100,14 @@
                         </table>
                     </div>
 
-                    <div class="form-group row"> 
-                        <div style="margin-left: 980px">
+                    <div class="form-group row" class="mx-auto" style="margin-left:550px"> 
+                        <div>
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-success">Cadastrar</button>
-                                <a href="{{route('sair')}}" role="button" class="btn btn-warning">Sair</a>                    
-                            </div>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                                <div class="btn-group">
+                                <a href="{{route('sair')}}" role="button" class="btn btn-danger">Sair</a>                    
+                            </div>                  
                         </div>
                     </div>
                 </form>
@@ -130,5 +131,7 @@
             });
         </script>
 </body>
-@include('inc.feedback')                  
+<div class="mx-auto" style="width: 800px">
+    @include('inc.feedback')
+</div>                  
 </html>

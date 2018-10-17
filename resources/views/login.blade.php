@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
             <br /><br /><br />
-               @section ('login_panel_title','Acessar')
+               @section ('login_panel_title','Tela de Acesso - Mentoring')
                @section ('login_panel_body')
                <form role="form" action="{{ route ('acessar') }}" method="post">
                         @csrf
@@ -54,7 +54,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Cadastro</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Cadastro Inicial</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -64,15 +64,17 @@
                 @csrf
                 <div class="form-group{{ $errors->has('user_email') ? ' has-error' : '' }}">
                     <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail" value="{{old('user_email')}}">
-                @if ($errors->has('user_email'))
-                    <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('user_email') }}</strong>
-                    </small>
-                @endif
+                    <p class="help-block">Insira um e-mail válido</p> 
+                    @if ($errors->has('user_email'))
+                        <small class="text-danger" role="alert">
+                            <strong>{{ $errors->first('user_email') }}</strong>
+                        </small>
+                    @endif
                 </div>
                 <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
                     <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario"value="{{old('user_login')}}">
-                @if ($errors->has('user_login'))
+                    <p class="help-block">Mínimo 8 caracteres</p> 
+               @if ($errors->has('user_login'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_login') }}</strong>
                     </small>
@@ -80,12 +82,14 @@
                 </div>
                 <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
                     <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
-                </div>
-                @if ($errors->has('user_hash'))
+                    <p class="help-block">Mínimo 8 caracteres</p> 
+                    @if ($errors->has('user_hash'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>
                     </small>
                 @endif
+                </div>
+               
                 <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
                     <input class="form-control" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
                 @if ($errors->has('user_hash'))
@@ -108,9 +112,9 @@
 <!-- Verifica a confirmação de senha -->
 <script type="text/javascript">
     $(document).ready(function(){
-       if({{$errors->has('user_hash')}} || {{$errors->has('user_login')}} || {{$errors->has('user_email')}})
-       {
+        if({{$errors->hasAny(array('user_hash', 'user_login', 'user_email'))}})
+        {
            $('#modalCadastro').modal('show');
-       }
+        }
     });
 </script>
