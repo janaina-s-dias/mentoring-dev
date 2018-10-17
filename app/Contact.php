@@ -13,7 +13,17 @@ class Contact extends Model
     	'contact_description',
     	'fk_contact_user'
     ];
-    protected $rules;
-    protected $messages;
+    protected $rules = [
+        'contact_type' => 'bail|required|max:20',
+    	'contact_description' => 'bail|required|max:100',
+    	'fk_contact_user' => 'required'
+    ];
+    protected $messages = [
+        'contact_type.required' => 'Campo de tipo de contato é de obrigatorio preenchimento',
+        'contact_type.max' => 'Campo de tipo de contato de tamanho maximo de 20',
+    	'contact_description.required' => 'Contato é de obrigatorio preenchimento',
+    	'contact_description.max' => 'Contato de tamanho maximo de 100',
+    	'fk_contact_user.required' => 'Usuario precisa estar logado'
+    ];
             
 }

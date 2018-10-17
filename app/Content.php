@@ -14,7 +14,7 @@ class Content extends Model
     protected $rules = ['content_content' => 'sometimes|required|min:10|max:65000',
                         'content_title' => 'required|min:10|max:100',
                         'content_url' => 'sometimes|bail|required|active_url',
-                        'content_type' => 'bail|required|numeric'
+                        'content_type' => 'bail|required|max:20'
         
     ];    
      protected $messages = ['content_content.required' => 'O Conteudo deve ser preenchido!',                        
