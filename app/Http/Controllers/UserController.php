@@ -14,33 +14,16 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request) {
         $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = new User([
@@ -53,11 +36,11 @@ class UserController extends Controller
            $users->save();
            $user = User::where('user_email', '=', $request->user_email)->get()->first();
            $request->session()->put('user', $user);
-           return view('cadastroUsuario')->with('success', 'Continue seu cadastro');
+           return redirect('cadastro')->with('success', 'Continue seu cadastro');
         } 
         catch (QueryException $ex) 
         {
-            redirect('/')->with('failure', 'Não foi possivel cadastrar');
+            redirect('/')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
     
@@ -81,69 +64,44 @@ class UserController extends Controller
            $request->session()->put('user', $user);
            return redirect('/')->with('success', 'Continue seu cadastro');
         } 
-        catch (Exception $ex) 
+        catch (QueryException $ex) 
         {
-            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar');
+            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = User::find($id)->first();
-        redirect('user.index')->with('finded', $user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id)->first();
-        return view('user.editar')->with('finded', $user);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateSenha(Request $request, $id){
-        $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);
-        $user = UserController::find($id);
-        if(Hash::check($request->get('user_hash-last'), $user->user_hash))
+    public function updateSenha(Request $request, $user_id){
+        $user = User::find($user_id);
+        $this->validate($request, $this->user->Regras('senha'), $this->user->mensagens);        
+        if($request->get('new_user_hash') != $request->get('new_user_hash_confirmation'))
+            {
+            return view('/alterarSenha')->with('failure', 'Senhas diferentes!');            
+        } else {
+            if(Hash::check($request->get('user_hash'), $user->user_hash))
         {
-            $user->user_hash = Hash::make($request->get('user_hash'));
+            $user->user_hash = Hash::make($request->get('new_user_hash'));
             try
             {
                 $user->update();
-                redirect('senha')->with('success', 'Senha alterada com sucesso');
+                return view('alterarSenha')->with('success', 'Senha alterada com sucesso!');
                 
             } catch (QueryException $ex) {
-                redirect('senha')->with('failure', 'Senha não alterada');
+                return view('alterarSenha')->with('failure', 'Senha não alterada!');
             }
+        } else {
+            return view('alterarSenha')->with('failure', 'Senha antiga errada!');
         }
-        else
-        {
-            redirect('senha')->with('failure', 'Senha antiga errada');
+            
         }
     }
+    
+    
     
     public function update(Request $request, $id)
     {
         
         $this->validate($request, $this->user->Regras('update'), $this->user->mensagens);
-        $user = User::find($id)->first();
+        $user = User::find($id);
         $user->user_login = $request->user_login;
         $user->user_cpf = $request->user_cpf;
         $user->user_nome = $request->user_nome;
@@ -155,13 +113,12 @@ class UserController extends Controller
         try
         {
            $user->update();
-           $usua = $request->session()->get('user');
-           $users = User::where('user_email', '=', $usua->user_email)->get()->first();
+           $users = User::find($id);
            $request->session()->flush();
            $request->session()->put('user', $users);
-           redirect('alterarPerfil')->with('success', 'Informações alteradas');
-        } catch (Exception $ex) {
-           redirect('alterarPerfil')->with('failure', 'ERRO! Informações não alteradas');
+           return redirect('/alterarPerfil')->with('success', 'Informações alteradas!');
+        } catch (QueryException $ex) {
+           return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas!');
         }
         
         
@@ -173,15 +130,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $user = User::find($id)->first();
+        $userSession = $request->session()->get('user');
+        $user = User::find($id);
         try
         {
             $user->delete();
-            redirect('user.index')->with('success', 'Usuário deletado');
+            if($id == $userSession->user_id)
+            {
+                $request->session()->flush();
+            }
+            return redirect('/Usuarios')->with('success', 'Usuário deletado!');
         } catch (QueryException $ex) {
-            redirect('user.editar')->with('failure', 'ERRO! Usuário não deletado');
+            return redirect('/Usuarios')->with('failure', 'ERRO! Usuário não deletado!');
         }
     }
     
@@ -199,11 +161,11 @@ class UserController extends Controller
             }
             else
             {
-                return redirect('/')->with('error', 'Senha incorreta');            }
+                return redirect('/')->with('failure', 'Senha incorreta!');            }
         }
         else
         {
-            return redirect('/')->with('error', 'Usuario inexistente');
+            return redirect('/')->with('failure', 'Usuario inexistente!');
         }
     }
     public function logout(Request $request)
@@ -218,15 +180,15 @@ class UserController extends Controller
         foreach ($pegadados as $row) {
              $sub_dados = array();
              $sub_dados[] = $row->user_id;
-             $sub_dados[] = $row->user_name;
+             $sub_dados[] = $row->user_nome;
              $sub_dados[] = $row->user_login;
              $sub_dados[] = $row->user_email;
              $sub_dados[] = $row->user_cpf;
              $sub_dados[] = $row->user_rg;
              $sub_dados[] = $row->user_telefone;
              $sub_dados[] = $row->user_celular;
-             $sub_dados[] = $row->user_knowledge;
-             $sub_dados[] = "<button onclick='popularListaAssuntos(".$row->user_id.") role='button' class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span></a>";
+             $sub_dados[] = ($row->user_knowledge) ? 'Sim' : 'Não';
+             //$sub_dados[] = "<button id='assuntos' value='".$row->user_id."' role='button' class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span></a>";
              $sub_dados[] = "<form method='POST' action=".route('user.destroy', $row->user_id)."'>".
                             method_field('DELETE').
                             csrf_field().
@@ -249,7 +211,7 @@ class UserController extends Controller
         $this->user = User::select('user_id','user_nome', 'user_login','user_email', 'user_cpf', 'user_rg', 'user_telefone', 'user_celular', 'user_knowledge');
         if($request->input('search.value') != null)
         {
-            $this->carrer->where('user_nome', 'like' ,'%', $request->input('search.value'));            
+            $this->carrer->where('user_name', 'like' ,'%', $request->input('search.value'));            
         }
         if($request->order!= null)
         {
@@ -258,7 +220,7 @@ class UserController extends Controller
         }
         else
         {
-            $this->user->orderBy('user_id', 'desc');
+            $this->user->orderBy('user_id', 'asc');
         }
     }
     

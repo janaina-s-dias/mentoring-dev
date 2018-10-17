@@ -27,7 +27,9 @@ Route::get('cadastro', function(Request $request)
 Route::get('/', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('home');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('home');
     }
     else
     {
@@ -39,7 +41,9 @@ Route::get('/', function(Request $request){
 Route::get('perfil', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('perfil');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('perfil');
     }
     else
     {
@@ -51,7 +55,9 @@ Route::get('perfil', function(Request $request){
 Route::get('cadastroAssunto', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('cadastroAssunto');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('cadastroAssunto');
     }
     else
     {
@@ -63,7 +69,9 @@ Route::get('cadastroAssunto', function(Request $request){
 Route::get('alterarPerfil', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('alterarPerfil');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('alterarPerfil');
     }
     else
     {
@@ -75,7 +83,9 @@ Route::get('alterarPerfil', function(Request $request){
 Route::get('alterarSenha', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('alterarSenha');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('alterarSenha');
     }
     else
     {
@@ -85,7 +95,7 @@ Route::get('alterarSenha', function(Request $request){
 });
 
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
-Route::any('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
+Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::get('/sair', 'UserController@logout')->name('sair');
@@ -93,12 +103,16 @@ Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
 Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
 Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
 Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
-Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuario')->name('pegaDadosUsuarioAssunto');
+Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
 Route::resource('user', 'UserController');
+
+Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
+Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
+        
 
 Route::get('/profissao', function(){
     $profession = \App\Profession::all();
@@ -109,7 +123,7 @@ Route::get('/profissao', function(){
         $subarray['profession_nome'] = $value->profession_name;
         $dados[]=$subarray;
     }
-    return Response::json($dados);
+   return Response::json($dados);
     
 });
 
@@ -129,7 +143,7 @@ Route::get('/carreira', function(Request $request){
 
 Route::get('/assunto', function(Request $request){
     $carrer = $request->get('carreira');
-    $subject = \App\Subject::where('fk_subject_carrer', $carrer)->get();
+    $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)->get();
     $dados = array();
     foreach ($subject as $value) {
         $subarray = array();
@@ -159,7 +173,9 @@ Route::get('/userassunto', function(Request $request){
 Route::get('tables', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('table');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('table');
     }
     else
     {
@@ -170,7 +186,9 @@ Route::get('tables', function(Request $request){
 Route::get('forms', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('form');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('form');
     }
     else
     {
@@ -182,7 +200,9 @@ Route::get('forms', function(Request $request){
 Route::get('charts', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('mcharts');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
+        else return view('mcharts');
     }
     else
     {
@@ -193,7 +213,9 @@ Route::get('charts', function(Request $request){
 Route::get('blank', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('blank');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
+        else return view('blank');
     }
     else
     {
@@ -205,7 +227,9 @@ Route::get('panel', function(Request $request){
     
     if($request->session()->exists('user'))
     {
-    	return view('panel');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
+        else return view('panel');
     }
     else
     {
@@ -217,51 +241,59 @@ Route::get('panel', function(Request $request){
 Route::get('collapse', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('collapse');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('collapse');
     }
     else
     {
-        return view('login');
+       return view('login');
     }
 });
 
 Route::get('documentation', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('documentation');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('documentation');
     }
     else
-    {
-        return view('login');
+    {        return view('login');
     }
 });
 
 Route::get('icons', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('icons');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('icons');
     }
     else
     {
-        return view('login');
+       return view('login');
     }
 });
 
 Route::get('notifications', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('notifications');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('notifications');
     }
     else
-    {
-        return view('login');
+    {        return view('login');
     }
 });
 
 Route::get('panels', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('panel');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('panel');
     }
     else
     {
@@ -276,7 +308,9 @@ Route::get('panels', function(Request $request){
 Route::get('stats', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('stats');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('stats');
     }
     else
     {
@@ -287,18 +321,22 @@ Route::get('stats', function(Request $request){
 Route::get('typography', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('typography');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('typography');
     }
     else
     {
-        return view('login');
+       return view('login');
     }
 });
 
 Route::get('buttons', function(Request $request){
   if($request->session()->exists('user'))
     {
-    	return view('buttons');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('buttons');
     }
     else
     {
@@ -309,7 +347,9 @@ Route::get('buttons', function(Request $request){
 Route::get('grid', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('grid');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('grid');
     }
     else
     {
@@ -319,20 +359,25 @@ Route::get('grid', function(Request $request){
 
 
 Route::get('admin', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	return view('layouts.dashboardAdmin');
+    if($request->session()->exists('user'))    {
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('layouts.dashboardAdmin');
     }
     else
     {
-        return view('login');
+        $user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('login');
     }
 });
 
 Route::get('Profissoes', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('pageTipos');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('pageTipos');
     }
     else
     {
@@ -344,7 +389,9 @@ Route::get('Profissoes', function(Request $request){
 Route::get('Carreiras', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('manterCarreira');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manterCarreira');
     }
     else
     {
@@ -356,7 +403,9 @@ Route::get('Carreiras', function(Request $request){
 Route::get('Assuntos', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('manterAssunto');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manterAssunto');
     }
     else
     {
@@ -364,10 +413,12 @@ Route::get('Assuntos', function(Request $request){
     }
 });
 
-Route::get('userSubjects', function(Request $request){
+Route::get('Usuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('manteruserSubject');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manterUsuario');
     }
     else
     {
@@ -376,18 +427,15 @@ Route::get('userSubjects', function(Request $request){
 });
 
 
-Route::get('users', function(Request $request){
+Route::get('AssuntosUsuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('manterUsuario');
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manteruserSubject');
     }
     else
     {
         return view('login');
     }
 });
-
-
-
-
-

@@ -1,26 +1,37 @@
 @extends('layouts.dashboardPerfil')
 @section('page_heading','Perfil')
 @section('section')
-         
-         <section class="arus" style="height: 250px; padding: 50px 50px; background: #b3ffd9;">
+<?php $user = Session::get('user'); ?>        
+        <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
 
-         	<img class="tumbnail" src="{{ asset("svg/403.svg") }}"  alt="" style="width: 150px; height: 150px;">
+        <section class="astros">
+     
+        <header class="o-header">
+        <img class="tumbnail" src="{{ asset("logos/avatar.png") }}"  alt="">
+        </header>
+        <header class="e-header">
+        <div><h2>{{$user->user_nome}}</h2></div>
+        <div><h4>Alguma coisa</h4></div>
+        <div><h4>Alguma outra coisa</h4></div>
+        </header>
+        <aside class="o-aside">
+        <div>
+        <h2>Assuntos</h2>
+        <ul class="aki">
+        <?php // foreach ?>
+            <li>
+                Assuntos....
+            </li>
+        </ul>
+       </div>
+       </aside>
+       <main class="o-main">
+       
+       <div><h2>Conexões</h2></div>
+      
+       </main>
 
-         	<div>
-         	<ul>
-            <li>Assunto...</li>
-            <li>Assunto...</li>
-            <li>Assunto...</li>
-            </ul>
-            </div>
 
-         </section>
-  
-         <section class="arcus" style="height: 200px; padding: 55px 55px; background: #80d4ff;">
-             
-             <h3>Conexões</h3>
-
-              
-         </section>  
+    </section>
             
 @stop

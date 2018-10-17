@@ -13,9 +13,9 @@ class Subject extends Model
     ];
     protected $rules;
     public $messages = [
-        'subject_name.required' => 'A Nome do assunto deve ser preenchido para seu cadastro',
-        'subject_name.unique' => 'Este Assunto ja está cadastrada',
-        'subject_name.max' => 'Digite no maximo 50 caracteres',
+        'subject_name.required' => 'O nome do assunto deve ser preenchido para seu cadastro!',
+        'subject_name.unique' => 'Assunto já cadastrado em seus interesses!',
+        'subject_name.max' => 'Digite no máximo 50 caracteres',
         'fk_subject_carrer.required' => 'Carreira é obrigatoria'
     ];
     
@@ -31,5 +31,6 @@ class Subject extends Model
             case 'update':
                 $this->rules = ['subject_name' => 'required|max:50', 'fk_subject_carrer' =>'required'];
         }
+        return $this->rules;
     }
 }

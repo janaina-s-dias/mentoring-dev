@@ -2,19 +2,19 @@
 <script type="text/javascript"> 
     $(document).ready(function (){
        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-       $('#tabelaAssunto').DataTable({
+       $('#tabelaContato').DataTable({
            "processing": true,
            "serverSide": true,
            "order": [],
            "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
-               "url": "{{ route('pegaDadosAssunto') }}", //url Controller Assunto - PegaDados
+               "url": "{{ route('pegaDadosContato') }}", //url Controller Contato - PegaDados
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
            "columnDefs": [
                 {
-                    "targets": [ 4,  5 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 4, 5 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -40,15 +40,15 @@
 </script>
 
 <div>
-<table id="tabelaAssunto" class="table-responsive">
+<table id="tabelaContato" class="table-responsive">
     <thead>
         <tr>
-            <th>Código</th>
-            <th>Assunto</th>
-            <th>Status</th>
-            <th>Carreira</th>            
+            <th>Código</th> 
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Usuario</th>
             <th>Alterar</th>
-            <th>Excluir</th>
+            <th>Excluir</th> 
         </tr>
     </thead>
     <tbody>

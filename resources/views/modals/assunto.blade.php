@@ -15,22 +15,36 @@
                 </select>
             </div>
 
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('fk_subject_carrer') ? ' has-error' : '' }}">
                   <label>Carreira</label>
+<<<<<<< HEAD
                   <select class="form-control" id="carrerCombo" name="fk_carrer_subject">
+=======
+                  <select class="form-control" name="fk_subject_carrer" id="carrerCombo">
+>>>>>>> refs/remotes/origin/master
                       <option value="">Carregando Carreira</option>
                   </select>
                  <!-- Combo com carreiras existentes -->
+                 @if ($errors->has('fk_subject_carrer'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('fk_subject_carrer') }}</strong>
+                                </small>
+                @endif
               </div>
-              <div class="form-group">
+              <div class="form-group{{ $errors->has('subject_name') ? ' has-error' : '' }}">
                 <label>Nome</label>
-                <input type="text" name="subject_name" class="form-control">
+                <input type="text" name="subject_name" class="form-control" value="{{old('subject_name')}}">
                 <!-- <p class="help-block">Example block-level help text here.</p> -->
+                @if ($errors->has('subject_name'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('subject_name') }}</strong>
+                                </small>
+                @endif
             </div>
             
               <div class="form-group">
                 <label>Status</label>
-                <select class="form-control" name="carrer_active">
+                <select class="form-control" name="subject_active">
                     <option value="1">Ativo</option>
                     <option value="0">Inativo</option>
                 </select>
@@ -44,8 +58,8 @@
   </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
-       $get('/profissao', function(dados) {
+  $(document).ready(function(){
+       $.get('/profissao', function(dados) {
           if(dados.length > 0)
           {
               var option = "<option value=''>Selecione Profissão</option>"
@@ -53,8 +67,13 @@
               {
                   option += "<option value='"+ obj.profession_id +"'>"+ obj.profession_nome +"</option>"
               });
+              $("#profissaoCombo").html(option).show();
           }
+<<<<<<< HEAD
           $("#profissaoCombo").html(option).show();
+=======
+          
+>>>>>>> refs/remotes/origin/master
        });
        $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
@@ -73,5 +92,14 @@
         $("#carrerCombo").html(option).show();
          }); 
     });
+  });   
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    if({{$errors->hasAny(array('subject_name', 'fk_subject_carrer'))}})
+       {
+           $('#myModal3').modal('show');
+       }
     });
 </script>

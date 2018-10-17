@@ -10,25 +10,25 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
             <br /><br /><br />
-               @section ('login_panel_title','Acessar')
+               @section ('login_panel_title','Tela de Acesso - Mentoring')
                @section ('login_panel_body')
                <form role="form" action="{{ route ('acessar') }}" method="post">
                         @csrf
                             <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_login_login') ? ' is-invalid' : '' }}" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
+                                <div class="form-group{{ $errors->has('user_login_login') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
                                     @if ($errors->has('user_login_login'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_login_login') }}</strong>
-                                    </span>
+                                    </small>
                                     @endif
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control{{ $errors->has('user_hash_login') ? ' is-invalid' : '' }}" placeholder="Senha" name="user_hash_login" type="password">
+                                <div class="form-group{{ $errors->has('user_hash_login') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Senha" name="user_hash_login" type="password">
                                     @if ($errors->has('user_hash_login'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <small class="text-danger" role="alert">
                                         <strong>{{ $errors->first('user_hash_login') }}</strong>
-                                    </span>
+                                    </small>
                                     @endif
                                 </div>
                                 <div class="checkbox">
@@ -54,7 +54,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Cadastro</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Cadastro Inicial</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -62,36 +62,40 @@
       <div class="modal-body">
         <form  method="POST" action="{{ route('inserir') }}">
                 @csrf
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_email') ? ' is-invalid' : '' }}" name="user_email" id="email" type="text" placeholder="E-mail">
-                @if ($errors->has('user_email'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('user_email') }}</strong>
-                    </span>
-                @endif
+                <div class="form-group{{ $errors->has('user_email') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail" value="{{old('user_email')}}">
+                    <p class="help-block">Insira um e-mail válido</p> 
+                    @if ($errors->has('user_email'))
+                        <small class="text-danger" role="alert">
+                            <strong>{{ $errors->first('user_email') }}</strong>
+                        </small>
+                    @endif
                 </div>
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_login') ? ' is-invalid' : '' }}" name="user_login" id="user" type="text" placeholder="Usuario">
-                @if ($errors->has('user_login'))
-                    <span class="invalid-feedback" role="alert">
+                <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario"value="{{old('user_login')}}">
+                    <p class="help-block">Mínimo 8 caracteres</p> 
+               @if ($errors->has('user_login'))
+                    <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_login') }}</strong>
-                    </span>
+                    </small>
                 @endif
                 </div>
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' is-invalid' : '' }}" name="user_hash" id="senha" type="password" placeholder="Senha">
-                </div>
-                @if ($errors->has('user_hash'))
-                    <span class="invalid-feedback" role="alert">
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
+                    <p class="help-block">Mínimo 8 caracteres</p> 
+                    @if ($errors->has('user_hash'))
+                    <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>
-                    </span>
+                    </small>
                 @endif
-                <div class="form-group">
-                    <input class="form-control{{ $errors->has('user_hash') ? ' is-invalid' : '' }}" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
+                </div>
+               
+                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
                 @if ($errors->has('user_hash'))
-                    <span class="invalid-feedback" role="alert">
+                    <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>
-                    </span>
+                    </small>
                 @endif
                 </div> 
         
@@ -108,9 +112,9 @@
 <!-- Verifica a confirmação de senha -->
 <script type="text/javascript">
     $(document).ready(function(){
-       if({{$errors->has('user_hash')}} || {{$errors->has('user_login')}} || {{$errors->has('user_email')}})
-       {
+        if({{$errors->hasAny(array('user_hash', 'user_login', 'user_email'))}})
+        {
            $('#modalCadastro').modal('show');
-       }
+        }
     });
 </script>

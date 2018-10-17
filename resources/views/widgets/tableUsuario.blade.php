@@ -8,25 +8,25 @@
            "order": [],
            "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
-               "url": "{{ route('pegaDadosUsuario') }}", //url Controller Profession - PegaDados
+               "url": "{{ route('pegaDadosUsuario') }}", 
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
            "columnDefs": [
                 {
-                    "targets": [ 9, 10 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 9 ],  
                     "orderable": false
                 }
            ],
            "language": {
                 "zeroRecords": "Nada encontrado - desculpe",
-                "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
                 "infoEmpty": "Nenhum registro disponivel",
                 "infoFiltered": "(filtrado do total de _MAX_ registros)",
                 "paginate": {
                     "first":      "Primeira",
-                    "last":       "Ultima",
-                    "next":       "Proxima",
+                    "last":       "Última",
+                    "next":       "Próxima",
                     "previous":   "Anterior"
                 },
                 "search":         "Pesquisar:",
@@ -52,7 +52,7 @@
             <th>Telefone</th>
             <th>Celular</th>
             <th>Mentor?</th>
-            <th>Ver assuntos</th>
+            <!--<th>Ver assuntos</th>-->
             <th>Excluir</th>
         </tr>
     </thead>

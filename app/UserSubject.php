@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSubject extends Model
 {
-    protected $table = 'usersubjects';
-    protected $fillable = [
-        'fk_user_subject', 'fk_subject_user',
-    ];
-    protected $rules = [];
-    protected $messages = [];
+   protected $table = 'usersubjects';
+   protected $fillable = [
+   		'fk_user_subject', 'fk_subject_user'
+   ];
+   public $rules = [
+       'fk_user_subject' => 'required',
+       'fk_subject_user' => 'required'
+   ];
+   public $messages = [
+       'fk_user_subject.required' => 'É obrigatório informar Assunto',
+       'fk_subject_user.required' => 'É obrigatório informar Usuário'
+   ];
 }

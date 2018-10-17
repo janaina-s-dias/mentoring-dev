@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Connection extends Model
 {
     protected $primaryKey = 'connection_id';
-    protected $table;
-    protected $fillable;
-    protected $rules;
-    protected $messages;
+    protected $table = 'connections';
+    protected $fillable = [
+        'connection_start',
+        'connection_end',
+        'fk_connection_user',
+        'fk_connection_knowledge'
+    ];
 }

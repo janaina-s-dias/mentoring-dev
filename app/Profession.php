@@ -10,9 +10,9 @@ class Profession extends Model
     protected $fillable = ['profession_name', 'profession_active'];
     private $rules;
     public $message = [
-        'profession_name.required' => 'A profissão é obrigatoria',
-        'profession_name.unique' => 'Profissão ja existente',
-        'profession_name.max' => 'Deve conter no maximo 50 caracteres',
+        'profession_name.required' => 'A profissão é obrigatória!',
+        'profession_name.unique' => 'Profissão já existente!',
+        'profession_name.max' => 'O campor deve conter no máximo 50 caracteres!',
     ];
     public function Rules($type = 'insert')
     {

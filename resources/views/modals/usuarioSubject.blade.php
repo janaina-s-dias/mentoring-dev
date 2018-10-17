@@ -15,11 +15,11 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function (){
-    function popularListaAssuntos(user)
-{
-         $('#myModall4').modal("show");
-         $("#subjectsUsuario").empty();   
-         $.get('/userassunto?user='+user, function(dados){
+    $('#assuntos').click(function(){
+        var user = $(this).val();
+        $('#myModal4').modal("show");
+        $("#subjectsUsuario").empty();   
+        $.get('/userassunto?user='+user, function(dados){
             if (dados.length > 0){
                 var option = "<li><strong>Assuntos:</strong></li>"; 
                 $.each(dados, function(i, obj){
@@ -34,6 +34,6 @@ $(document).ready(function (){
             
         $("#subjectsUsuario").html(option).show();
          }); 
-}
+    });
 });
 </script>

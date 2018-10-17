@@ -22,19 +22,19 @@ class User extends Model
     ];
     protected $rules;
     public $mensagens = [
-        'user_login_login.required' => 'Usuario é obrigatorio',
-        'user_hash_login.required' => 'Senha obrigatoria',
-        'user_login.required' => 'Usuario é obrigatorio',
-        'user_login.unique' => 'Usuario ja utilizado',
-        'user_login.max' => 'Usuario muito grande',
-        'user_login.min' => 'Usuario muito pequeno',
-        'user_login.alpha_num' => 'O username deve ser somente letras e numeros',
-        'user_hash.required' => 'Senha obrigatoria',
-        'user_hash.min' => 'Senha muito pequena',
-        'user_hash.max' => 'Senha muito grande',
-        'user_hash-last.required' => 'Senha antiga é obrigatoria',
-        'user_email.required' => 'Email obrigatorio',
-        'user_email.email' => 'Email invalido',
+        'user_login_login.required' => 'Usuário é obrigatório!',
+        'user_hash_login.required' => 'Senha obrigatória!',
+        'user_login.required' => 'Campo usuario é obrigatório!',
+        'user_login.unique' => 'Usuário já existente. Insira outro usuário!',
+        'user_login.max' => 'Usuário informado contém mais caracteres que o máximo permitido!',
+        'user_login.min' => 'Usuário informado contém menos caracteres que o mínimo permitido!',
+        'user_login.alpha_num' => 'O username deve conter somente letras e números!',
+        'user_hash.required' => 'Senha obrigatória!',
+        'user_hash.min' => 'Senha informada muito pequena!',
+        'user_hash.max' => 'Senha informada muito grande!',
+        'user_hash-last.required' => 'Senha antiga é obrigatória!',
+        'user_email.required' => 'Email obrigatório',
+        'user_email.email' => 'Email inválido',
         'user_email.max' => 'Email muito grande',
         'user_email.min' => 'Email muito pequeno',
         'user_email.unique' => 'Email já utilizado',
@@ -53,9 +53,9 @@ class User extends Model
         switch ($tipo) {
             case 'insert2':
                 $this->rules = [
-                        'user_cpf'          => 'bail|unique:users,user_cpf|required|digits:11'
+                        'user_cpf'          => 'bail|unique:users,user_cpf|required|max:14'
                     ,   'user_nome'         => 'bail|required|max:100'
-                    ,   'user_rg'           => 'bail|required|digits:9'
+                    ,   'user_rg'           => 'bail|required|max:12'
                     ,   'user_telefone'     => 'bail|max:15' 
                     ,   'user_celular'      => 'bail|max:15'
                 ];
@@ -74,16 +74,16 @@ class User extends Model
             break;
             case 'senha':
                 $this->rules = [
-                    'user_hash-last' => 'bail|required',
-                    'user_hash' => 'bail|required||min:8|max:50|confirmed'
+                    'user_hash' => 'bail|required',
+                    'new_user_hash' => 'bail|required||min:8|max:50|confirmed'
                     ];
             break;
             case 'update':
                 $this->rules = [
                     'user_login' => 'bail|max:50|required|alpha_num', 
-                    'user_cpf' => 'bail|digits:11|required',           
+                    'user_cpf' => 'bail||required|max:14',           
                     'user_nome'  => 'bail|required|max:100', 
-                    'user_rg'  => 'bail|required|digits:9',   
+                    'user_rg'  => 'bail|required|max:12',   
                     'user_email' => 'bail|max:100|required|email|min:10',           
                     'user_telefone' => 'bail|max:15', 
                     'user_celular'=> 'bail|max:15'

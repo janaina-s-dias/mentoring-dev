@@ -14,39 +14,6 @@ class SubjectController extends Controller
         $this->subject = $subject;
     } 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $subject = Subject::all();
-        $dados = array();
-        foreach ($subject as $value) {
-            $subdados = array();
-            $subdados['subject_id'] = $value->subject_id;
-            $subdados['subject_nome'] = $value->subject_name;
-            $dados[] = $subdados;
-        }
-        echo json_encode($dados);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, $this->subject->Regras(), $this->subject->messages);
@@ -58,76 +25,51 @@ class SubjectController extends Controller
         try
         {
             $subject->save();
-            redirect('subject.index')->with('success', 'Assunto salvo');
+            return redirect('/Assuntos')->with('success', 'Assunto salvo!');
         } 
         catch (QueryException $ex) {
-            redirect('subject.create')->with('failure', 'Não foi possivel cadastrar o assunto', $request);
+            return redirect('/Assuntos')->with('failure', 'Não foi possivel cadastrar o assunto', $request);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $subject = Subject::find($id)->first();
-        redirect('subject.index')->with('finded', $subject);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Request $request)
     {
-        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->first();
+        $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get()->first();
         $request->session()->put('assunto', $subject);
         return view('edits.assuntoEdit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         $this->validate($request, $this->subject->Rules('update'), $this->subject->message);
         $subject = Subject::find($id)->first();
+=======
+        $this->validate($request, $this->subject->Regras('update'), $this->subject->messages);
+        $subject = Subject::find($id);
+>>>>>>> refs/remotes/origin/master
         $subject->subject_name = $request->subject_name;
         $subject->subject_active = $request->subject_active;
         $subject->fk_subject_carrer = $request->fk_subject_carrer;
         try
         {
             $subject->update();
-            return redirect('/Assuntos')->with('success', 'Assunto alterado');
+            $request->session()->forget('assunto');
+            return redirect('/Assuntos')->with('success', 'Assunto alterado!');
         } catch (QueryException $ex) {
-            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado');
+            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não alterado!');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $subject = Subject::find($id)->first();
+        $subject = Subject::find($id);
         try
         {
             $subject->delete();
-            redirect('subject.index')->with('success', 'Assunto deletado');
+            return redirect('/Assuntos')->with('success', 'Assunto deletado!');
         } catch (QueryException $ex) {
-            redirect('subject.index')->with('failure', 'ERRO! Assunto não deletado');
+            return redirect('/Assuntos')->with('failure', 'ERRO! Assunto não deletado!');
         }
     }
 
@@ -139,13 +81,13 @@ class SubjectController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->subject_id;
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = $row->subject_active;
+            $sub_dados[] = ($row->subject_active) ? 'Ativo' : 'Inativo';
             $sub_dados[] = $row->carrer_name;
             $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-            $sub_dados[] = "<form method='POST' action=".route('subject.destroy', $row->subject_id)."'>".
+            $sub_dados[] = "<form method='POST' action='".route('subject.destroy', $row->subject_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
         
@@ -161,7 +103,7 @@ class SubjectController extends Controller
     
     public function CriarQuery(Request $request)
     {
-        $this->subject = Subject::select('subject_id','subject_name', 'subject_active')
+        $this->subject = Subject::select('subject_id','subject_name', 'subject_active', 'carrer_name')
             ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer');
 
        

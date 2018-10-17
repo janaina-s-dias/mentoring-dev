@@ -13,29 +13,7 @@ class CarrerController extends Controller
     function __construct(Carrer $carrer) {
         $this->carrer = $carrer;
     } 
-    public function index()
-    {
-        $carrer = Profession::where('fk_carrer_profession', $id);
-        $dados = array();
-        foreach ($carrer as $value) {
-            $subdados = array();
-            $subdados['carrer_nome'] = $value->carrer_name;
-            $dados[] = $subdados;
-        }
-        echo json_encode($dados);
-    }
 
-    public function create()
-    {
-        //cadstro do carrer
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, $this->carrer->Regras(), $this->carrer->messages);
@@ -47,77 +25,46 @@ class CarrerController extends Controller
         try
         {
             $carrer->save();
-            return redirect('/Carreiras')->with('success', 'Carreira salva');
+            return redirect('/Carreiras')->with('success', 'Carreira salva!');
         } 
         catch (QueryException $ex) {
             return redirect('/Carreiras')->with('failure', 'Não foi possivel cadastrar a carreira', $request);
         }
     }
     
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $carrer = Carrer::find($id)->first();
-        redirect('carrer.index')->with('finded', $carrer);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Request $request)
     {
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         $request->session()->put('carreira', $carrer);
         return view('edits.carreiraEdit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->carrer->Regras('update'), $this->carrer->messages);
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         $carrer->carrer_name = $request->carrer_name;
         $carrer->carrer_active = $request->carrer_active;
         $carrer->fk_carrer_profession = $request->fk_carrer_profession;
         try
         {
             $carrer->update();
-            return redirect('/Carreiras')->with('success', 'Carreira alterada');
+            $request->session()->forget('carreira');
+            return redirect('/Carreiras')->with('success', 'Carreira alterada!');
         } catch (QueryException $ex) {
-            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não alterada!');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $carrer = Carrer::find($id)->first();
+        $carrer = Carrer::find($id);
         try
         {
             $carrer->delete();
-            redirect('carrer.index')->with('success', 'Carreira deletada');
+            return redirect('/Carreiras')->with('success', 'Carreira deletada!');
         } catch (QueryException $ex) {
-            redirect('carrer.index')->with('failure', 'ERRO! Carreira não deletada');
+            return redirect('/Carreiras')->with('failure', 'ERRO! Carreira não deletada!');
         }
     }
 
@@ -129,13 +76,12 @@ class CarrerController extends Controller
              $sub_dados[] = $row->carrer_id;
              $sub_dados[] = $row->carrer_name;
              $sub_dados[] = $row->profession_name;
-             if($row->carrer_active) $sub_dados[] = 'Ativa';
-             else $sub_dados[] = 'Inativa';
+             $sub_dados[] = ($row->carrer_active) ? 'Ativa' : 'Inativa';
              $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-             $sub_dados[] = "<form method='POST' action=".route('carrer.destroy', $row->carrer_id)."'>".
+             $sub_dados[] = "<form method='POST' action='".route('carrer.destroy', $row->carrer_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
         
