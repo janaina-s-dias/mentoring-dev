@@ -99,7 +99,7 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->subject->Rules('update'), $this->subject->messages);
+        $this->validate($request, $this->subject->Rules('update'), $this->subject->message);
         $subject = Subject::find($id)->first();
         $subject->subject_name = $request->subject_name;
         $subject->subject_active = $request->subject_active;
@@ -176,7 +176,7 @@ class SubjectController extends Controller
         }
         else
         {
-            $this->subject->orderBy('subject_id', 'desc');
+            $this->subject->orderBy('subject_id', 'asc');
         }
     }
     
