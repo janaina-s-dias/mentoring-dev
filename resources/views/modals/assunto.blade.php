@@ -10,14 +10,14 @@
               @csrf
             <div class="form-group">
                 <label>Profissão</label>
-                <select class="form-control" id="profissaoCombo"> 
+                <select class="form-control" id="profissaoCombo" name="fk_carrer_profession"> 
                     <option value="">Carregando Profissões</option>
                 </select>
             </div>
 
               <div class="form-group">
                   <label>Carreira</label>
-                  <select class="form-control" name="fk_carrer_subject" id="carrerCombo">
+                  <select class="form-control" id="carrerCombo" name="fk_carrer_subject">
                       <option value="">Carregando Carreira</option>
                   </select>
                  <!-- Combo com carreiras existentes -->
@@ -54,9 +54,9 @@
                   option += "<option value='"+ obj.profession_id +"'>"+ obj.profession_nome +"</option>"
               });
           }
-          $("#profissaoComno").html(option).show();
+          $("#profissaoCombo").html(option).show();
        });
-       $('#professaoCombo').change(function (){
+       $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){
             if (dados.length > 0){
