@@ -73,17 +73,17 @@ class CarrerController extends Controller
     { 
         $carrer = Carrer::find($id);
 
-        if($carrer->carrer == true) $carrer->carrer = false;
-        else if ($carrer->carrer == false) $carrer->carrer = true;
-        else $carrer->carrer = false;
+        if($carrer->carrer_active == true) $carrer->carrer_active = false;
+        else if ($carrer->carrer_active == false) $carrer->carrer_active = true;
+        else $carrer->carrer_active = false;
         try
         {
             $carrer->update();
             return redirect('/Carreiras')->with('success', 'Status alterado!');
           
-        } catch (QueryException $ex) {
+         } catch (QueryException $ex) {
             return redirect('/Carreiras')->with('failure', 'ERRO! Status não alterado!');
-        }
+         }
 
     }
 
