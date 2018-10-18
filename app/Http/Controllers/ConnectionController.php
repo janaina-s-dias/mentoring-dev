@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Connection;
 
 class ConnectionController extends Controller
 {
@@ -81,4 +82,76 @@ class ConnectionController extends Controller
     {
         //
     }
+
+
+    public function PegaDadosConexao(Request $request) {
+        $pegadados = $this->CriarDataTable($request);
+        $dados = array();
+        foreach ($pegadados as $row) {
+            $sub_dados = array();
+            $sub_dados[] = $row->connection_start;
+            $sub_dados[] = $row->connection_end;
+            $sub_dados[] = $row->fk_connection_user; //user_nome
+            $sub_dados[] = $row->fk_connection_knowledge; //knowledge_nivel
+            $dados[] = $sub_dados;
+        }
+        
+        $output = array (
+            "draw"  => intval($request->draw),
+            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsFiltered" => $this->RegistrosFiltrados($request),
+            "data" => $dados
+        );
+        echo json_encode($output);
+    }
+    private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel', null];
+
+    public function CriarQuery(Request $request)
+    {
+        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'knowledge_nivel')
+            ->join('users', 'user_id', '=', 'fk_connection_user')
+            ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge');
+           
+       
+        if($request->input('search.value') != null)
+        {
+            $this->connection->where('user_nome', 'like' ,'%', $request->input('search.value'));            
+        }
+        if($request->order!= null)
+        {
+            $this->connection->orderBy(array_get($this->order, $request->input('order.0.column')),
+                                $request->input('order.0.dir'));
+        }
+        else
+        {
+            $this->connection->orderBy('user_id', 'asc');
+        }
+    }
+    
+    public function CriarDataTable(Request $request)
+    {
+        $this->CriarQuery($request);
+        if($request->length != -1)
+        {
+            $this->connection->offset($request->start)->limit($request->length);
+        }
+        $query = $this->connection->get();
+        return $query;
+    }
+    
+    public function RegistrosFiltrados(Request $request)
+    {
+        $this->CriarQuery($request);
+        $query = $this->connection->count();
+        return $query;
+    }
+    
+    public function TodosRegistros()
+    {
+        $connection = Connection::all();
+        return $connection->count();
+    }
+
+
+
 }

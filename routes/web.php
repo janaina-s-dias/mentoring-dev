@@ -105,6 +105,7 @@ Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pe
 Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
 Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
 Route::post('/pegaDadosContato', 'ContactController@PegaDadosContato')->name('pegaDadosContato');
+Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
@@ -490,6 +491,19 @@ Route::get('Contatos', function(Request $request){
     	$user = $request->session()->get('user');
         if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterContatos');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+Route::get('Conexoes', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manterConexoes');
     }
     else
     {

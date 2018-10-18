@@ -128,6 +128,9 @@
                     <li {{ (Request::is('*alterarSenha') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarSenha') }}"><i class="fa fa-lock fa-fw"></i> Alterar Senha</a>
                     </li>
+                    <li {{ (Request::is('*Conexoes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('Conexoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Conexões</a>
+                    </li>
                     @if($user->user_role == 'dev')
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
@@ -200,12 +203,13 @@
                     <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                         <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                     </li>
+                  
                     @endif
                     @if($user->user_role == 'dev' ||$user->user_role == 'admin' || $user->user_role == 'moderador')
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
                             <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i>Area Administrativa</a>
                         </li>
-                    @endif
+                    @endif                                                          
                 </ul>
             </div>
         </div>
