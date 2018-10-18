@@ -375,9 +375,43 @@ Route::get('admin', function(Request $request){
     }
     else
     {
-        $user = $request->session()->get('user');
+        return view('login');
+    }
+});
+
+Route::get('EditarProfissao', function(Request $request){
+    if($request->session()->exists('user'))    {
+    	$user = $request->session()->get('user');
         if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('login');
+        else return view('edits.profissaoEdit');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+Route::get('EditarAssunto', function(Request $request){
+    if($request->session()->exists('user'))    {
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('edits.assuntosEdit');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+Route::get('EditarCarreira', function(Request $request){
+    if($request->session()->exists('user'))    {
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('edits.carreiraEdit');
+    }
+    else
+    {
+        return view('login');
     }
 });
 

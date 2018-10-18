@@ -33,7 +33,7 @@ class ProfessionController extends Controller
     {
         $profession = Profession::find($id);
         $request->session()->put('profissao', $profession);
-        return view('edits.profissaoEdit');
+        return redirect('/EditarProfissao');
     
     }
 

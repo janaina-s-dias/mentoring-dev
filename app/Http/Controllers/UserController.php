@@ -40,7 +40,7 @@ class UserController extends Controller
         } 
         catch (QueryException $ex) 
         {
-            redirect('/')->with('failure', 'Não foi possivel cadastrar!');
+            return redirect('/')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
     
@@ -66,7 +66,7 @@ class UserController extends Controller
         } 
         catch (QueryException $ex) 
         {
-            redirect('cadastro')->with('failure', 'Não foi possivel cadastrar!');
+            return redirect('cadastro')->with('failure', 'Não foi possivel cadastrar!');
         }
     }
 
@@ -83,13 +83,13 @@ class UserController extends Controller
             try
             {
                 $user->update();
-                return view('alterarSenha')->with('success', 'Senha alterada com sucesso!');
+                return redirect('alterarSenha')->with('success', 'Senha alterada com sucesso!');
                 
             } catch (QueryException $ex) {
-                return view('alterarSenha')->with('failure', 'Senha não alterada!');
+                return redirect('alterarSenha')->with('failure', 'Senha não alterada!');
             }
         } else {
-            return view('alterarSenha')->with('failure', 'Senha antiga errada!');
+            return redirect('alterarSenha')->with('failure', 'Senha antiga errada!');
         }
             
         }

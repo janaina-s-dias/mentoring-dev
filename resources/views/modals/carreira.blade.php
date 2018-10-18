@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="myModal2">
+<div class="modal fade" id="myModal2" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

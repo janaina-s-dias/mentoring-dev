@@ -36,7 +36,7 @@ class CarrerController extends Controller
     {
         $carrer = Carrer::find($id);
         $request->session()->put('carreira', $carrer);
-        return view('edits.carreiraEdit');
+        return redirect('EditarCarreira');
     }
 
     public function update(Request $request, $id)

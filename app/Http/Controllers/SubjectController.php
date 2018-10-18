@@ -36,7 +36,7 @@ class SubjectController extends Controller
     {
         $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get()->first();
         $request->session()->put('assunto', $subject);
-        return view('edits.assuntoEdit');
+        return redirect('EditarAssunto');
     }
 
     public function update(Request $request, $id)
