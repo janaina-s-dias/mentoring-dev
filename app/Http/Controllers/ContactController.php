@@ -34,7 +34,7 @@ class ContactController extends Controller
             $sub_dados[] = $row->contact_id;
             $sub_dados[] = $row->contact_type;
             $sub_dados[] = $row->contact_description;
-            $sub_dados[] = $row->user_name; //Tabela estrangeira
+            $sub_dados[] = $row->user_nome; //Tabela estrangeira
             $sub_dados[] = "<a href='".route('contact.edit', $row->contact_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('contact.destroy', $row->contact_id)."'>".
                             method_field('DELETE').
@@ -52,17 +52,17 @@ class ContactController extends Controller
         echo json_encode($output);
     }
 
-    private $order = ['contact_id','contact_type', 'contact_description','user_name', null, null ];
+    private $order = ['contact_id','contact_type', 'contact_description','user_nome', null, null ];
 
     public function CriarQuery(Request $request)
     {
-        $this->contact = Contact::select('contact_id','contact_type', 'contact_description', 'user_name')
+        $this->contact = Contact::select('contact_id','contact_type', 'contact_description', 'user_nome')
             ->join('users', 'user_id', '=', 'fk_contact_user');
            
        
         if($request->input('search.value') != null)
         {
-            $this->contact->where('user_name', 'like' ,'%', $request->input('search.value'));            
+            $this->contact->where('user_nome', 'like' ,'%', $request->input('search.value'));            
         }
         if($request->order!= null)
         {
