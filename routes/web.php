@@ -113,6 +113,9 @@ Route::resource('user', 'UserController');
 Route::resource('contact', 'ContactController');
 Route::patch('/ativar/{profession_id}', 'ProfessionController@ativar')->name('ativar');
 Route::patch('/ativarcarrer/{carrer_id}', 'CarrerController@ativarCarreira')->name('ativarcarrer');
+Route::patch('/ativarsubject/{subject_id}', 'SubjectController@ativarAssunto')->name('ativarsubject');
+
+
 
 Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
 Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste

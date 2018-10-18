@@ -41,13 +41,8 @@ class SubjectController extends Controller
 
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-        $this->validate($request, $this->subject->Rules('update'), $this->subject->message);
-        $subject = Subject::find($id)->first();
-=======
         $this->validate($request, $this->subject->Regras('update'), $this->subject->messages);
         $subject = Subject::find($id);
->>>>>>> refs/remotes/origin/master
         $subject->subject_name = $request->subject_name;
         $subject->subject_active = $request->subject_active;
         $subject->fk_subject_carrer = $request->fk_subject_carrer;
@@ -73,6 +68,24 @@ class SubjectController extends Controller
         }
     }
 
+
+    public function ativarAssunto($id)
+    { 
+        $subject = Subject::find($id);
+
+        if($subject->subject_active == true) $subject->subject_active = false;
+        else if ($subject->subject_active == false) $subject->subject_active = true;
+        else $subject->subject_active = false;
+        try
+        {
+            $subject->update();
+            return redirect('/Assuntos')->with('success', 'Status alterado!');
+          
+         } catch (QueryException $ex) {
+            return redirect('/Assuntos')->with('failure', 'ERRO! Status não alterado!');
+         }
+
+    }
     
     public function PegaDadosAssunto(Request $request) {
         $pegadados = $this->CriarDataTable($request);
@@ -81,8 +94,18 @@ class SubjectController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->subject_id;
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = ($row->subject_active) ? 'Ativo' : 'Inativo';
             $sub_dados[] = $row->carrer_name;
+            $sub_dados[] = ($row->subject_active) ? 'Ativo' : 'Inativo';
+            $sub_dados[] = ($row->subject_active) ?  
+            "<form method='POST' action='".route('ativarsubject', $row->subject_id)."'>".
+            method_field('PATCH').
+            @csrf_field().
+            "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+
+            "<form method='POST' action='".route('ativarsubject', $row->subject_id)."'>".
+            method_field('PATCH').
+            @csrf_field()."<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+                  
             $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('subject.destroy', $row->subject_id)."'>".
                             method_field('DELETE').

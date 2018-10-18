@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 4,  5 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 4,  5, 6 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -43,15 +43,16 @@
 <table id="tabelaAssunto" class="table-responsive">
     <thead>
         <tr>
-            <th>Código</th>
-            <th>Assunto</th>
-            <th>Status</th>
-            <th>Carreira</th>            
-            <th>Alterar</th>
-            <th>Excluir</th>
+            <th style="text-align:center">Código</th>
+            <th style="text-align:center">Assunto</th>
+            <th style="text-align:center">Carreira</th>    
+            <th style="text-align:center">Status</th>                   
+            <th style="text-align:center">Ativar</th>
+            <th style="text-align:center">Alterar</th>
+            <th style="text-align:center">Excluir</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="text-align:center">
     </tbody>
 </table>
 </div>

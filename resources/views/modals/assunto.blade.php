@@ -10,7 +10,7 @@
               @csrf
             <div class="form-group">
                 <label>Profissão</label>
-                <select class="form-control" id="profissaoCombo" name="fk_carrer_profession"> 
+                <select class="form-control" id="profissaoCombo"> 
                     <option value="">Carregando Profissões</option>
                 </select>
             </div>
@@ -58,11 +58,6 @@
               });
               $("#profissaoCombo").html(option).show();
           }
-<<<<<<< HEAD
-          $("#profissaoCombo").html(option).show();
-=======
-          
->>>>>>> refs/remotes/origin/master
        });
        $('#profissaoCombo').change(function (){
         var profissao = $('#profissaoCombo').val();
