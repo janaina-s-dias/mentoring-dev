@@ -54,6 +54,34 @@ class ProfessionController extends Controller
         
     }
 
+     //Função para alterar status do item
+    public function ativar($id)
+    { 
+        $profession = Profession::find($id);
+        
+        if($profession->profession_active == true)
+        {
+            $profession->profession_active = false;
+        }
+        else if ($profession->profession_active == false)
+        {
+            $profession->profession_active = true;
+        }
+        else {
+            $profession->profession_active = false;
+        }
+
+        try
+        {
+            $profession->update();
+            return redirect('/Profissoes')->with('success', 'Status alterado!');
+          
+        } catch (QueryException $ex) {
+            return redirect('/Profissoes')->with('failure', 'ERRO! Status não alterado!');
+        }
+
+    }
+
     public function destroy($id)
     {
         $profession = Profession::find($id);
@@ -73,7 +101,19 @@ class ProfessionController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
-            $sub_dados[] = ($row->profession_active) ? 'Ativa' : 'Inativa';
+            $sub_dados[] = ($row->profession_active) ? "Ativo" : "Inativo";
+            $sub_dados[] = ($row->profession_active) ? 
+            
+            "<form method='POST' action='".route('ativar', $row->profession_id)."'>".
+                method_field('PATCH').
+                @csrf_field().
+            "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+
+            "<form method='POST' action='".route('ativar', $row->profession_id)."'>".
+                method_field('PATCH').
+                @csrf_field()."<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+            
+            
             $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('profession.destroy', $row->profession_id)."'>".
                             method_field('DELETE').
