@@ -18,16 +18,9 @@
                                 </small>
                 @endif
             </div>
-              <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="profession_active">
-                    <option value="1">Ativo</option>
-                    <option value="0">Inativo</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
-            <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
+                <input type="hidden" value="1" name="profession_active">
+                <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
+                <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
       </div>
     </div>

@@ -115,7 +115,7 @@ Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')-
         
 
 Route::get('/profissao', function(){
-    $profession = \App\Profession::all();
+    $profession = \App\Profession::where('profession_active', '=', '1')->get();
     $dados = array();
     foreach ($profession as $value) {
         $subarray = array();
@@ -129,7 +129,8 @@ Route::get('/profissao', function(){
 
 Route::get('/carreira', function(Request $request){
     $profession = $request->get('profissao');
-    $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->get();
+    $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->
+    							where('carrer_active', '=', '1')->get();
     $dados = array();
     foreach ($carrer as $value) {
         $subarray = array();
@@ -143,7 +144,8 @@ Route::get('/carreira', function(Request $request){
 
 Route::get('/assunto', function(Request $request){
     $carrer = $request->get('carreira');
-    $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)->get();
+    $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)
+    							->where('subject_active', '=', '1')->get();
     $dados = array();
     foreach ($subject as $value) {
         $subarray = array();

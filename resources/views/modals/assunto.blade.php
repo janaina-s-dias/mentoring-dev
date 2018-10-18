@@ -17,11 +17,7 @@
 
               <div class="form-group{{ $errors->has('fk_subject_carrer') ? ' has-error' : '' }}">
                   <label>Carreira</label>
-<<<<<<< HEAD
-                  <select class="form-control" id="carrerCombo" name="fk_carrer_subject">
-=======
                   <select class="form-control" name="fk_subject_carrer" id="carrerCombo">
->>>>>>> refs/remotes/origin/master
                       <option value="">Carregando Carreira</option>
                   </select>
                  <!-- Combo com carreiras existentes -->
@@ -42,15 +38,8 @@
                 @endif
             </div>
             
-              <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="subject_active">
-                    <option value="1">Ativo</option>
-                    <option value="0">Inativo</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
+              <input type="hidden" value="1" name="subject_active">
+              <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
             <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
       </div>
