@@ -498,12 +498,25 @@ Route::get('Contatos', function(Request $request){
     }
 });
 
-Route::get('Conexoes', function(Request $request){
+Route::get('conexoes', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
         if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterConexoes');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+
+Route::get('solicitacoes', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+    	$user = $request->session()->get('user');
+        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        else return view('manterSolicitacoes');
     }
     else
     {

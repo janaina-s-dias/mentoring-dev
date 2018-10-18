@@ -128,8 +128,11 @@
                     <li {{ (Request::is('*alterarSenha') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarSenha') }}"><i class="fa fa-lock fa-fw"></i> Alterar Senha</a>
                     </li>
-                    <li {{ (Request::is('*Conexoes') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('Conexoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Conexões</a>
+                    <li {{ (Request::is('*conexoes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('conexoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Conexões</a>
+                    </li>
+                    <li {{ (Request::is('*solicitacoes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('solicitacoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Solicitações</a>
                     </li>
                     @if($user->user_role == 'dev')
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
