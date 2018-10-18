@@ -68,6 +68,25 @@ class CarrerController extends Controller
         }
     }
 
+
+    public function ativarCarreira($id)
+    { 
+        $carrer = Carrer::find($id);
+
+        if($carrer->carrer == true) $carrer->carrer = false;
+        else if ($carrer->carrer == false) $carrer->carrer = true;
+        else $carrer->carrer = false;
+        try
+        {
+            $carrer->update();
+            return redirect('/Carreiras')->with('success', 'Status alterado!');
+          
+        } catch (QueryException $ex) {
+            return redirect('/Carreiras')->with('failure', 'ERRO! Status não alterado!');
+        }
+
+    }
+
     public function PegaDadosCarreira(Request $request) {
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
@@ -77,6 +96,19 @@ class CarrerController extends Controller
              $sub_dados[] = $row->carrer_name;
              $sub_dados[] = $row->profession_name;
              $sub_dados[] = ($row->carrer_active) ? 'Ativa' : 'Inativa';
+
+             $sub_dados[] = ($row->carrer_active) ? 
+            
+             "<form method='POST' action='".route('ativarcarrer', $row->carrer_id)."'>".
+                 method_field('PATCH').
+                 @csrf_field().
+             "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+ 
+             "<form method='POST' action='".route('ativarcarrer', $row->carrer_id)."'>".
+                 method_field('PATCH').
+                 @csrf_field()."<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+             
+
              $sub_dados[] = "<a href='".route('carrer.edit', $row->carrer_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
              $sub_dados[] = "<form method='POST' action='".route('carrer.destroy', $row->carrer_id)."'>".
                             method_field('DELETE').

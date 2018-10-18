@@ -101,7 +101,7 @@ class ProfessionController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->profession_id;
             $sub_dados[] = $row->profession_name;
-            $sub_dados[] = ($row->profession_active) ? "Ativo" : "Inativo";
+            $sub_dados[] = ($row->profession_active) ? "Ativa" : "Inativa";
             $sub_dados[] = ($row->profession_active) ? 
             
             "<form method='POST' action='".route('ativar', $row->profession_id)."'>".

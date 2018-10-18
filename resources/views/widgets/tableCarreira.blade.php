@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 4, 5 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 4, 5, 6 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -47,6 +47,7 @@
             <th>Carreira</th>
             <th>Profissão</th>
             <th>Status</th>
+            <th>Ativar</th>
             <th>Alterar</th>
             <th>Excluir</th> 
         </tr>
