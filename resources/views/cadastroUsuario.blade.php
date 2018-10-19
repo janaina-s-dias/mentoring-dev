@@ -114,7 +114,7 @@
         </fieldset>
     </div>
         
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             $(document).ready(function(){
                $("#rg").mask('99.999.999-9'); 
                $("#cpf").mask('999.999.999-99'); 
@@ -129,7 +129,7 @@
                     });
                
             });
-        </script>
+        </script> -->
 </body>
 <div class="mx-auto" style="width: 800px">
     @include('inc.feedback')
