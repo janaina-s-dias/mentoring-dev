@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Knowledge;
+
 class KnowledgeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -84,6 +86,7 @@ class KnowledgeController extends Controller
 
 
     public function PegaDadosKnowledge(Request $request) {
+
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
         foreach ($pegadados as $row) {
@@ -108,16 +111,14 @@ class KnowledgeController extends Controller
 
     public function CriarQuery(Request $request)
     {
+        $sessao = $request->session()->get('user');
+
         $this->knowledge = Knowledge::select('subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-                    ->where('user_knowledge', '=', '1');            
-        /*
-            Tem que listar os mentores. E para saber quem é mentor, o user_knowledge tem que ser ativo
-            Para trazer os assuntos do mentor, tem a tabela usersubjects
-
-        */
-       
+                        ->where('user_knowledge', '=', '1');            
+ 
+        
         if($request->input('search.value') != null)
         {
             $this->knowledge->where('user_nome', 'like' ,'%', $request->input('search.value'));            
