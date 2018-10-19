@@ -104,7 +104,7 @@ class ConnectionController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel', null];
+    private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel'];
 
     public function CriarQuery(Request $request)
     {

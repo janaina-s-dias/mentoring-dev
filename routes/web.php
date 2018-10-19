@@ -107,6 +107,7 @@ Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuarioA
 Route::post('/pegaDadosContato', 'ContactController@PegaDadosContato')->name('pegaDadosContato');
 Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
 Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
+Route::post('/pegaDadosMentor', 'KnowledgeController@PegaDadosKnowledge')->name('pegaDadosMentor');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
@@ -520,3 +521,14 @@ Route::get('solicitacoes', function(Request $request){
         return view('login');
     }
 });
+Route::get('mentores', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+        return view('listarMentores');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+

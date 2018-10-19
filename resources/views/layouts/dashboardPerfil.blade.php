@@ -134,6 +134,11 @@
                     <li {{ (Request::is('*solicitacoes') ? 'class="active"' : '') }}>
                             <a href="{{ url ('solicitacoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Solicitações</a>
                     </li>
+
+                    <li {{ (Request::is('*mentores') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('mentores') }}"><i class="fa fa-wrench fa-fw"></i>Listar Mentores</a>
+                    </li>
+
                     @if($user->user_role == 'dev')
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
