@@ -53,4 +53,20 @@
     <tbody style="text-align:center">
     </tbody>
 </table>
+</div> 
+
+
+<!-- <center>
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ asset("logos/icone-azul.png") }}" alt="Card image cap" height="100" width="100">
+  <div class="card-body">
+    <h5 class="card-title"><b>Mentor</b></h5>
+    <p class="card-text">Expert em Bootstrap</p>
+    <p class="card-text">Ranking: 1º</p>
+    <a href="" class="btn btn-success">Solicitar</a>
+  </div>
 </div>
+</center>  -->
+
+
+
