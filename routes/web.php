@@ -106,6 +106,7 @@ Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaD
 Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
 Route::post('/pegaDadosContato', 'ContactController@PegaDadosContato')->name('pegaDadosContato');
 Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
+Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');

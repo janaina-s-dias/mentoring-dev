@@ -8,7 +8,7 @@
            "order": [],
            "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
-               "url": "{{ route('pegaDadosConexao') }}", //url Controller Conexao - PegaDados
+               "url": "{{ route('pegaDadosSolicitacao') }}", //url Controller Conexao - PegaDados
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
