@@ -112,11 +112,18 @@ class KnowledgeController extends Controller
     public function CriarQuery(Request $request)
     {
         $sessao = $request->session()->get('user');
-
+        $assunto = Knowledge::select('subject_id')
+                            ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                            ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
+                            ->where('fk_subject_user', $sessao->user_id)->get();
+        $assuntos = array();
+        foreach ($assunto as $value) {
+            $assuntos[] = $value->subject_id;
+        }
         $this->knowledge = Knowledge::select('subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-                        ->where('user_knowledge', '=', '1');            
+                        ->whereIn('subject_id', $assuntos);            
  
         
         if($request->input('search.value') != null)

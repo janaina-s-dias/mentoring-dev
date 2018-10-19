@@ -66,7 +66,7 @@
     <a href="" class="btn btn-success">Solicitar</a>
   </div>
 </div>
-</center>  -->
+</center> 
 
 
 
