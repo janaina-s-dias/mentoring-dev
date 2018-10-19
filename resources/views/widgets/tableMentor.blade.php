@@ -46,7 +46,7 @@
             <th style="text-align:center">Assunto</th>
             <th style="text-align:center">Nível de Conhecimento</th>
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Pontuação</th>         
+            <th style="text-align:center">Pontuação</th>        
             <th style="text-align:center">Solicitar</th>             
         </tr>
     </thead>

@@ -3,7 +3,6 @@
 
 @section('section')
 
-<?php $user = Session::get('user'); ?>
 <!-- <div> 
     <div class="input-group">
             <span class="input-group-btn">

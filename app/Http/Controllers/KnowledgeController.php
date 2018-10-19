@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Knowledge;
 class KnowledgeController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -83,6 +82,7 @@ class KnowledgeController extends Controller
         //
     }
 
+
     public function PegaDadosKnowledge(Request $request) {
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
@@ -115,9 +115,6 @@ class KnowledgeController extends Controller
         /*
             Tem que listar os mentores. E para saber quem é mentor, o user_knowledge tem que ser ativo
             Para trazer os assuntos do mentor, tem a tabela usersubjects
-
-            {{$user->user_id }
-            {{$user->fk_knowledge_user}}
 
         */
        
