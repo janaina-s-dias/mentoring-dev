@@ -15,19 +15,19 @@
                <form role="form" action="{{ route ('acessar') }}" method="post">
                         @csrf
                             <fieldset>
-                                <div class="form-group{{ $errors->has('user_login_login') ? ' has-error' : '' }}">
-                                    <input class="form-control" placeholder="Usuario" name="user_login_login" type="text" value="{{old('user_login')}}" autofocus>
-                                    @if ($errors->has('user_login_login'))
+                                <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Usuario" name="user_login" type="text" value="{{old('user_login')}}" autofocus>
+                                    @if ($errors->has('user_login'))
                                     <small class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('user_login_login') }}</strong>
+                                        <strong>{{ $errors->first('user_login') }}</strong>
                                     </small>
                                     @endif
                                 </div>
-                                <div class="form-group{{ $errors->has('user_hash_login') ? ' has-error' : '' }}">
-                                    <input class="form-control" placeholder="Senha" name="user_hash_login" type="password">
-                                    @if ($errors->has('user_hash_login'))
+                                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
+                                    <input class="form-control" placeholder="Senha" name="user_hash" type="password">
+                                    @if ($errors->has('user_hash'))
                                     <small class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('user_hash_login') }}</strong>
+                                        <strong>{{ $errors->first('user_hash') }}</strong>
                                     </small>
                                     @endif
                                 </div>
@@ -71,21 +71,21 @@
                         </small>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_login" id="user" type="text" placeholder="Usuario"value="{{old('user_login')}}">
+                <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
+                    <input class="form-control" name="login" id="user" type="text" placeholder="Usuario"value="{{old('login')}}">
                     <p class="help-block">Mínimo 8 caracteres</p> 
-               @if ($errors->has('user_login'))
+               @if ($errors->has('login'))
                     <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('user_login') }}</strong>
+                        <strong>{{ $errors->first('login') }}</strong>
                     </small>
                 @endif
                 </div>
-                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_hash" id="senha" type="password" placeholder="Senha">
+                <div class="form-group{{ $errors->has('hash') ? ' has-error' : '' }}">
+                    <input class="form-control" name="hash" id="senha" type="password" placeholder="Senha">
                     <p class="help-block">Mínimo 8 caracteres</p> 
-                    @if ($errors->has('user_hash'))
+                    @if ($errors->has('hash'))
                     <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('user_hash') }}</strong>
+                        <strong>{{ $errors->first('hash') }}</strong>
                     </small>
                 @endif
                 </div>
@@ -112,7 +112,7 @@
 <!-- Verifica a confirmação de senha -->
 <script type="text/javascript">
     $(document).ready(function(){
-        if({{$errors->hasAny(array('user_hash', 'user_login', 'user_email'))}})
+        if({{$errors->hasAny(array('hash', 'login', 'user_email'))}})
         {
            $('#modalCadastro').modal('show');
         }

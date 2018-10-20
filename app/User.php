@@ -10,7 +10,6 @@ class User extends Model
     protected $table = 'users';
     protected $fillable = [
             'user_login'
-        ,   'user_hash'
         ,   'user_cpf'
         ,   'user_nome' 
         ,   'user_rg' 
@@ -20,10 +19,13 @@ class User extends Model
         ,   'user_knowledge' 
         ,   'user_role' 
     ];
+    protected $hidden = [
+        'user_hash'  
+    ];
     protected $rules;
     public $mensagens = [
-        'user_login_login.required' => 'Usuário é obrigatório!',
-        'user_hash_login.required' => 'Senha obrigatória!',
+        'user_login.required' => 'Usuário é obrigatório!',
+        'user_hash.required' => 'Senha obrigatória!',
         'user_login.required' => 'Campo usuario é obrigatório!',
         'user_login.unique' => 'Usuário já existente. Insira outro usuário!',
         'user_login.max' => 'Usuário informado contém mais caracteres que o máximo permitido!',
@@ -62,14 +64,14 @@ class User extends Model
             break;
             case 'insert1':
                 $this->rules = [
-                    'user_login' => 'bail|required|unique:users,user_login|max:100|min:5|alpha_num', 
-                    'user_hash' => 'bail|required|max:100|min:8|confirmed',
+                    'login' => 'bail|required|unique:users,user_login|max:100|min:5|alpha_num', 
+                    'hash' => 'bail|required|max:100|min:8|confirmed',
                     'user_email' => 'bail|required|email|max:100|min:10|unique:users,user_email'];
                 break;
             case 'login':
                 $this->rules = [
-                    'user_login_login' => 'bail|required', 
-                    'user_hash_login' => 'bail|required' 
+                    'user_login' => 'bail|required', 
+                    'user_hash' => 'bail|required' 
                 ];
             break;
             case 'senha':

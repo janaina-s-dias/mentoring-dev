@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -151,18 +152,10 @@ class UserController extends Controller
     public function logar(Request $request)
     {
         $this->validate($request, $this->user->Regras('login'), $this->user->mensagens);
-        $user = User::where('user_login', '=', $request->get('user_login_login'))->count();
-        if($user > 0)
+        $credenciais = $request->only('user_login', 'user_hash');
+        if(Auth::attempt($credenciais))
         {
-            $user = User::where('user_login', '=', $request->get('user_login_login'))->first();
-            if(Hash::check($request->get('user_hash_login'), $user->user_hash))
-            {
-                $request->session()->put('user', $user);
-                return redirect('/');
-            }
-            else
-            {
-                return redirect('/')->with('failure', 'Senha incorreta!');            }
+            return redirect('/');
         }
         else
         {
