@@ -56,7 +56,7 @@
 </div> 
 
 
-<!-- <center>
+<center>
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="{{ asset("logos/icone-azul.png") }}" alt="Card image cap" height="100" width="100">
   <div class="card-body">

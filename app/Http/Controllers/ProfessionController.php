@@ -111,10 +111,10 @@ class ProfessionController extends Controller
 
             "<form method='POST' action='".route('ativar', $row->profession_id)."'>".
                 method_field('PATCH').
-                @csrf_field()."<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+                @csrf_field()."<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
             
             
-            $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".route('profession.edit', $row->profession_id)."' role='button' class='btn btn-primary'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('profession.destroy', $row->profession_id)."'>".
                             method_field('DELETE').
                             csrf_field().

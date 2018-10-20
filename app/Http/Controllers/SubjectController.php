@@ -104,9 +104,9 @@ class SubjectController extends Controller
 
             "<form method='POST' action='".route('ativarsubject', $row->subject_id)."'>".
             method_field('PATCH').
-            @csrf_field()."<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+            @csrf_field()."<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
                   
-            $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".route('subject.edit', $row->subject_id)."' role='button' class='btn btn-primary'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('subject.destroy', $row->subject_id)."'>".
                             method_field('DELETE').
                             csrf_field().

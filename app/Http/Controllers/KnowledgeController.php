@@ -124,7 +124,7 @@ class KnowledgeController extends Controller
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            
- 
+        //não pode aparecer mentores que ja estão conectados
         
         if($request->input('search.value') != null)
         {

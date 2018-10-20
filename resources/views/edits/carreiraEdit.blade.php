@@ -32,14 +32,7 @@
                 @endif
             </div>
 
-          <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="carrer_active">
-                    <option value="1" {{($carrer->carrer_active) ? ' selected' : ''}}>Ativo</option>
-                    <option value="0" {{($carrer->carrer_active) ? '' : ' selected'}}>Inativo</option>
-                </select>
-            </div>
-
+                <input type="hidden"  value="{{$carrer->carrer_active}}" name="carrer_active">                    
             <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
             <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>

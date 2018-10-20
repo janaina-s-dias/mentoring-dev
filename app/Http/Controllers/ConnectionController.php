@@ -108,10 +108,12 @@ class ConnectionController extends Controller
 
     public function CriarQuery(Request $request)
     {
+        $user = $request->session()->get('user');
         $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'knowledge_nivel')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
-                ->whereNotNull('connection_end');
+                ->whereNotNull('connection_end')
+                ->where('user_id', $user->user_id);
            
        
         if($request->input('search.value') != null)
@@ -129,6 +131,7 @@ class ConnectionController extends Controller
         }
     }
     
+    //
     public function CriarDataTable(Request $request)
     {
         $this->CriarQuery($request);

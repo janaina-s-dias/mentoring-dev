@@ -36,14 +36,7 @@
                         </small>
                 @endif
             </div>
-              <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="subject_active">
-                    <option value="1" {{($subject->subject_active) ? ' selected' : ''}}>Ativo</option>
-                    <option value="0" {{($subject->subject_active) ? '' : ' selected'}}>Inativo</option>
-                </select>
-            </div>
-
+                <input type="hidden"  value="{{$subject->subject_active}}" name="subject_active">
             <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
             <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
         </form>
