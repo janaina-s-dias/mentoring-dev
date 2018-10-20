@@ -2,7 +2,7 @@
 @section('page_heading','Perfil')
 @section('section')
 
-<?php $user = Session::get('user'); ?>        
+<?php $user = Auth::user(); ?>        
         <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
 
         <section class="astros">

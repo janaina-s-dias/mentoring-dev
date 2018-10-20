@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('cadastro', function(Request $request) {
-    if($request->session()->exists('user'))
+    if(Auth::check())
     {
         return view('cadastroUsuario');
     }
@@ -13,9 +14,9 @@ Route::get('cadastro', function(Request $request) {
     }
 });
 Route::get('/', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check())
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('home');
     }

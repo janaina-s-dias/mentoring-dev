@@ -1,6 +1,6 @@
 @extends('layouts.plane')
 @section('body')
-<?php $user = Session::get('user'); ?>
+<?php $user = Auth::user(); ?>
 <div id="wrapper">
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
