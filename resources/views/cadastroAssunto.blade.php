@@ -1,6 +1,9 @@
 @extends('layouts.dashboardPerfil')
 @section('page_heading','Cadastrar Assunto')
 @section('section')
+@php 
+    $user = Session::get('user');
+@endphp
 <script type="text/javascript">
     $(document).ready(function (){
         $('#Submit').hide();
@@ -17,6 +20,7 @@
     });
     
     $('#professionCombo').change(function (){
+        $('#Submit').hide();
         var profissao = $('#professionCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){
             if (dados.length > 0){
@@ -37,6 +41,7 @@
          }); 
     });
     $('#carrerCombo').change(function (){
+        $('#Submit').hide();
         var carreira = $('#carrerCombo').val();
          $.get('/assunto?carreira='+carreira, function(dados){
             if (dados.length > 0){
@@ -64,10 +69,14 @@
             $('#Submit').hide();
         }
     });
+    if(!{{$user->user_knowledge}})
+    {
+        $('#mentorCombo').hide();
+    }
 });
 
 </script>  
-         <section class="arcus" style="height: 200px; padding: 55px 55px;">
+         <section class="arcus" style="height: 300px; padding: 55px 55px;">
              <?php $user = Session::get('user'); ?>
              <form method="POST" action="{{ route('usersubject.store')}}" class="form-horizontal"> 
                 @csrf
@@ -100,6 +109,21 @@
                             @endif
                         </div>
                     </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="mentorCombo">Conhecimento:</label>
+                    <div class="col-sm-10">
+                        <select id="mentorCombo" name="knowledge_nivel" class="form-control">
+                            <option value="1">Basico</option>
+                            <option value="2">Pouco conhecimento</option>
+                            <option value="3">Conhecimento mediano</option>
+                            <option value="4">Conhecimento quase pleno</option>
+                            <option value="5">Conhecimento pleno</option>
+                            <option value="6">Bastante conhecimento</option>
+                            <option value="7">Experiente no assunto</option>
+                            <option value="8">Mestre no assunto</option>
+                        </select>
+                    </div>
+                </div>
                 <input type="hidden" name="fk_subject_user" value="{{ $user->user_id }}">
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

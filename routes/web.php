@@ -294,7 +294,7 @@ Route::get('solicitacoes', function(Request $request){
         return view('login');
     }
 });
-Route::get('mentores', function(Requeist $request){
+Route::get('mentores', function(Request $request){
     if($request->session()->exists('user'))
     {
         $user = $request->session()->get('user');
