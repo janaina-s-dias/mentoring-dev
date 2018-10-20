@@ -1,16 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('cadastro', function(Request $request) {
     if($request->session()->exists('user'))
@@ -167,7 +157,7 @@ Route::get('/userassunto', function(Request $request){
 Route::get('admin', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('layouts.dashboardAdmin');
     }
     else
@@ -178,7 +168,7 @@ Route::get('admin', function(Request $request){
 Route::get('EditarProfissao', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('edits.profissaoEdit');
     }
     else
@@ -189,7 +179,7 @@ Route::get('EditarProfissao', function(Request $request){
 Route::get('EditarAssunto', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('edits.assuntosEdit');
     }
     else
@@ -200,7 +190,7 @@ Route::get('EditarAssunto', function(Request $request){
 Route::get('EditarCarreira', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('edits.carreiraEdit');
     }
     else
@@ -212,7 +202,7 @@ Route::get('Profissoes', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('pageTipos');
     }
     else
@@ -224,7 +214,7 @@ Route::get('Carreiras', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterCarreira');
     }
     else
@@ -236,7 +226,7 @@ Route::get('Assuntos', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterAssunto');
     }
     else
@@ -248,7 +238,7 @@ Route::get('Usuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterUsuario');
     }
     else
@@ -260,7 +250,7 @@ Route::get('AssuntosUsuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manteruserSubject');
     }
     else
@@ -272,7 +262,7 @@ Route::get('Contatos', function(Request $request){
     if($request->session()->exists('user'))
     {
     	$user = $request->session()->get('user');
-        if($user->user_role != 'dev' && $user->user_role != 'admin' && $user->user_role != 'moderador') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
+        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
         else return view('manterContatos');
     }
     else
@@ -283,7 +273,9 @@ Route::get('Contatos', function(Request $request){
 Route::get('conexoes', function(Request $request){
     if($request->session()->exists('user'))
     {
-    	return view('manterConexoes');
+    	$user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('manterConexoes');
     }
     else
     {
@@ -293,17 +285,21 @@ Route::get('conexoes', function(Request $request){
 Route::get('solicitacoes', function(Request $request){
     if($request->session()->exists('user'))
     {
-        return view('manterSolicitacoes');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('manterSolicitacoes');
     }
     else
     {
         return view('login');
     }
 });
-Route::get('mentores', function(Request $request){
+Route::get('mentores', function(Requeist $request){
     if($request->session()->exists('user'))
     {
-        return view('listarMentores');
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('listarMentores');
     }
     else
     {
