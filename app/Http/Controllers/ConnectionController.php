@@ -7,43 +7,29 @@ use App\Connection;
 
 class ConnectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function salvar($knowledge)
     {
-        //
+        $user = $request->session()->get('user');
+        $con = new Connection([
+           'fk_connection_user' => $user->user_id,
+           'fk_connection_knowledge' => $knowledge
+        ]);
+        
+        $conn = Connection::where('fk_connection_user', $user->user_id)->where('fk_connection_knowledge', $knowledge)->count();
+        if($conn == 0){
+            try {
+                $con->save();
+                return redirect('mentores')->with('success', 'Solicitaçãoo enviada, aguarde');
+            } catch (\Illuminate\Database\QueryException $ex) {
+                return redirect('mentores')->with('failure', 'Solicitação não enviada');
+            }
+        }
+        else
+        {
+            return redirect('mentores')->with('failure', 'Conexão já existente');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

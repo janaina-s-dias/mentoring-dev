@@ -12,6 +12,7 @@ class Connection extends Model
         'connection_start',
         'connection_end',
         'fk_connection_user',
-        'fk_connection_knowledge'
+        'fk_connection_knowledge',
+        'connection_status'
     ];
 }

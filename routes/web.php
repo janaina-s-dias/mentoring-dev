@@ -91,6 +91,7 @@ Route::post('/pegaDadosContato', 'ContactController@PegaDadosContato')->name('pe
 Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
 Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
 Route::post('/pegaDadosMentor', 'KnowledgeController@PegaDadosKnowledge')->name('pegaDadosMentor');
+Route::post('/conectar/{mentor}', 'ConnectionController@salvar')->name('conexao');
 Route::resource('usersubject', 'UserSubjectController');
 Route::resource('subject', 'SubjectController');
 Route::resource('carrer', 'CarrerController');
