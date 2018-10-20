@@ -138,6 +138,9 @@
                     <li {{ (Request::is('*mentores') ? 'class="active"' : '') }}>
                             <a href="{{ url ('mentores') }}"><i class="fa fa-wrench fa-fw"></i>Listar Mentores</a>
                     </li>
+                    <li {{ (Request::is('*mentorias') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('mentorias') }}"><i class="fa fa-wrench fa-fw"></i>Minhas Mentorias</a>
+                    </li>
                     @if($user->user_role > 2)
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
                             <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i>Area Administrativa</a>

@@ -10,19 +10,8 @@ class CarrerController extends Controller
 {
     private $carrer;
     
-    function __construct(Carrer $carrer) {
+    function __construct(Carrer $carrer, Request $request) {
         $this->carrer = $carrer;
-        $sessao = Session::get('user');
-        $user = \App\User::where('user_id', $sessao->user_id)->count();
-        if($user > 0){
-            $user = \App\User::find($sessao->user_id);
-            Session::forget('user');
-            Session::put('user', $user);
-        }
-        else
-        {
-            Session::flush();
-        }
     } 
 
     public function store(Request $request)

@@ -9,19 +9,9 @@ use Illuminate\Database\QueryException;
 class UserSubjectController extends Controller
 {
     private $us;
-    public function __construct(UserSubject $us) {
+    public function __construct(UserSubject $us, Request $request) {
         $this->us = $us;
-        $sessao = Session::get('user');
-        $user = \App\User::where('user_id', $sessao->user_id)->count();
-        if($user > 0){
-            $user = \App\User::find($sessao->user_id);
-            Session::forget('user');
-            Session::put('user', $user);
-        }
-        else
-        {
-            Session::flush();
-        }
+        
     }
 
     public function store(Request $request)

@@ -8,18 +8,8 @@ use Illuminate\Database\QueryException;
 
 class KnowledgeController extends Controller
 {
-    function __construct() {
-        $sessao = Session::get('user');
-        $user = \App\User::where('user_id', $sessao->user_id)->count();
-        if($user > 0){
-            $user = \App\User::find($sessao->user_id);
-            Session::forget('user');
-            Session::put('user', $user);
-        }
-        else
-        {
-            Session::flush();
-        }
+    function __construct(Request $request) {
+       
     }
 
 
@@ -43,7 +33,13 @@ class KnowledgeController extends Controller
 
     public function show($id)
     {
-        //
+        $mentorias = Knowledge::join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                ->where('fk_knowledge', $id);
+        $mentoria = array();
+        foreach ($mentorias as $m) {
+            $mentoria[] = $m;
+        }
+        echo json_encode($mentoria);
     }
 
     /**

@@ -98,6 +98,7 @@ Route::resource('carrer', 'CarrerController');
 Route::resource('profession', 'ProfessionController');
 Route::resource('user', 'UserController');
 Route::resource('contact', 'ContactController');
+Route::resource('knowledge', 'KnowledgeController');
 Route::patch('/ativar/{profession_id}', 'ProfessionController@ativar')->name('ativar');
 Route::patch('/ativarcarrer/{carrer_id}', 'CarrerController@ativarCarreira')->name('ativarcarrer');
 Route::patch('/ativarsubject/{subject_id}', 'SubjectController@ativarAssunto')->name('ativarsubject');
@@ -301,6 +302,18 @@ Route::get('mentores', function(Request $request){
         $user = $request->session()->get('user');
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('listarMentores');
+    }
+    else
+    {
+        return view('login');
+    }
+});
+Route::get('mentorias', function(Request $request){
+    if($request->session()->exists('user'))
+    {
+        $user = $request->session()->get('user');
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('minhasMentorias');
     }
     else
     {
