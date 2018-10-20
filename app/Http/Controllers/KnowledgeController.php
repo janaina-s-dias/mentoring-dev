@@ -4,47 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Knowledge;
+use Illuminate\Database\QueryException;
 
 class KnowledgeController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $user = $request->session()->get('user');
+        $knowledge = new Knowledge([
+           'knowledge_nivel' => $request->knowledge_nivel, 
+           'knowledge_rank' => 5, 
+           'fk_knowledge_user' => $user->user_id,
+           'fk_knowledge_subject' => $request->fk_user_subject
+        ]);
+        try
+        {
+            $knowledge->save();
+            return false;
+        } catch (Exception $ex) {
+            return true;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

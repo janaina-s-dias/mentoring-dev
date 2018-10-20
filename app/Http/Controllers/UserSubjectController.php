@@ -16,6 +16,15 @@ class UserSubjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
+        $userSessao = $request->session()->get('user');
+        if($userSessao->user_knowledge && $request->knowledge_nivel > 2)
+        {
+            $knowledge = new KnowledgeController();
+            if($knowledge->store($request))
+            {
+                return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
+            }
+        }
         $us = new UserSubject([
             'fk_user_subject' => $request->fk_user_subject,
             'fk_subject_user' => $request->fk_subject_user
