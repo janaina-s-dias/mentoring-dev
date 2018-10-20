@@ -11,6 +11,17 @@ class ProfessionController extends Controller
     private $profession;
     public function __construct(Profession $profession) {
         $this->profession = $profession;
+        $sessao = Session::get('user');
+        $user = \App\User::where('user_id', $sessao->user_id)->count();
+        if($user > 0){
+            $user = \App\User::find($sessao->user_id);
+            Session::forget('user');
+            Session::put('user', $user);
+        }
+        else
+        {
+            Session::flush();
+        }
     }
 
     public function store(Request $request) {
