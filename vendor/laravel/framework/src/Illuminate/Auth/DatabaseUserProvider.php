@@ -55,7 +55,7 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        $user = $this->conn->table($this->table)->find($identifier);
+        $user = $this->conn->table($this->table)->where('user_id', $identifier)->first();
 
         return $this->getGenericUser($user);
     }
