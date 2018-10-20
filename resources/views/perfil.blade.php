@@ -1,8 +1,6 @@
 @extends('layouts.dashboardPerfil')
 @section('page_heading','Perfil')
-@section('section')
-
-<?php $user = Auth::user(); ?>        
+@section('section')       
         <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
 
         <section class="astros">
@@ -12,7 +10,7 @@
             <!-- src="{{ asset("logos/avatar.png") }}"  alt=""> -->
         </header>
         <header class="e-header">
-            <div><h2>{{$user->user_nome}}</h2></div>
+            <div><h2>{{Auth::user()->user_nome}}</h2></div>
             <div><h4>Alguma coisa</h4></div>
             <div><h4>Alguma outra coisa</h4></div>
         </header>

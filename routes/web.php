@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\CheckAdmin;
 
 Route::get('cadastro', function(Request $request) {
     if(Auth::check())
@@ -27,9 +28,9 @@ Route::get('/', function(Request $request){
         
 });
 Route::get('perfil', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('perfil');
     }
@@ -40,9 +41,9 @@ Route::get('perfil', function(Request $request){
         
 })->name('perfil');
 Route::get('cadastroAssunto', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('cadastroAssunto');
     }
@@ -53,9 +54,9 @@ Route::get('cadastroAssunto', function(Request $request){
         
 });
 Route::get('alterarPerfil', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('alterarPerfil');
     }
@@ -66,9 +67,9 @@ Route::get('alterarPerfil', function(Request $request){
         
 });
 Route::get('alterarSenha', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('alterarSenha');
     }
@@ -157,126 +158,42 @@ Route::get('/userassunto', function(Request $request){
     }
     return Response::json($dados);
 });
+Route::group(['middleware' => CheckAdmin::class], function(){
 Route::get('admin', function(Request $request){
-    if($request->session()->exists('user'))    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('layouts.dashboardAdmin');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('layouts.dashboardAdmin');
 });
 Route::get('EditarProfissao', function(Request $request){
-    if($request->session()->exists('user'))    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('edits.profissaoEdit');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('edits.profissaoEdit');
 });
 Route::get('EditarAssunto', function(Request $request){
-    if($request->session()->exists('user'))    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('edits.assuntosEdit');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('edits.assuntosEdit');
 });
 Route::get('EditarCarreira', function(Request $request){
-    if($request->session()->exists('user'))    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('edits.carreiraEdit');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('edits.carreiraEdit');
 });
 Route::get('Profissoes', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('pageTipos');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('pageTipos');
 })->name('Profissoes');
 Route::get('Carreiras', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('manterCarreira');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('manterCarreira');
 });
 Route::get('Assuntos', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('manterAssunto');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('manterAssunto');
 });
 Route::get('Usuarios', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('manterUsuario');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('manterUsuario');
 });
 Route::get('AssuntosUsuarios', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('manteruserSubject');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('manteruserSubject');
 });
 Route::get('Contatos', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role < 3) return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('manterContatos');
-    }
-    else
-    {
-        return view('login');
-    }
+    return view('manterContatos');
+});
 });
 Route::get('conexoes', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-    	$user = $request->session()->get('user');
+    	$user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('manterConexoes');
     }
@@ -286,9 +203,9 @@ Route::get('conexoes', function(Request $request){
     }
 });
 Route::get('solicitacoes', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('manterSolicitacoes');
     }
@@ -298,9 +215,9 @@ Route::get('solicitacoes', function(Request $request){
     }
 });
 Route::get('mentores', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('listarMentores');
     }
@@ -310,9 +227,9 @@ Route::get('mentores', function(Request $request){
     }
 });
 Route::get('mentorias', function(Request $request){
-    if($request->session()->exists('user'))
+    if(Auth::check)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
         else return view('minhasMentorias');
     }

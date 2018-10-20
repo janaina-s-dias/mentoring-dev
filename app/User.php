@@ -10,6 +10,7 @@ class User extends Authenticatable {
     protected $table = 'users';
     protected $fillable = [
             'user_login'
+        ,   'user_hash'
         ,   'user_cpf'
         ,   'user_nome' 
         ,   'user_rg' 
@@ -34,13 +35,13 @@ class User extends Authenticatable {
         'user_hash.required' => 'Senha obrigatória!',
         'user_hash.min' => 'Senha informada muito pequena!',
         'user_hash.max' => 'Senha informada muito grande!',
-        'user_hash-last.required' => 'Senha antiga é obrigatória!',
+        'user_hash.required' => 'Senha antiga é obrigatória!',
         'user_email.required' => 'Email obrigatório',
         'user_email.email' => 'Email inválido',
         'user_email.max' => 'Email muito grande',
         'user_email.min' => 'Email muito pequeno',
         'user_email.unique' => 'Email já utilizado',
-        'user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
+        'hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
         'user_cpf.unique' => 'Este CPF ja esta cadastrado'  ,                 
         'user_cpf.digits' => 'O CPF deve conter 11 digitos e ser numerico'  ,        
         'user_cpf.required' => 'O CPF é obrigatorio'  ,        

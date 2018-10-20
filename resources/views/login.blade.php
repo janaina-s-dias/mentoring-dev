@@ -91,7 +91,7 @@
                 </div>
                
                 <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
+                    <input class="form-control" name="hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
                 @if ($errors->has('user_hash'))
                     <small class="text-danger" role="alert">
                         <strong>{{ $errors->first('user_hash') }}</strong>

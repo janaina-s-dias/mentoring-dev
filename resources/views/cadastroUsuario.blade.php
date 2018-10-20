@@ -21,7 +21,7 @@
         </style>
     </head>
     <body>
-        <?php $user = Session::get('user'); ?>
+        <?php $user = Auth::user(); ?>
     <div class="container" style="margin-top: 50px">
         <fieldset>
             <center><legend>Para prosseguir, conclua o cadastro...</legend></center><br>

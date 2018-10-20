@@ -29,18 +29,17 @@ class UserController extends Controller
     public function store(Request $request) {
         $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = new User([
-                'user_login' => $request->user_login
-            ,   'user_hash' => Hash::make($request->user_hash)
+                'user_login' => $request->login
+            ,   'user_hash' => Hash::make($request->hash)
             ,   'user_email'  => $request->user_email
                 ]);
         try
         {
            $users->save();
-           $user = User::where('user_email', '=', $request->user_email)->get()->first();
-           $request->session()->put('user', $user);
+           Auth::attempt(['user_login'=>$request->login, 'user_hash' => $request->hash]);
            return redirect('cadastro')->with('success', 'Continue seu cadastro');
         } 
-        catch (QueryException $ex) 
+        catch (Exception $ex) 
         {
             return redirect('/')->with('failure', 'Não foi possivel cadastrar!');
         }
@@ -60,10 +59,6 @@ class UserController extends Controller
         try
         {
            $users->update();
-           $usua = $request->session()->get('user');
-           $user = User::where('user_email', '=', $usua->user_email)->get()->first();
-           $request->session()->flush();
-           $request->session()->put('user', $user);
            return redirect('/')->with('success', 'Continue seu cadastro');
         } 
         catch (QueryException $ex) 
