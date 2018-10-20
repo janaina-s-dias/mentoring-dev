@@ -31,7 +31,7 @@ class GenericUser implements UserContract
      */
     public function getAuthIdentifierName()
     {
-        return 'id';
+        return 'user_id';
     }
 
     /**
@@ -47,13 +47,13 @@ class GenericUser implements UserContract
     }
 
     /**
-     * Get the password for the user.
+     * Get the user_hash for the user.
      *
      * @return string
      */
     public function getAuthPassword()
     {
-        return $this->attributes['password'];
+        return $this->attributes['user_hash'];
     }
 
     /**
