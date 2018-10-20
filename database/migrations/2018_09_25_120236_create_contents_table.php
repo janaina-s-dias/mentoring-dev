@@ -18,7 +18,7 @@ class CreateContentsTable extends Migration
             $table->text('content_content')->nullable();
             $table->string('content_title', 100);
             $table->string('content_url', 200)->nullable(); //caminho do arquivo ou url do video
-            $table->string('content_type', 20)->default('archive'); //tipo archive, tipo video, tipo conteudo(texto no site)
+            $table->tinyInteger('content_type')->default(1); //1: conteudo no site, 2: documento, 3: video
             $table->boolean('content_active')->default(true);
             $table->unsignedInteger('fk_content_knowledge');
             $table->foreign('fk_content_knowledge')

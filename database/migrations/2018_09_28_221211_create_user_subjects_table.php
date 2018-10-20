@@ -13,7 +13,7 @@ class CreateUserSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('usersubjects', function (Blueprint $table) { // essa tabela é só pros mentorados, pois quando ele quer ser mentor, vai ficar esses dados na tabela mentor
+        Schema::create('usersubjects', function (Blueprint $table) { 
             $table->unsignedInteger('fk_user_subject');
             $table->unsignedInteger('fk_subject_user');
             $table->foreign('fk_subject_user')

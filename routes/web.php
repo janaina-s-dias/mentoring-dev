@@ -12,8 +12,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('cadastro', function(Request $request)
-{
+Route::get('cadastro', function(Request $request) {
     if($request->session()->exists('user'))
     {
         return view('cadastroUsuario');
@@ -23,7 +22,6 @@ Route::get('cadastro', function(Request $request)
         return view('login');
     }
 });
-
 Route::get('/', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -37,7 +35,6 @@ Route::get('/', function(Request $request){
     }
         
 });
-
 Route::get('perfil', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -51,7 +48,6 @@ Route::get('perfil', function(Request $request){
     }
         
 })->name('perfil');
-
 Route::get('cadastroAssunto', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -65,7 +61,6 @@ Route::get('cadastroAssunto', function(Request $request){
     }
         
 });
-
 Route::get('alterarPerfil', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -79,7 +74,6 @@ Route::get('alterarPerfil', function(Request $request){
     }
         
 });
-
 Route::get('alterarSenha', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -93,7 +87,6 @@ Route::get('alterarSenha', function(Request $request){
     }
         
 });
-
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
 Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
@@ -117,13 +110,8 @@ Route::resource('contact', 'ContactController');
 Route::patch('/ativar/{profession_id}', 'ProfessionController@ativar')->name('ativar');
 Route::patch('/ativarcarrer/{carrer_id}', 'CarrerController@ativarCarreira')->name('ativarcarrer');
 Route::patch('/ativarsubject/{subject_id}', 'SubjectController@ativarAssunto')->name('ativarsubject');
-
-
-
 Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
 Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
-        
-
 Route::get('/profissao', function(){
     $profession = \App\Profession::where('profession_active', '=', '1')->get();
     $dados = array();
@@ -136,7 +124,6 @@ Route::get('/profissao', function(){
    return Response::json($dados);
     
 });
-
 Route::get('/carreira', function(Request $request){
     $profession = $request->get('profissao');
     $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->
@@ -151,7 +138,6 @@ Route::get('/carreira', function(Request $request){
     return Response::json($dados);
     
 });
-
 Route::get('/assunto', function(Request $request){
     $carrer = $request->get('carreira');
     $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)
@@ -166,7 +152,6 @@ Route::get('/assunto', function(Request $request){
     return Response::json($dados);
     
 });
-
 Route::get('/userassunto', function(Request $request){
     $user = $request->get('user');
     $userSubject = \App\UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
@@ -179,197 +164,6 @@ Route::get('/userassunto', function(Request $request){
     }
     return Response::json($dados);
 });
-
-
-
-Route::get('tables', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('table');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('forms', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('form');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-
-Route::get('charts', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
-        else return view('mcharts');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('blank', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
-        else return view('blank');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('panel', function(Request $request){
-    
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissã para acessar essa pagina</h1>";
-        else return view('panel');
-    }
-    else
-    {
-        return view('login');
-    }
-
-});
-
-Route::get('collapse', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('collapse');
-    }
-    else
-    {
-       return view('login');
-    }
-});
-
-Route::get('documentation', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('documentation');
-    }
-    else
-    {        return view('login');
-    }
-});
-
-Route::get('icons', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('icons');
-    }
-    else
-    {
-       return view('login');
-    }
-});
-
-Route::get('notifications', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('notifications');
-    }
-    else
-    {        return view('login');
-    }
-});
-
-Route::get('panels', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('panel');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-// Route::get('', function(){
-//     return view('progressbars');
-// });
-
-Route::get('stats', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('stats');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('typography', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('typography');
-    }
-    else
-    {
-       return view('login');
-    }
-});
-
-Route::get('buttons', function(Request $request){
-  if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('buttons');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-Route::get('grid', function(Request $request){
-    if($request->session()->exists('user'))
-    {
-    	$user = $request->session()->get('user');
-        if($user->user_role != 'dev') return "<h1 style='color: red;'>Você não tem permissão para acessar essa pagina</h1>";
-        else return view('grid');
-    }
-    else
-    {
-        return view('login');
-    }
-});
-
-
 Route::get('admin', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
@@ -381,7 +175,6 @@ Route::get('admin', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('EditarProfissao', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
@@ -393,7 +186,6 @@ Route::get('EditarProfissao', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('EditarAssunto', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
@@ -405,7 +197,6 @@ Route::get('EditarAssunto', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('EditarCarreira', function(Request $request){
     if($request->session()->exists('user'))    {
     	$user = $request->session()->get('user');
@@ -417,7 +208,6 @@ Route::get('EditarCarreira', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('Profissoes', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -430,8 +220,6 @@ Route::get('Profissoes', function(Request $request){
         return view('login');
     }
 })->name('Profissoes');
-
-
 Route::get('Carreiras', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -444,8 +232,6 @@ Route::get('Carreiras', function(Request $request){
         return view('login');
     }
 });
-
-
 Route::get('Assuntos', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -458,7 +244,6 @@ Route::get('Assuntos', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('Usuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -471,8 +256,6 @@ Route::get('Usuarios', function(Request $request){
         return view('login');
     }
 });
-
-
 Route::get('AssuntosUsuarios', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -485,8 +268,6 @@ Route::get('AssuntosUsuarios', function(Request $request){
         return view('login');
     }
 });
-
-
 Route::get('Contatos', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -499,7 +280,6 @@ Route::get('Contatos', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('conexoes', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -510,7 +290,6 @@ Route::get('conexoes', function(Request $request){
         return view('login');
     }
 });
-
 Route::get('solicitacoes', function(Request $request){
     if($request->session()->exists('user'))
     {
@@ -531,4 +310,3 @@ Route::get('mentores', function(Request $request){
         return view('login');
     }
 });
-

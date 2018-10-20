@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('user_telefone', 15)->nullable();
             $table->string('user_celular', 15)->nullable();
             $table->boolean('user_knowledge')->default(false); //se deseja ser mentor ou não, caso sim, fica true, caso não, fica false
-            $table->string('user_role', 9)->default('user'); //user, mentor, moderator, admin
+            $table->tinyInteger('user_role')->default(1); // 1: user, 2: mentor, 3: moderator, 4: admin, 5: dev
             $table->rememberToken(); //um bang pra recuperar senha
             $table->timestamps();
         });

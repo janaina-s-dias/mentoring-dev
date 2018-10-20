@@ -16,7 +16,7 @@ class CreateKnowledgeTable extends Migration
         Schema::create('knowledges', function (Blueprint $table) {
             $table->increments('knowledge_id');
             $table->double('knowledge_rank')->nullable();
-            $table->smallInteger('knowledge_nivel')->default(1); //1. basico 2. pouco conhecimento 3. conhecimento mediano 4. conhecimento quase pleno 5. conhecimento pleno 6. bastante conhecimento 7. experiente no assunto 8. MESTRE NO ASSUNTO
+            $table->tinyInteger('knowledge_nivel')->default(1); //1. basico 2. pouco conhecimento 3. conhecimento mediano 4. conhecimento quase pleno 5. conhecimento pleno 6. bastante conhecimento 7. experiente no assunto 8. MESTRE NO ASSUNTO
             $table->boolean('knowledge_active')->default(false); //se foi aceito ou não como mentor pelos moderados, e ele mesmo pode de desligar como mentor mudando pra null
             $table->unsignedInteger('fk_knowledge_user');
             $table->unsignedInteger('fk_knowledge_subject');
