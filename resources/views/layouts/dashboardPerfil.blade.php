@@ -122,6 +122,9 @@
                     <li {{ (Request::is('*cadastroAssunto') ? 'class="active"' : '') }}>
                         <a href="{{ url ('cadastroAssunto') }}"><i class="fa fa-trophy fa-fw"></i> Cadastrar Assunto</a>
                     </li>
+                    <li {{ (Request::is('*cadastroContato') ? 'class="active"' : '') }}>
+                        <a href="{{ url ('cadastroContato') }}"><i class="fa fa-trophy fa-fw"></i> Cadastrar Contato</a>
+                    </li>
                     <li {{ (Request::is('*alterarPerfil') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarPerfil') }}"><i class="fa fa-edit fa-fw"></i> Alterar Perfil</a>
                     </li>

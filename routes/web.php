@@ -53,6 +53,19 @@ Route::get('cadastroAssunto', function(Request $request){
     }
         
 });
+Route::get('cadastroContato', function(Request $request){
+    if(Auth::check())
+    {
+        $user = Auth::user();
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
+        else return view('cadastroContato');
+    }
+    else
+    {
+        return view('login');
+    }
+        
+});
 Route::get('alterarPerfil', function(Request $request){
     if(Auth::check())
     {

@@ -15,7 +15,9 @@ class ContactController extends Controller
     }
 
     public function store(Request $request)
-    { }
+    { 
+        
+    }
 
     public function edit($id, Request $request)
     { }
