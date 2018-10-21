@@ -17,7 +17,7 @@
         </style>
         
          <section class="arcus" style="width: 550px; padding: 55px 55px;">
-             <?php $user = Session::get('user'); 
+                <?php $user = Auth::user(); 
              //dd($user);
              ?>
              

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contact;
 use Illuminate\Database\QueryException;
-
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {

@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Connection;
+use Illuminate\Support\Facades\Auth;
 
 class ConnectionController extends Controller
 {
     function __construct(Request $request) {
-        $sessao = $request->session()->get('user');
+        
     }
 
     public function salvar($knowledge)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         $con = new Connection([
            'fk_connection_user' => $user->user_id,
            'fk_connection_knowledge' => $knowledge
@@ -98,7 +99,7 @@ class ConnectionController extends Controller
 
     public function CriarQuery(Request $request)
     {
-        $user = $request->session()->get('user');
+        $user = Auth::user();
         $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'knowledge_nivel')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')

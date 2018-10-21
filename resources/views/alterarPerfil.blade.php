@@ -17,7 +17,7 @@
 
          <section class="arcus" style="width: 550px; padding: 55px 55px;">
 
-            <?php $user = Session::get('user'); ?>
+            <?php $user = Auth::user(); ?>
             <form class="form-horizontal" method="POST" action="{{ route('user.update', $user->user_id) }}"> 
                  @method('PATCH')
                  @csrf

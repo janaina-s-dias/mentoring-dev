@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\UserSubject;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class UserSubjectController extends Controller
 {
@@ -17,7 +18,7 @@ class UserSubjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
-        $userSessao = $request->session()->get('user');
+        $userSessao = Auth::user();
         if($userSessao->user_knowledge && $request->knowledge_nivel > 2)
         {
             $knowledge = new KnowledgeController();
@@ -52,7 +53,13 @@ class UserSubjectController extends Controller
         $us = UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
                          ->join('users','fk_subject_user','=','user_id')
                          ->where('user_id', $id)->get();
-         redirect('perfil')->with('assuntos', $us);
+        $uss = array();
+        foreach ($us as $s) {
+            $ussSub = array();
+            $ussSub['assunto'] = $s->subject_name;
+            $uss[] = $ussSub;
+        }
+        echo json_encode($uss);
     }
 
     public function deletar($id, $id2)

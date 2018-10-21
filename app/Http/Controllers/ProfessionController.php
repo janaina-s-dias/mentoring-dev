@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Profession;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessionController extends Controller
 {

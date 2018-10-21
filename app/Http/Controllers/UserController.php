@@ -110,9 +110,6 @@ class UserController extends Controller
         try
         {
            $user->update();
-           $users = User::find($id);
-           $request->session()->flush();
-           $request->session()->put('user', $users);
            return redirect('/alterarPerfil')->with('success', 'Informações alteradas!');
         } catch (QueryException $ex) {
            return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas!');

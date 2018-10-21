@@ -28,7 +28,7 @@ Route::get('/', function(Request $request){
         
 });
 Route::get('perfil', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -41,7 +41,7 @@ Route::get('perfil', function(Request $request){
         
 })->name('perfil');
 Route::get('cadastroAssunto', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -54,7 +54,7 @@ Route::get('cadastroAssunto', function(Request $request){
         
 });
 Route::get('alterarPerfil', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -67,7 +67,7 @@ Route::get('alterarPerfil', function(Request $request){
         
 });
 Route::get('alterarSenha', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -191,7 +191,7 @@ Route::get('Contatos', function(Request $request){
 });
 });
 Route::get('conexoes', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
     	$user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -203,7 +203,7 @@ Route::get('conexoes', function(Request $request){
     }
 });
 Route::get('solicitacoes', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -215,7 +215,7 @@ Route::get('solicitacoes', function(Request $request){
     }
 });
 Route::get('mentores', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
@@ -227,7 +227,7 @@ Route::get('mentores', function(Request $request){
     }
 });
 Route::get('mentorias', function(Request $request){
-    if(Auth::check)
+    if(Auth::check())
     {
         $user = Auth::user();
         if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');

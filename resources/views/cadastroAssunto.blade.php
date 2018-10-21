@@ -1,9 +1,6 @@
 @extends('layouts.dashboardPerfil')
 @section('page_heading','Cadastrar Assunto')
 @section('section')
-@php 
-    $user = Session::get('user');
-@endphp
 <script type="text/javascript">
     $(document).ready(function (){
         $('#Submit').hide();
@@ -69,7 +66,7 @@
             $('#Submit').hide();
         }
     });
-    if(!{{$user->user_knowledge}})
+    if(!{{Auth::user()->user_knowledge}})
     {
         $('#mentorCombo').hide();
     }
@@ -124,7 +121,7 @@
                         </select>
                     </div>
                 </div>
-                <input type="hidden" name="fk_subject_user" value="{{ $user->user_id }}">
+                <input type="hidden" name="fk_subject_user" value="{{ Auth::user()->user_id }}">
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button class="btn btn-success btn-sm btn-circle" type="submit" name="Submit" id="Submit"><span class="glyphicon glyphicon-ok"></span></button>

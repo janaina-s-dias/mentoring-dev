@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Knowledge;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class KnowledgeController extends Controller
 {
@@ -15,18 +16,17 @@ class KnowledgeController extends Controller
 
     public function store(Request $request)
     {
-        $user = $request->session()->get('user');
         $knowledge = new Knowledge([
            'knowledge_nivel' => $request->knowledge_nivel, 
            'knowledge_rank' => 5, 
-           'fk_knowledge_user' => $user->user_id,
+           'fk_knowledge_user' => Auth::user()->user_id,
            'fk_knowledge_subject' => $request->fk_user_subject
         ]);
         try
         {
             $knowledge->save();
             return false;
-        } catch (Exception $ex) {
+        } catch (QueryException $ex) {
             return true;
         }
     }
@@ -34,10 +34,15 @@ class KnowledgeController extends Controller
     public function show($id)
     {
         $mentorias = Knowledge::join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-                ->where('fk_knowledge', $id);
+                ->where('fk_knowledge_user', $id)->get();
         $mentoria = array();
         foreach ($mentorias as $m) {
-            $mentoria[] = $m;
+            $submentoria = array();
+            $submentoria['assunto'] = $m->subject_name;
+            $submentoria['nivel'] = intval($m->knowledge_nivel);
+            $submentoria['rank'] = intval($m->knowledge_rank);
+            $submentoria['ativo'] = boolval($m->knowledge_active);
+            $mentoria[] = $submentoria;
         }
         echo json_encode($mentoria);
     }
@@ -103,11 +108,10 @@ class KnowledgeController extends Controller
 
     public function CriarQuery(Request $request)
     {
-        $sessao = $request->session()->get('user');
         $assunto = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
-                            ->where('fk_subject_user', $sessao->user_id)->get();
+                            ->where('fk_subject_user', Auth::user()->user_id)->get();
         $assuntos = array();
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
@@ -156,4 +160,5 @@ class KnowledgeController extends Controller
         $knowledge = Knowledge::all();
         return $knowledge->count();
     }
-}
+}/*
+[{"assunto":"Laravel","nivel":8,"rank":5,"ativo":false}]
