@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\UserSubject;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class UserSubjectController extends Controller
         
     }
 
-    public function JsonPopular()
+    public function JsonPopular(Request $request)
     {
         $user = $request->get('user');
         $userSubject = \App\UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
@@ -26,7 +27,7 @@ class UserSubjectController extends Controller
             $subdados['subject_name'] = $value->subject_name;
             $dados[] = $subdados;
         }
-        return Response::json($dados);
+        return response()->json($dados);
     }
     
     public function store(Request $request)

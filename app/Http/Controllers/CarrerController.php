@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Carrer;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+
 
 class CarrerController extends Controller
 {
@@ -15,7 +17,7 @@ class CarrerController extends Controller
         $this->carrer = $carrer;
     } 
     
-    public function JsonPopular()
+    public function JsonPopular(Request $request)
     {
         $profession = $request->get('profissao');
         $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->
@@ -27,7 +29,7 @@ class CarrerController extends Controller
             $subarray['carrer_nome'] = $value->carrer_name;
             $dados[]=$subarray;
         }
-    return Response::json($dados);
+    return response()->json($dados);
     }
     
     public function store(Request $request)

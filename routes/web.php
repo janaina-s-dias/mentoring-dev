@@ -64,8 +64,8 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
     Route::get('/profissao', 'ProfessionController@JsonPopular')->name('jsonpopularProfissao');
     Route::get('/carreira', 'CarrerController@JsonPopular')->name('jsonpopularCarreira');
-    Route::get('/assunto', 'ProfessionController@JsonPopular')->name('jsonpopularAssunto');
-    Route::get('/userassunto', 'ProfessionController@JsonPopular')->name('jsonpopularUserAssunto');
+    Route::get('/assunto', 'SubjectController@JsonPopular')->name('jsonpopularAssunto');
+    Route::get('/userassunto', 'UserSubjectController@JsonPopular')->name('jsonpopularUserAssunto');
 });
 
 Route::group(['middleware' => CheckAdmin::class], function(){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Profession;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class ProfessionController extends Controller
             $subarray['profession_nome'] = $value->profession_name;
             $dados[]=$subarray;
         }
-    return Response::json($dados);
+    return response()->json($dados);
     }
 
     public function store(Request $request) {

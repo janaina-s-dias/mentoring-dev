@@ -16,7 +16,7 @@ class SubjectController extends Controller
         
     } 
 
-    public function JsonPopular()
+    public function JsonPopular(Request $request)
     {
         $carrer = $request->get('carreira');
         $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)
@@ -28,7 +28,7 @@ class SubjectController extends Controller
             $subarray['subject_nome'] = $value->subject_name;
             $dados[]=$subarray;
         }
-    return Response::json($dados);
+    return response()->json($dados);
     }
     
     public function store(Request $request)
