@@ -42,11 +42,38 @@ class KnowledgeController extends Controller
             $submentoria['nivel'] = intval($m->knowledge_nivel);
             $submentoria['rank'] = intval($m->knowledge_rank);
             $submentoria['ativo'] = boolval($m->knowledge_active);
+            $submentoria['ativar'] = ($m->knowledge_active) ?       
+                                        "<form method='POST' action='".route('ativarmentor', $m->knowledge_id)."'>".
+                                            method_field('PATCH').
+                                            @csrf_field().
+                                        "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+                                        "<form method='POST' action='".route('ativarmentor', $m->knowledge_id)."'>".
+                                            method_field('PATCH').
+                                            @csrf_field().
+                                        "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";;
             $mentoria[] = $submentoria;
         }
         echo json_encode($mentoria);
     }
 
+    public function ativarMentor($id)
+    { 
+        $knowledge = Knowledge::find($id);
+
+        if($knowledge->knowledge_active == true) $knowledge->knowledge_active = false;
+        else if ($knowledge->knowledge_active == false) $knowledge->knowledge_active = true;
+        else $knowledge->knowledge_active = false;
+        try
+        {
+            $knowledge->update();
+            return redirect('/mentorias')->with('success', 'Status alterado!');
+          
+         } catch (QueryException $ex) {
+            return redirect('/mentorias')->with('failure', 'ERRO! Status não alterado!');
+         }
+
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -111,7 +138,9 @@ class KnowledgeController extends Controller
         $assunto = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
-                            ->where('fk_subject_user', Auth::user()->user_id)->get();
+                            ->where('fk_subject_user', Auth::user()->user_id)
+                            ->where('fk_knowledge_user', '<>', Auth::user()->user_id)
+                            ->where('knowledge_active', true)->get();
         $assuntos = array();
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;

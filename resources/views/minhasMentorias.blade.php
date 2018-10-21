@@ -31,6 +31,7 @@
                  option+= "<td>"+niveis[linha.nivel]+"</td>";
                  option+= "<td>"+linha.rank+"</td>";
                  option+="<td>"+(linha.ativo ? "Ativo" : "Inativo")+"</td>";
+                 option+="<td>"+linha.ativar+"</td>";
                     option+="</tr>";
                 });
                 $("#mentorias").html(option).show();
@@ -45,6 +46,7 @@
             <th>Nivel</th>
             <th>Ranking</th>
             <th>Status</th>
+            <th>Ativar/Desativar</th>
         </tr>
     </thead>
     <tbody id="mentorias">

@@ -16,7 +16,20 @@ class ContactController extends Controller
 
     public function store(Request $request)
     { 
+        $this->validate($request, $this->contact->rules, $this->contact->messages);
+        $contact = new Contact([
+            'contact_type' => $request->contact_type,
+            'contact_description' => $request->contact_description,
+            'fk_contact_user' => Auth::user()->user_id
+        ]);
         
+        try
+        {
+            $contact->save();
+            return redirect('cadastroContato')->with('success', 'Contato cadastrado');
+        } catch (QueryException $ex) {
+            return redirect('cadastroContato')->with('failure', 'Contato não cadastrado');
+        }
     }
 
     public function edit($id, Request $request)
