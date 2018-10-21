@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class KnowledgeController extends Controller
 {
-    function __construct(Request $request) {
-       
+    private $mentor;
+    function __construct(Request $request, Knowledge $knowledge) {
+       $this->mentor = $knowledge;
     }
 
 
     public function store(Request $request)
     {
+        $this->validate($request, $this->mentor->rules, $this->mentor->messsages);
         $knowledge = new Knowledge([
            'knowledge_nivel' => $request->knowledge_nivel, 
            'knowledge_rank' => 5, 
@@ -74,38 +76,55 @@ class KnowledgeController extends Controller
 
     }
     
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $mentor = Knowledge::find($id);
+        return redirect('EditarMentor')->with('mentor', $mentor);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function atulizarRank($id)
+    {
+        $mentor = Knowledge::find($id);
+        $novo = doubleval($mentor->knowledge_rank);
+        $novo = ($novo + $request->rank) / 2;
+        $mentor->knowledge_rank = $novo;
+        try
+        {
+            $mentor->update();
+            redirect('naoseideondevem')->with('success', 'Obrigado pela avaliação');
+        }
+        catch (QueryException $ex)
+        {
+            redirect('naoseideondevem')->with('failure', 'Erro ao dar a avaliação');
+        }
+        
+    }
+
+
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->mentor->rules, $this->mentor->messsages);
+        $mentor = Knowledge::find($id);
+        $mentor->knowledge_nivel = $request->knowledge_nivel;
+        try
+        {
+            $mentor->update();
+            redirect('naoseideondevem')->with('success', 'Mentor alterado');
+        } catch (QueryException $ex) {
+            redirect('naoseideondevem')->with('failure', 'Mentor não alterado');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $mentor = Knowledge::find($id);
+        try
+        {
+            $mentor->delete();
+            redirect('naoseideondevem')->with('success', 'Mentor deletado');
+        } catch (QueryException $ex) {
+            redirect('naoseideondevem')->with('failure', 'Mentor não deletado');
+        }
     }
 
 
@@ -199,7 +218,7 @@ class KnowledgeController extends Controller
         $output = array (
             "draw"  => intval($request->draw),
             "recordsTotal" => $this->TodosRegistros(), 
-            "recordsFiltered" => $this->RegistrosFiltrados($request),
+            "recordsFiltered" => $this->RegistrosFiltradosAdmin($request),
             "data" => $dados
         );
         echo json_encode($output);
@@ -260,6 +279,13 @@ class KnowledgeController extends Controller
     public function RegistrosFiltrados(Request $request)
     {
         $this->CriarQuery($request);
+        $query = $this->knowledge->count();
+        return $query;
+    }
+    
+    public function RegistrosFiltradosAdmin(Request $request)
+    {
+        $this->CriarQueryAdmin($request);
         $query = $this->knowledge->count();
         return $query;
     }
