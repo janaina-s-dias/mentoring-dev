@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdmin
+class CheckCadastro
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if($user->user_role < 3)
+        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null)
         {
-            return redirect('/');
+            return redirect('cadastroUsuario');
         }
         return $next($request);
     }

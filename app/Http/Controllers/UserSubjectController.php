@@ -15,6 +15,20 @@ class UserSubjectController extends Controller
         
     }
 
+    public function JsonPopular()
+    {
+        $user = $request->get('user');
+        $userSubject = \App\UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
+                                        ->where('fk_subject_user', '=', $user);
+        $dados = array();
+        foreach ($userSubject as $value) {
+            $subdados = array();
+            $subdados['subject_name'] = $value->subject_name;
+            $dados[] = $subdados;
+        }
+        return Response::json($dados);
+    }
+    
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);

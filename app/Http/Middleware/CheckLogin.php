@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdmin
+class CheckLogin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
-        if($user->user_role < 3)
+        if(!Auth::check())
         {
-            return redirect('/');
+            return view('login');
         }
         return $next($request);
     }

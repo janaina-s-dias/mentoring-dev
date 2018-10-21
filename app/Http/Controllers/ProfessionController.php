@@ -13,6 +13,19 @@ class ProfessionController extends Controller
     public function __construct(Profession $profession, Request $request) {
         $this->profession = $profession;
     }
+    
+    public function JsonPopular()
+    {
+        $profession = \App\Profession::where('profession_active', '=', '1')->get();
+        $dados = array();
+        foreach ($profession as $value) {
+            $subarray = array();
+            $subarray['profession_id'] = $value->profession_id;
+            $subarray['profession_nome'] = $value->profession_name;
+            $dados[]=$subarray;
+        }
+    return Response::json($dados);
+    }
 
     public function store(Request $request) {
         $this->validate($request, $this->profession->Rules(), $this->profession->message);

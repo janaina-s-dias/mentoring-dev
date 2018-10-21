@@ -14,7 +14,22 @@ class CarrerController extends Controller
     function __construct(Carrer $carrer, Request $request) {
         $this->carrer = $carrer;
     } 
-
+    
+    public function JsonPopular()
+    {
+        $profession = $request->get('profissao');
+        $carrer = \App\Carrer::where('fk_carrer_profession', '=', $profession)->
+                                                            where('carrer_active', '=', '1')->get();
+        $dados = array();
+        foreach ($carrer as $value) {
+            $subarray = array();
+            $subarray['carrer_id'] = $value->carrer_id;
+            $subarray['carrer_nome'] = $value->carrer_name;
+            $dados[]=$subarray;
+        }
+    return Response::json($dados);
+    }
+    
     public function store(Request $request)
     {
         $this->validate($request, $this->carrer->Regras(), $this->carrer->messages);

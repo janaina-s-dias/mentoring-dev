@@ -16,6 +16,21 @@ class SubjectController extends Controller
         
     } 
 
+    public function JsonPopular()
+    {
+        $carrer = $request->get('carreira');
+        $subject = \App\Subject::where('fk_subject_carrer','=', $carrer)
+                                                            ->where('subject_active', '=', '1')->get();
+        $dados = array();
+        foreach ($subject as $value) {
+            $subarray = array();
+            $subarray['subject_id'] = $value->subject_id;
+            $subarray['subject_nome'] = $value->subject_name;
+            $dados[]=$subarray;
+        }
+    return Response::json($dados);
+    }
+    
     public function store(Request $request)
     {
         $this->validate($request, $this->subject->Regras(), $this->subject->messages);
