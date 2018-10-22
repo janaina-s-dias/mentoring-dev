@@ -37,9 +37,16 @@ class UserSubjectController extends Controller
         if($userSessao->user_knowledge && $request->knowledge_nivel > 2) 
         {
             $knowledge = new KnowledgeController(new \App\Knowledge());
-            if($knowledge->store($request))
+            $result = $knowledge->store($request);
+            if($result['bool'])
             {
-                return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
+                if($result['motivo'] == ''){
+                    return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
+                }
+                else
+                {
+                    return redirect('/cadastroAssunto')->with('failure', $result['motivo']); 
+                }
             }
         }
         $us = new UserSubject([

@@ -25,23 +25,34 @@ class User extends Authenticatable {
     ];
     protected $rules;
     public $mensagens = [
+        //Login
         'user_login.required' => 'Usuário é obrigatório!',
+        'user_login.exists' => 'Usuario inexistente',
         'user_hash.required' => 'Senha obrigatória!',
-        'user_login.required' => 'Campo usuario é obrigatório!',
-        'user_login.unique' => 'Usuário já existente. Insira outro usuário!',
-        'user_login.max' => 'Usuário informado contém mais caracteres que o máximo permitido!',
-        'user_login.min' => 'Usuário informado contém menos caracteres que o mínimo permitido!',
-        'user_login.alpha_num' => 'O username deve conter somente letras e números!',
-        'user_hash.required' => 'Senha obrigatória!',
-        'user_hash.min' => 'Senha informada muito pequena!',
-        'user_hash.max' => 'Senha informada muito grande!',
-        'user_hash.required' => 'Senha antiga é obrigatória!',
+        
+        //cadastro 1
+        'login.required' => 'Campo usuario é obrigatório!',
+        'login.unique' => 'Usuário já existente. Insira outro usuário!',
+        'login.max' => 'Usuário informado contém mais caracteres que o máximo permitido!',
+        'login.min' => 'Usuário informado contém menos caracteres que o mínimo permitido!',
+        'login.alpha_num' => 'O username deve conter somente letras e números!',
+        'hash.required' => 'Senha obrigatória!',
+        'hash.min' => 'Senha informada muito pequena!',
+        'hash.max' => 'Senha informada muito grande!',
+        'hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
+        
+        //senha
+        'new_user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
+        'new_user_hash.required' => 'Senha antiga é obrigatória!',
+        'new_user_hash.min' => 'Senha informada muito pequena!',
+        'new_user_hash.max' => 'Senha informada muito grande!',
+        
+        //cadastro 2
         'user_email.required' => 'Email obrigatório',
         'user_email.email' => 'Email inválido',
         'user_email.max' => 'Email muito grande',
         'user_email.min' => 'Email muito pequeno',
         'user_email.unique' => 'Email já utilizado',
-        'hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
         'user_cpf.unique' => 'Este CPF ja esta cadastrado'  ,                 
         'user_cpf.digits' => 'O CPF deve conter 11 digitos e ser numerico'  ,        
         'user_cpf.required' => 'O CPF é obrigatorio'  ,        
@@ -71,7 +82,7 @@ class User extends Authenticatable {
                 break;
             case 'login':
                 $this->rules = [
-                    'user_login' => 'bail|required', 
+                    'user_login' => 'bail|required|exists:users,user_login', 
                     'user_hash' => 'bail|required' 
                 ];
             break;

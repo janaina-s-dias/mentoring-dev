@@ -60,6 +60,7 @@ class UserController extends Controller
         try
         {
            $users->update();
+           Auth::login($users);
            return redirect('/')->with('success', 'Continue seu cadastro');
         } 
         catch (QueryException $ex) 
@@ -81,6 +82,7 @@ class UserController extends Controller
             try
             {
                 $user->update();
+                Auth::login($user);
                 return redirect('alterarSenha')->with('success', 'Senha alterada com sucesso!');
                 
             } catch (QueryException $ex) {
@@ -111,6 +113,7 @@ class UserController extends Controller
         try
         {
            $user->update();
+           Auth::login($user);
            return redirect('/alterarPerfil')->with('success', 'Informações alteradas!');
         } catch (QueryException $ex) {
            return redirect('/alterarPerfil')->with('failure', 'ERRO! Informações não alteradas!');
@@ -127,14 +130,17 @@ class UserController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $userSession = $request->session()->get('user');
+        $userSession = Auth::user();
         $user = User::find($id);
         try
         {
-            $user->delete();
-            if($id == $userSession->user_id)
+            if($id != $userSession->user_id)
             {
-                $request->session()->flush();
+                $user->delete();
+            }
+            else
+            {
+                return redirect('/Usuarios')->with('failure', 'ERRO! Você não pode se auto-deletar do sistema');
             }
             return redirect('/Usuarios')->with('success', 'Usuário deletado!');
         } catch (QueryException $ex) {
@@ -152,12 +158,12 @@ class UserController extends Controller
         }
         else
         {
-            return redirect('/')->with('failure', 'Usuario inexistente!');
+            return redirect('/')->with('failure', 'Senha incorreta');
         }
     }
     public function logout(Request $request)
     {
-        $request->session()->flush();
+        Auth::logout();
         return redirect('/');        
     }
     

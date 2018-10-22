@@ -7,7 +7,7 @@ use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\CheckCadastro;
 
 Route::post('/logar', 'UserController@logar')->name('acessar');
-
+Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::get('/', function(Request $request){
     if(Auth::check())
     {
@@ -35,7 +35,6 @@ Route::group(['middleware' => CheckLogin::class], function(){
         Route::get('mentorias', function(Request $request){ return view('minhasMentorias'); });
     });
 
-    Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
     Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
     Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
     Route::get('/sair', 'UserController@logout')->name('sair');

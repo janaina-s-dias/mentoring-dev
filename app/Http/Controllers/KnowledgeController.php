@@ -24,12 +24,20 @@ class KnowledgeController extends Controller
            'fk_knowledge_user' => Auth::user()->user_id,
            'fk_knowledge_subject' => $request->fk_user_subject
         ]);
-        try
+        $mentor = UserSubject::where('fk_knowledge_user', '=', Auth::user()->user_id)->
+                             where('fk_knowledge_subject', '=', $request->fk_user_subject)->count();
+        if($mentor == 0){
+            try
+            {
+                $knowledge->save();
+                return array('bool' => false);
+            } catch (QueryException $ex) {
+                return array('bool' => true, 'motivo' => '');
+            }
+        }
+        else
         {
-            $knowledge->save();
-            return false;
-        } catch (QueryException $ex) {
-            return true;
+            return array('bool' => true, 'motivo' => 'Não pode haver mentoria no mesmo assunto');
         }
     }
 
@@ -41,6 +49,7 @@ class KnowledgeController extends Controller
         foreach ($mentorias as $m) {
             $submentoria = array();
             $submentoria['assunto'] = $m->subject_name;
+            $submentoria['assunto_id'] = $m->subject_id;
             $submentoria['nivel'] = intval($m->knowledge_nivel);
             $submentoria['rank'] = intval($m->knowledge_rank);
             $submentoria['ativo'] = boolval($m->knowledge_active);
