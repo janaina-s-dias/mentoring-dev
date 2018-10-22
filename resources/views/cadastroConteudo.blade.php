@@ -54,6 +54,14 @@
                 $("#assunto").html(option).show();
            }
        }, 'json');
+//       CKEDITOR.replace( 'conteudo', {
+//	width: '100%',
+//	height: 338,
+//        resize_enabled: false,
+//        language: 'pt',
+//        customConfig: "<? base_url().'assets/ckeditor/config.js' ?>",
+//        extraPlugins: 'image,uploadimage'
+//    });
     });
 </script>
 
