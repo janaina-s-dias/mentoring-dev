@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class KnowledgeController extends Controller
 {
-    private $mentor;
-    function __construct(Request $request, Knowledge $knowledge) {
-       $this->mentor = $knowledge;
+    private $knowledge;
+    function __construct(Knowledge $knowledge) {
+       $this->knowledge = $knowledge;
     }
 
 
@@ -68,10 +68,10 @@ class KnowledgeController extends Controller
         try
         {
             $knowledge->update();
-            return redirect('/mentorias')->with('success', 'Status alterado!');
+            return redirect('/mentores')->with('success', 'Status alterado!');
           
          } catch (QueryException $ex) {
-            return redirect('/mentorias')->with('failure', 'ERRO! Status não alterado!');
+            return redirect('/mentores')->with('failure', 'ERRO! Status não alterado!');
          }
 
     }
@@ -195,11 +195,10 @@ class KnowledgeController extends Controller
             $sub_dados[] = $row->knowledge_nivel;  
             $sub_dados[] = $row->user_nome; 
             $sub_dados[] = $row->knowledge_rank; 
-
             $sub_dados[] = ($row->knowledge_active) ? 
             
             "<form method='POST' action='".route('ativarmentor', $row->knowledge_id)."'>".
-                method_field('PATCH').
+                method_field('PATCH'). 
                 @csrf_field().
             "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
 
@@ -230,10 +229,12 @@ class KnowledgeController extends Controller
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')->get();
         $assuntos = array();
+        
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
         }
-        $this->knowledge = Knowledge::select('subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
+
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_active','knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            

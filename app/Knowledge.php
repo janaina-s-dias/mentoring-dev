@@ -25,7 +25,7 @@ class Knowledge extends Model
     ];
 
     public $messsages = [
-    	'knowledge_rank.required' => 'Rank do Mentor é obrigatorio',
+    	'knowledge_rank.required' => 'Rank do Mentor é obrigatório',
     	'knowledge_rank.numeric' => 'Rank do Mentor deve ser numerico',
     	'knowledge_nivel.required' => 'Nivel de Conhecimento obrigatorio',
     	'knowledge_nivel.numeric' => 'Nivel de Conhecimento deve ser numerico',

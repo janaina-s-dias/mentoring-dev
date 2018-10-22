@@ -26,7 +26,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::group(['middleware' => CheckCadastro::class], function(){
         Route::get('perfil', function(Request $request){ return view('perfil'); })->name('perfil'); 
         Route::get('cadastroAssunto', function(Request $request){ return view('cadastroAssunto'); });
-        Route::get('cadastroContato', function(Request $request){ return view('cadastroUsuario'); });
+        Route::get('cadastroContato', function(Request $request){ return view('cadastroContato'); });
         Route::get('alterarPerfil', function(Request $request){ return view('alterarPerfil'); });
         Route::get('alterarSenha', function(Request $request){ return view('alterarSenha'); });
         Route::get('conexoes', function(Request $request){ return view('manterConexoes'); });

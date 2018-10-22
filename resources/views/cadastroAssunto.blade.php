@@ -69,6 +69,7 @@
     if(!{{Auth::user()->user_knowledge}})
     {
         $('#mentorCombo').hide();
+        $('#teste').hide();
     }
 });
 
@@ -107,7 +108,7 @@
                         </div>
                     </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="mentorCombo">Conhecimento:</label>
+                    <label class="control-label col-sm-2" id="teste" for="mentorCombo">Conhecimento:</label>
                     <div class="col-sm-10">
                         <select id="mentorCombo" name="knowledge_nivel" class="form-control">
                             <option value="1">Basico</option>

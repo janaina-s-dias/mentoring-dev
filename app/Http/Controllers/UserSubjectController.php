@@ -34,9 +34,9 @@ class UserSubjectController extends Controller
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
         $userSessao = Auth::user();
-        if($userSessao->user_knowledge && $request->knowledge_nivel > 2)
+        if($userSessao->user_knowledge && $request->knowledge_nivel > 2) 
         {
-            $knowledge = new KnowledgeController();
+            $knowledge = new KnowledgeController(\App\Knowledge::class);
             if($knowledge->store($request))
             {
                 return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
