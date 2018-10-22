@@ -191,15 +191,22 @@ class KnowledgeController extends Controller
         $dados = array();
         foreach ($pegadados as $row) {
             $sub_dados = array();
-            $sub_dados[] = $row->subject_name; //subject_name
-            $sub_dados[] = $row->knowledge_nivel;  //knowledge_nivel
-            $sub_dados[] = $row->user_nome; //user_nome
-            $sub_dados[] = $row->knowledge_rank; //rank
-            $sub_dados[] =  "<form method='POST' action='".route('ativar', $row->knowledge_id)."'>".
+            $sub_dados[] = $row->subject_name; 
+            $sub_dados[] = $row->knowledge_nivel;  
+            $sub_dados[] = $row->user_nome; 
+            $sub_dados[] = $row->knowledge_rank; 
+
+            $sub_dados[] = ($row->knowledge_active) ? 
+            
+            "<form method='POST' action='".route('ativarmentor', $row->knowledge_id)."'>".
                 method_field('PATCH').
                 @csrf_field().
-            "<button type='submit' role='button'".($row->knowledge_active)  ? " class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" 
-                                                                            : " class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+            "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+
+            "<form method='POST' action='".route('ativarmentor', $row->knowledge_id)."'>".
+                method_field('PATCH').
+                @csrf_field()."<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
+            
             $sub_dados[] = "<a href='".route('knowledge.edit', $row->knowledge_id)."' role='button' class='btn btn-primary'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('knowledge.destroy', $row->knowledge_id)."'>".
                             method_field('DELETE').

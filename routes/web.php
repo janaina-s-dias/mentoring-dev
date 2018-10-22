@@ -34,6 +34,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
         Route::get('mentores', function(Request $request){ return view('listarMentores'); });
         Route::get('mentorias', function(Request $request){ return view('minhasMentorias'); });
     });
+
     Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
     Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
     Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
@@ -58,7 +59,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::resource('knowledge', 'KnowledgeController');
     Route::patch('/ativar/{profession_id}', 'ProfessionController@ativar')->name('ativar');
     Route::patch('/ativarcarrer/{carrer_id}', 'CarrerController@ativarCarreira')->name('ativarcarrer');
-    Route::patch('/ativarmentor/{mentor_id}', 'KnowledgeController@ativarMentor')->name('ativarmentor');
+    Route::patch('/ativarmentor/{knowledge_id}', 'KnowledgeController@ativarMentor')->name('ativarmentor');
     Route::patch('/ativarsubject/{subject_id}', 'SubjectController@ativarAssunto')->name('ativarsubject');
     Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
     Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
@@ -79,4 +80,6 @@ Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('Usuarios', function(Request $request){ return view('manterUsuario'); });
     Route::get('AssuntosUsuarios', function(Request $request){ return view('manteruserSubject'); });
     Route::get('Contatos', function(Request $request){ return view('manterContatos'); });
+    Route::get('mentores', function(Request $request){ return view('manterMentores'); });
+    
 });

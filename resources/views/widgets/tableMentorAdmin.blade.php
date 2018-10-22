@@ -8,13 +8,13 @@
            "order": [],
            "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
-               "url": "{{ route('pegaDadosMentor') }}", //url Controller Conexao - PegaDados
+               "url": "{{ route('pegaDadosMentorAdmin') }}", //url Controller Conexao - PegaDados
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
            "columnDefs": [
                 {
-                    "targets": [ 4 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 4, 5, 6 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -47,7 +47,9 @@
             <th style="text-align:center">Nível de Conhecimento</th>
             <th style="text-align:center">Usuário</th>    
             <th style="text-align:center">Pontuação</th>  
-            <th style="text-align:center">Solicitar</th>             
+            <th style="text-align:center">Ativar/Desativa</th>             
+            <th style="text-align:center">Alterar</th>
+            <th style="text-align:center">Excluir</th>
         </tr>
     </thead>
     <tbody style="text-align:center">
