@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 2 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -43,10 +43,9 @@
 <table id="tabelaSolicitacao" class="table-responsive">
     <thead>
         <tr>
-            <th style="text-align:center">Início Conexão</th>
-            <th style="text-align:center">Término Conexão</th>
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Conhecimento</th>                   
+            <th style="text-align:center">Conhecimento</th>     <!--Trocar para assunto -->
+            <th style="text-align:center">Aceitar/Recusar</th>                    
         </tr>
     </thead>
     <tbody style="text-align:center">

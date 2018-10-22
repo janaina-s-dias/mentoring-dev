@@ -14,6 +14,7 @@ class ConnectionController extends Controller
 
     public function salvar($knowledge)
     {
+
         $user = Auth::user();
         $con = new Connection([
            'fk_connection_user' => $user->user_id,
@@ -24,7 +25,7 @@ class ConnectionController extends Controller
         if($conn == 0){
             try {
                 $con->save();
-                return redirect('mentores')->with('success', 'Solicitaçãoo enviada, aguarde');
+                return redirect('mentores')->with('success', 'Solicitação enviada, aguarde');
             } catch (\Illuminate\Database\QueryException $ex) {
                 return redirect('mentores')->with('failure', 'Solicitação não enviada');
             }
@@ -33,6 +34,13 @@ class ConnectionController extends Controller
         {
             return redirect('mentores')->with('failure', 'Conexão já existente');
         }
+    }
+
+
+    public function aceitar($data){
+
+
+
     }
 
     public function show($id)
@@ -147,10 +155,14 @@ class ConnectionController extends Controller
         $dados = array();
         foreach ($pegadados as $row) {
             $sub_dados = array();
-            $sub_dados[] = $row->connection_start;
-            $sub_dados[] = $row->connection_end;
             $sub_dados[] = $row->user_nome; //user_nome
-            $sub_dados[] = $row->knowledge_nivel; //knowledge_nivel
+            $sub_dados[] = $row->subject_name; //trocar para assunto
+            $sub_dados[] = "
+            <form method='POST' action=''>".
+                    method_field('PATCH').
+                        @csrf_field().
+            "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
+            
             $dados[] = $sub_dados;
         }
         
@@ -166,9 +178,10 @@ class ConnectionController extends Controller
 
     public function CriarQuery2(Request $request)
     {
-        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'knowledge_nivel')
+        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'subject_name')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
+            ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
             ->whereNull('connection_end');
            
        

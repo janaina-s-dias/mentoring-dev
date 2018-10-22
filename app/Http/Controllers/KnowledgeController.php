@@ -68,10 +68,10 @@ class KnowledgeController extends Controller
         try
         {
             $knowledge->update();
-            return redirect('/mentores')->with('success', 'Status alterado!');
+            return redirect('/mentoresAdmin')->with('success', 'Status alterado!');
           
          } catch (QueryException $ex) {
-            return redirect('/mentores')->with('failure', 'ERRO! Status não alterado!');
+            return redirect('/mentoresAdmin')->with('failure', 'ERRO! Status não alterado!');
          }
 
     }
@@ -138,7 +138,10 @@ class KnowledgeController extends Controller
             $sub_dados[] = $row->knowledge_nivel;  //knowledge_nivel
             $sub_dados[] = $row->user_nome; //user_nome
             $sub_dados[] = $row->knowledge_rank; //rank
-            $sub_dados[] = "<a href='#' role='button' class='btn btn-success'>Solicitar Mentoria</span></a>";
+            $sub_dados[] = "<form method='POST' action='".route('conexao', $row->knowledge_id)."'>".
+                            method_field('POST'). 
+                            @csrf_field().
+            "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Solicitar'>OK</button> </span></button> </form>";
             $dados[] = $sub_dados;
         }
         
@@ -164,7 +167,7 @@ class KnowledgeController extends Controller
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
         }
-        $this->knowledge = Knowledge::select('subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            

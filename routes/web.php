@@ -49,7 +49,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
     Route::post('/pegaDadosMentor', 'KnowledgeController@PegaDadosKnowledge')->name('pegaDadosMentor');
     Route::post('/pegaDadosMentorAdmin', 'KnowledgeController@PegaDadosKnowledgeAdmin')->name('pegaDadosMentorAdmin');
-    Route::post('/conectar/{mentor}', 'ConnectionController@salvar')->name('conexao');
+    Route::post('/conectar/{knowledge_id}', 'ConnectionController@salvar')->name('conexao');
     Route::resource('usersubject', 'UserSubjectController');
     Route::resource('subject', 'SubjectController');
     Route::resource('carrer', 'CarrerController');
@@ -67,6 +67,9 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('/carreira', 'CarrerController@JsonPopular')->name('jsonpopularCarreira');
     Route::get('/assunto', 'SubjectController@JsonPopular')->name('jsonpopularAssunto');
     Route::get('/userassunto', 'UserSubjectController@JsonPopular')->name('jsonpopularUserAssunto');
+    Route::patch('/aceitarPedido', 'ConnectionController@aceitar')->name('aceitarPedido');
+
+
 });
 
 Route::group(['middleware' => CheckAdmin::class], function(){
