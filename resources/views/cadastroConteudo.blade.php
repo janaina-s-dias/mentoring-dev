@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 @section('page_heading','Conteudo')
 @section('section')
+<script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         esconde();
@@ -13,36 +14,44 @@
             $("#submit").hide();
         }
         $("#assunto").on('change', function(){
-           esconde();
+           $("#url").hide();
+           $("#arquivo").hide();
+           $("#conteudo").hide();
            $("#titulo").show();
-           $("#tipo")show();
+           $("#tipo").show();
         });
         $("#tipo").on('change', function() {
-            esconde();
+            $("#url").hide();
+            $("#arquivo").hide();
+            $("#conteudo").hide();
             $("#titulo").show();
             $("#tipo").show();
-            switch ($(this).val()) {
-                case 1:
-                    $("#arquivo").show();
-                    $("#submit").show();
-                break;
-                case 2:
-                    $("#url").show();
-                    $("#submit").show();
-                break;
-                case 3:
-                    $("#url").show();
-                    $("#submit").show();
-                break;
-                case 4:
-                    $("#conteudo").show();
-                    $("#submit").show();
-                break;
-                default:
-                    esconde();
-                    $("#titulo").show();
-                    $("#tipo").show();
-                break;
+            if($(this).val() === 1) {
+                $("#arquivo").show();
+                $("#submit").show();
+            }
+            else if($(this).val() === 2) {       
+                $("#url").show();
+                $("#submit").show();
+            } else if ($(this).val() === 3) {
+                $("#url").show();
+                $("#submit").show();
+                }
+            else if($(this).val() === 4) {
+                $("#conteudo").show();
+                $("#submit").show();
+                CKEDITOR.replace( 'conteudo', {
+                    width: '100%',
+                    height: 338,
+                    resize_enabled: false,
+                    language: 'pt',
+                    customConfig: "{{asset('assets/ckeditor/config.js')}}"
+                });
+            }
+            else {
+                $("#url").hide();
+                $("#arquivo").hide();
+                $("#conteudo").hide();
             }
         });
         $.get("{{route('knowledge.show', Auth::user()->user_id)}}", function(data){
@@ -51,17 +60,9 @@
             $.each(data, function(i, linha) {
                  option+= "<option value='"+linha.assunto_id+"'>"+linha.assunto+"</option>";
             });
-                $("#assunto").html(option).show();
+                $("#assunto").append(option).show();
            }
        }, 'json');
-//       CKEDITOR.replace( 'conteudo', {
-//	width: '100%',
-//	height: 338,
-//        resize_enabled: false,
-//        language: 'pt',
-//        customConfig: "<? base_url().'assets/ckeditor/config.js' ?>",
-//        extraPlugins: 'image,uploadimage'
-//    });
     });
 </script>
 
@@ -109,6 +110,11 @@
         <div class="col-sm-10">
             <textarea name="content_content" id="conteudo"></textarea>
         </div>    
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2">
+            <button class="btn btn-success" id="submit">Cadastrar</button>
+        </div>
     </div>
 </form>
            

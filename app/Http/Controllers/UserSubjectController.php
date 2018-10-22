@@ -58,9 +58,25 @@ class UserSubjectController extends Controller
         if($user == 0){
             try {
                 $us->save();
-                return redirect('/cadastroAssunto')->with('success', 'Assunto inserido em seus interesses!');
+                Auth::user()->user_knowledge;
+                if (!Auth::user()->user_knowledge)
+                {
+                    $mensagem = "Assunto inserido em seus interesses!";
+                }
+                else {
+                    $mensagem = "Assunto inserido em suas mentorias!";
+                }
+                
+                return redirect('/cadastroAssunto')->with('success', $mensagem);
             } catch (QueryException $exc) {
-                return redirect('/cadastroAssunto')->with('failure', 'Assunto não inserido em seus interesses!');  
+                 if (!Auth::user()->user_knowledge)
+                {
+                    $mensagem = "Assunto não inserido em seus interesses!";
+                }
+                else {
+                    $mensagem = "Assunto não inserido em suas mentorias!";
+                }
+                return redirect('/cadastroAssunto')->with('failure',  $$mensagem);  
             }
         }
         else

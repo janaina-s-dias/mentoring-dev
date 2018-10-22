@@ -37,7 +37,7 @@ class ConnectionController extends Controller
     }
 
 
-    public function aceitar($data){
+    public function aceitar(){
 
 
 
@@ -153,12 +153,13 @@ class ConnectionController extends Controller
     public function PegaDadosSolicitacao(Request $request) {
         $pegadados = $this->CriarDataTable2($request);
         $dados = array();
+        
         foreach ($pegadados as $row) {
             $sub_dados = array();
             $sub_dados[] = $row->user_nome; //user_nome
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = "
-            <form method='POST' action=''>".
+            $sub_dados[] = 
+            "<form method='POST' action='{{route ('aceitarPedido', )}}'>". //dois ids user e knowledge no array
                     method_field('PATCH').
                         @csrf_field().
             "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
@@ -182,7 +183,7 @@ class ConnectionController extends Controller
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-            ->whereNull('connection_end');
+            ->whereNull('connection_end'); //alterar para connection_status = 0
            
        
         if($request->input('search.value') != null)

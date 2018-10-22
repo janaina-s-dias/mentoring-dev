@@ -24,7 +24,7 @@ class KnowledgeController extends Controller
            'fk_knowledge_user' => Auth::user()->user_id,
            'fk_knowledge_subject' => $request->fk_user_subject
         ]);
-        $mentor = UserSubject::where('fk_knowledge_user', '=', Auth::user()->user_id)->
+        $mentor = Knowledge::where('fk_knowledge_user', '=', Auth::user()->user_id)->
                              where('fk_knowledge_subject', '=', $request->fk_user_subject)->count();
         if($mentor == 0){
             try
@@ -118,9 +118,9 @@ class KnowledgeController extends Controller
         try
         {
             $mentor->update();
-            redirect('naoseideondevem')->with('success', 'Mentor alterado');
+            return redirect('mentoresAdmin')->with('success', 'Mentor alterado');
         } catch (QueryException $ex) {
-            redirect('naoseideondevem')->with('failure', 'Mentor não alterado');
+            return redirect('mentoresAdmin')->with('failure', 'Mentor não alterado');
         }
     }
 
@@ -130,9 +130,9 @@ class KnowledgeController extends Controller
         try
         {
             $mentor->delete();
-            redirect('naoseideondevem')->with('success', 'Mentor deletado');
+            return redirect('mentoresAdmin')->with('success', 'Mentor deletado');
         } catch (QueryException $ex) {
-            redirect('naoseideondevem')->with('failure', 'Mentor não deletado');
+            return redirect('mentoresAdmin')->with('failure', 'Mentor não deletado');
         }
     }
 
