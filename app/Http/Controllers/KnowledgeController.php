@@ -17,7 +17,7 @@ class KnowledgeController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, $this->mentor->rules, $this->mentor->messsages);
+        $this->validate($request, $this->knowledge->rules, $this->knowledge->messsages);
         $knowledge = new Knowledge([
            'knowledge_nivel' => $request->knowledge_nivel, 
            'knowledge_rank' => 5, 

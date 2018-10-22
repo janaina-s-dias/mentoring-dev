@@ -17,11 +17,8 @@ class Knowledge extends Model
     ];
 
     public $rules = [
-    	'knowledge_rank' => 'bail|required|numeric',
-    	'knowledge_nivel' => 'bail|required|numeric',
-    	'knowledge_active' => 'required|boolean',
-    	'fk_knowledge_user' => 'required',
-    	'fk_knowledge_subject' => 'required'
+    	'knowledge_rank' => 'numeric',
+    	'knowledge_nivel' => 'required',
     ];
 
     public $messsages = [
