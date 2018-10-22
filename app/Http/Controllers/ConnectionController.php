@@ -156,7 +156,7 @@ class ConnectionController extends Controller
         foreach ($pegadados as $row) {
             $sub_dados = array();
             $sub_dados[] = $row->user_nome; //user_nome
-            $sub_dados[] = $row->subject_name; //trocar para assunto
+            $sub_dados[] = $row->subject_name;
             $sub_dados[] = "
             <form method='POST' action=''>".
                     method_field('PATCH').

@@ -44,7 +44,7 @@
     <thead>
         <tr>
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Conhecimento</th>     <!--Trocar para assunto -->
+            <th style="text-align:center">Assunto</th> 
             <th style="text-align:center">Aceitar/Recusar</th>                    
         </tr>
     </thead>
