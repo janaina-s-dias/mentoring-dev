@@ -18,7 +18,8 @@ class Knowledge extends Model
 
     public $rules = [
     	'knowledge_rank' => 'numeric',
-    	'knowledge_nivel' => 'required',
+        'knowledge_nivel' => 'required',
+        // 'fk_knowledge_subject' => 'unique',
     ];
 
     public $messsages = [

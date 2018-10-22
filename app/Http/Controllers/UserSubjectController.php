@@ -112,7 +112,7 @@ class UserSubjectController extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['user_name', 'subject_name','carrer_name', 'profession_name', null ];
+    private $order = ['user_nome', 'subject_name','carrer_name', 'profession_name', null ];
 
     public function CriarQuery(Request $request)
     {

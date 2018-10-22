@@ -80,6 +80,6 @@ Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('Usuarios', function(Request $request){ return view('manterUsuario'); });
     Route::get('AssuntosUsuarios', function(Request $request){ return view('manteruserSubject'); });
     Route::get('Contatos', function(Request $request){ return view('manterContatos'); });
-    Route::get('mentores', function(Request $request){ return view('manterMentores'); });
+    Route::get('mentoresAdmin', function(Request $request){ return view('manterMentores'); });
     
 });
