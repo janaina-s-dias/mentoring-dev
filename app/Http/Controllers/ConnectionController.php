@@ -127,7 +127,7 @@ class ConnectionController extends Controller
             $sub_dados[] =  
         
             "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
-            method_field('DELETE').
+            method_field('PATCH').
                 @csrf_field().
             "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Cancelar'><span>Cancelar</span></button> </form>" ;;    
             
