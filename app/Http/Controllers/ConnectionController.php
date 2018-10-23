@@ -37,8 +37,27 @@ class ConnectionController extends Controller
     }
 
 
-    public function aceitar($id1, $id2){
+    public function aceitar($id1){
 
+        // dd($id1);
+        $con = Connection::find($id1);
+
+        if($con->connection_start == null)
+        {
+            $con->connection_start = '2018-10-22';
+            $con->connection_status = 1;
+
+            try {
+                $con->save();
+                return redirect('solicitacoes')->with('success', 'Conexao iniciada!');
+            } catch (\Illuminate\Database\QueryException $ex) {
+                return redirect('solicitacoes')->with('failure', 'Conexao não iniciada!');
+            }
+        }
+        else {
+            return redirect('solicitacoes')->with('failure', 'Conexão já existente');
+        }
+        
     }
         
             
@@ -90,8 +109,8 @@ class ConnectionController extends Controller
             $sub_dados = array();
             $sub_dados[] = $row->connection_start;
             $sub_dados[] = $row->connection_end;
-            $sub_dados[] = $row->user_nome; //user_nome
-            $sub_dados[] = $row->knowledge_nivel; //knowledge_nivel
+            $sub_dados[] = $row->user_nome;  
+            $sub_dados[] = $row->knowledge_nivel;  
             $dados[] = $sub_dados;
         }
         
@@ -149,20 +168,17 @@ class ConnectionController extends Controller
         return $query;
     }
     
-//datatable solicitacoes
+    //Datatable de Solicitações
     public function PegaDadosSolicitacao(Request $request) {
         $pegadados = $this->CriarDataTable2($request);
         $dados = array();
         
         foreach ($pegadados as $row) {
             $sub_dados = array();
-            $sub_dados[] = $row->user_nome; //user_nome
+            $sub_dados[] = $row->user_nome; 
             $sub_dados[] = $row->subject_name;
             $sub_dados[] = 
-
-
-            // rota exemplo"<form method='POST' action=".route('usersubject.deletar',array('user' => $row->fk_subject_user, 'subject' => $row->fk_user_subject))."'>"
-            "<form method='POST' action='".route('aceitarPedido', array('user' => $row->fk_connection_user, 'knowledge' => $row->fk_connection_knowledge))."'>". //dois ids user e knowledge no array
+            "<form method='POST' action='".route('aceitarPedido', $row->connection_id)."'>". 
                     method_field('PATCH').
                         @csrf_field().
             "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
@@ -178,15 +194,16 @@ class ConnectionController extends Controller
         );
         echo json_encode($output);
     }
-    //private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel', null];
+     
 
     public function CriarQuery2(Request $request)
     {
-        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'subject_name', 'fk_connection_user', 'fk_connection_knowledge')
+        $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name', 'fk_connection_user', 'fk_connection_knowledge')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-            ->whereNull('connection_end'); //alterar para connection_status = 0
+                //->whereNull('connection_end'); alterar para connection_status = 0
+            ->where('connection_id', '=', 0);
            
        
         if($request->input('search.value') != null)

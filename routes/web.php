@@ -68,9 +68,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('/carreira', 'CarrerController@JsonPopular')->name('jsonpopularCarreira');
     Route::get('/assunto', 'SubjectController@JsonPopular')->name('jsonpopularAssunto');
     Route::get('/userassunto', 'UserSubjectController@JsonPopular')->name('jsonpopularUserAssunto');
-    Route::patch('/aceitarPedido/{user}/{knowledge}', 'ConnectionController@aceitar')->name('aceitarPedido');
-    //Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
-
+    Route::patch('/aceitarPedido/{user}', 'ConnectionController@aceitar')->name('aceitarPedido');
 
 });
 

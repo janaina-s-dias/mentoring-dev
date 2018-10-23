@@ -14,6 +14,7 @@ class CreateConnectionsTable extends Migration
     public function up()
     {
         Schema::create('connections', function (Blueprint $table) {
+            $table->increments('connection_id');
             $table->date('connection_start')->nullable(); 
             $table->date('connection_end')->nullable();
             $table->tinyInteger('connection_status')->default(0);  // 0-em solicitacão, 1-ativo, 2-encerrada
