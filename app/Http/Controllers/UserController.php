@@ -134,11 +134,10 @@ class UserController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $userSession = Auth::user();
         $user = User::find($id);
         try
         {
-            if($id != $userSession->user_id)
+            if(intval($id) != intval(Auth::user()->user_id))
             {
                 $user->delete();
             }
