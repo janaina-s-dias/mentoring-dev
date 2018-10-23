@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 3 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -44,9 +44,10 @@
     <thead>
         <tr>
             <th style="text-align:center">Início Conexão</th>
-            <th style="text-align:center">Término Conexão</th>
+            <!-- <th style="text-align:center">Término Conexão</th> -->
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Conhecimento</th>                   
+            <th style="text-align:center">Conhecimento</th>
+            <th style="text-align:center">Cancelar</th>  <!-- Mentor, poderá cancelar a conexao? -->                       
         </tr>
     </thead>
     <tbody style="text-align:center">

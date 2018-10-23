@@ -77,10 +77,10 @@ class KnowledgeController extends Controller
         try
         {
             $knowledge->update();
-            return redirect('/mentoresAdmin')->with('success', 'Status alterado!');
+            return back()->with('success', 'Status alterado!');
           
          } catch (QueryException $ex) {
-            return redirect('/mentoresAdmin')->with('failure', 'ERRO! Status não alterado!');
+            return back()->with('failure', 'ERRO! Status não alterado!');
          }
 
     }
@@ -150,7 +150,9 @@ class KnowledgeController extends Controller
             $sub_dados[] = $row->knowledge_nivel;  //knowledge_nivel
             $sub_dados[] = $row->user_nome; //user_nome
             $sub_dados[] = $row->knowledge_rank; //rank
-            $sub_dados[] = "<form method='POST' action='".route('conexao', $row->knowledge_id)."'>".
+            $sub_dados[] = 
+            
+            "<form method='POST' action='".route('conexao', $row->knowledge_id)."'>".
                             method_field('POST'). 
                             @csrf_field().
             "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Solicitar'>OK</button> </span></button> </form>";
@@ -165,6 +167,10 @@ class KnowledgeController extends Controller
         );
         echo json_encode($output);
     }
+
+
+
+
     private $order = ['subject_name','knowledge_nivel', 'user_nome','knowledge_rank', null];
 
     public function CriarQuery(Request $request)
@@ -174,7 +180,7 @@ class KnowledgeController extends Controller
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
                             ->where('fk_subject_user', Auth::user()->user_id)
                             ->where('fk_knowledge_user', '<>', Auth::user()->user_id)
-                            ->where('knowledge_active', false)->get(); //Como true, não estava retornando nada
+                            ->where('knowledge_active', true)->get();  
         $assuntos = array();
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
@@ -253,7 +259,7 @@ class KnowledgeController extends Controller
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            
-        //não pode aparecer mentores que ja estão conectados
+                //não pode aparecer mentores que ja estão conectados
         
         if($request->input('search.value') != null)
         {
