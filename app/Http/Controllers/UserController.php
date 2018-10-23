@@ -65,7 +65,7 @@ class UserController extends Controller
         {
            $users->update();
            Auth::login($users);
-           return redirect('/')->with('success', 'Continue seu cadastro');
+           return redirect('/')->with('success', 'Cadastrado com sucesso');
         } 
         catch (QueryException $ex) 
         {

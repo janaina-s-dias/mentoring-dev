@@ -152,10 +152,13 @@ class KnowledgeController extends Controller
             $sub_dados[] = $row->knowledge_rank; //rank
             $sub_dados[] = 
             
+            
             "<form method='POST' action='".route('conexao', $row->knowledge_id)."'>".
                             method_field('POST'). 
                             @csrf_field().
             "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Solicitar'>OK</button> </span></button> </form>";
+            
+            
             $dados[] = $sub_dados;
         }
         
@@ -312,9 +315,24 @@ class KnowledgeController extends Controller
         return $query;
     }
 
+    public function TodosRegistrosAdmin()
+    {
+        $knowledge = Knowledge::select('subject_id')
+                            ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                            ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')->count();
+        return $knowledge;
+    }
+    
+
+
     public function TodosRegistros()
     {
-        $knowledge = Knowledge::all();
-        return $knowledge->count();
+        $knowledge = Knowledge::select('subject_id')
+                            ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                            ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
+                            ->where('fk_subject_user', Auth::user()->user_id)
+                            ->where('fk_knowledge_user', '<>', Auth::user()->user_id)
+                            ->where('knowledge_active', true)->count();
+        return $knowledge;
     }
 }
