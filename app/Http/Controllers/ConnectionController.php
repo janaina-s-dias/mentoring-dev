@@ -172,6 +172,7 @@ class ConnectionController extends Controller
                         //->whereNull('connection_end'); //tirei o whereNotNull para poder retornar todas
                 ->where('fk_connection_knowledge', $user->user_id); //Visualizando as conexões ativas
            
+        //Conexao ainda nao aceita, deve ser visualizada pelo mentorado como "aguardando" na tela de conexões
        
         if($request->input('search.value') != null)
         {

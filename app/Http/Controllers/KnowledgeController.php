@@ -193,7 +193,7 @@ class KnowledgeController extends Controller
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            
         //não pode aparecer mentores que ja estão conectados
-        
+        //opção cancelar na lista de mentores, caso o mentor já tenha sido solicitado para iniciar uma mentoria
         if($request->input('search.value') != null)
         {
             $this->knowledge->where('user_nome', 'like' ,'%', $request->input('search.value'));            
