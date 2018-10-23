@@ -37,11 +37,11 @@ class ConnectionController extends Controller
     }
 
 
-    public function aceitar(){
-
-
+    public function aceitar($id1, $id2){
 
     }
+        
+            
 
     public function show($id)
     {
@@ -159,7 +159,10 @@ class ConnectionController extends Controller
             $sub_dados[] = $row->user_nome; //user_nome
             $sub_dados[] = $row->subject_name;
             $sub_dados[] = 
-            "<form method='POST' action='{{route ('aceitarPedido', )}}'>". //dois ids user e knowledge no array
+
+
+            // rota exemplo"<form method='POST' action=".route('usersubject.deletar',array('user' => $row->fk_subject_user, 'subject' => $row->fk_user_subject))."'>"
+            "<form method='POST' action='".route('aceitarPedido', array('user' => $row->fk_connection_user, 'knowledge' => $row->fk_connection_knowledge))."'>". //dois ids user e knowledge no array
                     method_field('PATCH').
                         @csrf_field().
             "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
@@ -179,7 +182,7 @@ class ConnectionController extends Controller
 
     public function CriarQuery2(Request $request)
     {
-        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'subject_name')
+        $this->connection = Connection::select('connection_start','connection_end', 'user_nome', 'subject_name', 'fk_connection_user', 'fk_connection_knowledge')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
