@@ -133,8 +133,11 @@ class UserSubjectController extends Controller
     {
         $us = UserSubject::where('fk_user_subject', '=', intval($id2))->
                            where('fk_subject_user', '=', intval($id));
+        $kw = \App\Knowledge::where('fk_knowledge_subject', '=', intval($id2))->
+                           where('fk_knowledge_user', '=', intval($id));
         try {
             $us->delete();
+            $kw->delete();
             return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos seus interesses!');
         } catch (QueryException $exc) {
             return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos seus interesses!');
