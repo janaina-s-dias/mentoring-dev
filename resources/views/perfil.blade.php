@@ -26,7 +26,13 @@
         </header>
         <header class="e-header">
             <div><h2>{{Auth::user()->user_nome}}</h2></div>
-            <div><h4>{{(Auth::user()->user_knowledge)? "Mentor" : (Auth::user()->user_role < 3) ? "Mentorado" : (Auth::user()->user_role == 5) ? "Desenvolvedor" : "Administrador"}}</h4></div>
+            <div><h4>@if(Auth::user()->user_role == 2) {{"Mentor"}}
+                     @elseif(Auth::user()->user_role == 1) {{"Mentorado"}}
+                     @elseif(Auth::user()->user_role == 3) {{"Moderador"}}
+                     @elseif(Auth::user()->user_role == 4) {{"Administrador"}}
+                     @elseif(Auth::user()->user_role == 5) {{"Administrador"}}
+                     @endif
+                </h4></div>
             <div><h4>Seja bem vindo</h4></div>
         </header>
         <div class="o-aside">

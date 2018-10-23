@@ -57,6 +57,10 @@ class UserController extends Controller
         $users->user_telefone  =    $request->user_telefone;
         $users->user_celular  =     $request->user_celular;
         $users->user_knowledge  =   $request->user_knowledge;
+        if($users->user_knowledge)
+        {
+            $users->user_role = 2;
+        }
         try
         {
            $users->update();
