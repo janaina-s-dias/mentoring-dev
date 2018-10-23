@@ -127,8 +127,11 @@ class KnowledgeController extends Controller
     public function destroy($id)
     {
         $mentor = Knowledge::find($id);
+        $user = \App\UserSubject::where('fk_user_subject', '=', intval($mentor->fk_knowledge_subject))->
+                           where('fk_subject_user', '=', intval($mentor->fk_knowledge_user));
         try
         {
+            $user->delete();
             $mentor->delete();
             return redirect('mentoresAdmin')->with('success', 'Mentor deletado');
         } catch (QueryException $ex) {

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboardPerfil')
 @section('page_heading','Conteudo')
 @section('section')
 <script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
