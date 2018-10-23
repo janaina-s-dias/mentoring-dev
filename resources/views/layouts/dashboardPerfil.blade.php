@@ -123,26 +123,13 @@
                         <a href="{{ url ('cadastroAssunto') }}"><i class="fa fa-trophy fa-fw"></i> Cadastrar Assunto</a>
                     </li>
                     <li {{ (Request::is('*cadastroContato') ? 'class="active"' : '') }}>
-                        <a href="{{ url ('cadastroContato') }}"><i class="fa fa-trophy fa-fw"></i> Cadastrar Contato</a>
+                        <a href="{{ url ('cadastroContato') }}"><i class="fa fa-users fa-fw"></i> Cadastrar Contato</a>
                     </li>
                     <li {{ (Request::is('*alterarPerfil') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarPerfil') }}"><i class="fa fa-edit fa-fw"></i> Alterar Perfil</a>
                     </li>
                     <li {{ (Request::is('*alterarSenha') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarSenha') }}"><i class="fa fa-lock fa-fw"></i> Alterar Senha</a>
-                    </li>
-                    <li {{ (Request::is('*conexoes') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('conexoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Conexões</a>
-                    </li>
-                    <li {{ (Request::is('*solicitacoes') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('solicitacoes') }}"><i class="fa fa-wrench fa-fw"></i>Visualizar Solicitações</a>
-                    </li>
-
-                    <li {{ (Request::is('*mentores') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('mentores') }}"><i class="fa fa-wrench fa-fw"></i>Listar Mentores</a>
-                    </li>
-                    <li {{ (Request::is('*mentorias') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('mentorias') }}"><i class="fa fa-wrench fa-fw"></i>Minhas Mentorias</a>
                     </li>
                     <li {{ (Request::is('*conteudo') ? 'class="active"' : '') }}>
                             <a href="{{ url ('conteudo') }}"><i class="fa fa-plus fa-fw"></i>Cadastrar Conteudo</a>

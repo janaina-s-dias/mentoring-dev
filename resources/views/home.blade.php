@@ -2,6 +2,6 @@
 @section('page_heading','Home')
 @section('section')
 
-@include('perfil')
+@include('listarMentores')
             
 @stop

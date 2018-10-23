@@ -115,6 +115,22 @@
                     <li {{ (Request::is('') ? 'class="active"' : '') }}>
                         <a href="{{ url ('/') }}"><i class="fa fa-home fa-fw"></i> Paginal Inicial</a>
                     </li>
+                    <li {{ (Request::is('*conexoes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('conexoes') }}"><i class="fa fa-eye fa-fw"></i>Visualizar Conexões</a>
+                    </li>
+                     @if($user->user_role > 1 && $user->user_knowledge)
+                    <li {{ (Request::is('*solicitacoes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('solicitacoes') }}"><i class="fa fa-eye fa-fw"></i>Visualizar Solicitações</a>
+                    </li>
+                    @endif
+                    <li {{ (Request::is('*mentores') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('mentores') }}"><i class="fa fa-list fa-fw"></i>Listar Mentores</a>
+                    </li>
+                     @if($user->user_role > 1 && $user->user_knowledge)
+                    <li {{ (Request::is('*mentorias') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('mentorias') }}"><i class="fa fa-user fa-fw"></i>Minhas Mentorias</a>
+                    </li>
+                    @endif
                     @if($user->user_role > 2)
                         <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
                             <a href="{{ url ('admin') }}"><i class="fa fa-wrench fa-fw"></i>Area Administrativa</a>
