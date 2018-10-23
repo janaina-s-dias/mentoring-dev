@@ -34,6 +34,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
         Route::get('mentores', function(){ return view('listarMentores'); });
         Route::get('mentorias', function(){ return view('minhasMentorias'); });
         Route::get('conteudo', function(){ return view('cadastroConteudo'); });
+        Route::get('Mentoria_no_assunto', function(){ return view('edits.userSubjectEdit'); });
     });
 
     Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
@@ -68,6 +69,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('/carreira', 'CarrerController@JsonPopular')->name('jsonpopularCarreira');
     Route::get('/assunto', 'SubjectController@JsonPopular')->name('jsonpopularAssunto');
     Route::get('/userassunto', 'UserSubjectController@JsonPopular')->name('jsonpopularUserAssunto');
+    Route::get('/mentorOuNao', 'UserSubjectController@editUserSubjectMentoria')->name('mentorOuNao');
     Route::patch('/aceitarPedido', 'ConnectionController@aceitar')->name('aceitarPedido');
 
 

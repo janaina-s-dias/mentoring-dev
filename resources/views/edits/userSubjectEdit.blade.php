@@ -1,30 +1,46 @@
-@extends('layouts.dashboardAdmin') 
+@extends('layouts.dashboardPerfil') 
 @section('page_heading','')
 @section('section')
-@section ('table_panel_title','Editar Profisso')
+@section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
-
-<?php $profession = Session::get('profissao') ?>
-      <form role="form" method="POST" action="{{route('profession.update', $profession->profession_id)}}">
-          @method('PATCH')         
-          @csrf
-            <div class="form-group">
-                <label>Nome</label>
-                <input class="form-control" name="profession_name" value="{{ $profession->profession_name}}">
-                <!-- <p class="help-block">Example block-level help text here.</p> -->
-            </div>
-              <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="profession_active">
-                    <option value="1" {{($profession->profession_active) ? ' selected' : ''}}>Ativo</option>
-                    <option value="0" {{($profession->profession_active) ? '' : ' selected'}}>Inativo</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
-            <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
-        </form>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+       $.get("{{route('mentorOuNao')}}", function(dados)
+       {
+           var option = '';
+           if(dados.length > 0){
+            $.each(dados, function(i, linha)
+            {
+                if(linha.mentor === "Não") 
+                 option+= "<tr class='warning'>";
+                else
+                    option+= "<tr class='success'>";
+                 option+= "<td>"+linha.assunto+"</td>";
+                 option+= "<td>"+linha.carreira+"</td>";
+                 option+= "<td>"+linha.profissao+"</td>";
+                 option+="<td>"+linha.mentor+"</td>";
+                 option+="<td><button></button></td>";
+                    option+="</tr>";
+                });
+                $("#editarMentoria").html(option).show();
+           }
+       }, 'json'); 
+    });
+</script>    
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Assunto</th>
+            <th>Carreira</th>
+            <th>Profissão</th>
+            <th>Mentoria</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody id="editarMentoria">
+        
+    </tbody>
+</table>
 @endsection
 @include('widgets.panel', array('header'=>true, 'as'=>'table'))
 @stop
