@@ -171,7 +171,7 @@ class KnowledgeController extends Controller
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
                             ->where('fk_subject_user', Auth::user()->user_id)
                             ->where('fk_knowledge_user', '<>', Auth::user()->user_id)
-                            ->where('knowledge_active', true)->get();
+                            ->where('knowledge_active', false)->get(); //Como true, não estava retornando nada
         $assuntos = array();
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
