@@ -99,13 +99,45 @@ class UserSubjectController extends Controller
         }
         echo json_encode($uss);
     }
+    
+    public function editUserSubjectMentoria()
+    {
+        $us = UserSubject::select('*')
+                ->join('users', 'user_id', '=', 'fk_subject_user')
+                ->join('subjects', 'subject_id', '=', 'fk_user_subject')
+                ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
+                ->join('professions', 'profession_id', '=', 'fk_carrer_profession')
+                ->leftjoin('knowledges', 'fk_knowledge_subject', '=', 'subject_id')
+                ->where('user_id', Auth::user()->user_id)
+                ->get();
+        $uss = array();
+        foreach ($us as $s) {
+            $ussSub = array();
+            if($s->knowledge_id == null)
+            {
+                $ussSub['mentor'] = "Não";
+            }
+            else 
+            {
+                $ussSub['mentor'] = "Sim";
+            }
+            $ussSub['assunto'] = $s->subject_name;
+            $ussSub['carreira'] = $s->carrer_name;
+            $ussSub['profissao'] = $s->profession_name;
+            $uss[] = $ussSub;
+        }
+        echo json_encode($uss);
+    }
 
     public function deletar($id, $id2)
     {
         $us = UserSubject::where('fk_user_subject', '=', intval($id2))->
                            where('fk_subject_user', '=', intval($id));
+        $kw = \App\Knowledge::where('fk_knowledge_subject', '=', intval($id2))->
+                           where('fk_knowledge_user', '=', intval($id));
         try {
             $us->delete();
+            $kw->delete();
             return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos seus interesses!');
         } catch (QueryException $exc) {
             return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos seus interesses!');
