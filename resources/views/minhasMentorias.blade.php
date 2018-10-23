@@ -1,4 +1,4 @@
-@extends('layouts.dashboardPerfil')
+@extends('layouts.dashboard')
 @section('page_heading','Minhas Mentorias')
 @section('section')
 <script type="text/javascript">
@@ -29,7 +29,12 @@
                     option+= "<tr class='success'>";
                  option+= "<td>"+linha.assunto+"</td>";
                  option+= "<td>"+niveis[linha.nivel]+"</td>";
-                 option+= "<td>"+linha.rank+"</td>";
+                 option+= "<td>"+
+                            "<div class='progress'>"+
+                                "<div class='progress-bar' role='progressbar' aria-valuenow='"+linha.rank+"' aria-valuemin='0' aria-valuemax='10' style='width:"+linha.rank*10+"%'>"+
+                                    "<span class='sr-only'>"+linha.rank*10+"% Complete</span>"+
+                                "</div>"+
+                            "</div></td>";
                  option+="<td>"+(linha.ativo ? "Ativo" : "Inativo")+"</td>";
                  option+="<td>"+linha.ativar+"</td>";
                     option+="</tr>";
@@ -39,6 +44,7 @@
        }, 'json'); 
     });
 </script>    
+<center>
 <table class="table table-condensed">
     <thead>
         <tr>
@@ -53,4 +59,5 @@
         
     </tbody>
 </table>
+</center>
 @stop
