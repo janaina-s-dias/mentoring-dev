@@ -50,11 +50,11 @@ class ContactController extends Controller
             $sub_dados[] = $row->contact_type;
             $sub_dados[] = $row->contact_description;
             $sub_dados[] = $row->user_nome; //Tabela estrangeira
-            $sub_dados[] = "<a href='".route('contact.edit', $row->contact_id)."' role='button' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".route('contact.edit', $row->contact_id)."' role='button' class='btn btn-success' data-toggle='tooltip' title='Alterar'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('contact.destroy', $row->contact_id)."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></form>";
+                            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Deletar'><span class='glyphicon glyphicon-trash'></span></button></form>";
             $dados[] = $sub_dados;
         }
 

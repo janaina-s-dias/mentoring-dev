@@ -155,7 +155,7 @@ class UserSubjectController extends Controller
         $sub_dados[] = "<form method='POST' action=".route('usersubject.deletar',array('user' => $row->fk_subject_user, 'subject' => $row->fk_user_subject))."'>".
                             method_field('DELETE').
                             csrf_field().
-                            "<button type='submit' role='button' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button>";
+                            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Excluir'><span class='glyphicon glyphicon-trash'></span></button>";
             $dados[] = $sub_dados;
         }
         
