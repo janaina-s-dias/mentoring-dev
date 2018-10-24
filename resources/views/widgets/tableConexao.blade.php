@@ -46,8 +46,8 @@
             <th style="text-align:center">Início Conexão</th>
             <!-- <th style="text-align:center">Término Conexão</th> -->
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Conhecimento</th>
-            <th style="text-align:center">Cancelar</th>  <!-- Mentor, poderá cancelar a conexao? -->                       
+            <th style="text-align:center">Assunto</th>
+            <th style="text-align:center">Ação</th>  <!-- Mentor, poderá cancelar a conexao? -->                       
         </tr>
     </thead>
     <tbody style="text-align:center">

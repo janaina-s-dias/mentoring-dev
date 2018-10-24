@@ -102,14 +102,14 @@ class UserSubjectController extends Controller
     
     public function editUserSubjectMentoria()
     {
-        $us = UserSubject::select('*')
-                ->join('users', 'user_id', '=', 'fk_subject_user')
+        $us = UserSubject::select('subject_name', 'carrer_name', 'profession_name', 'knowledge_id')
                 ->join('subjects', 'subject_id', '=', 'fk_user_subject')
                 ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
                 ->join('professions', 'profession_id', '=', 'fk_carrer_profession')
-                ->leftjoin('knowledges', 'fk_knowledge_subject', '=', 'subject_id')
-                ->where('user_id', Auth::user()->user_id)
+                ->leftJoin('knowledges', 'fk_knowledge_user', '=', 'fk_subject_user')
+                ->where('fk_knowledge_usear', Auth::user()->user_id)
                 ->get();
+        dd($us);
         $uss = array();
         foreach ($us as $s) {
             $ussSub = array();

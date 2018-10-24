@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 2 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 2, 3 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -44,8 +44,9 @@
     <thead>
         <tr>
             <th style="text-align:center">Usuário</th>    
-            <th style="text-align:center">Assunto</th> 
-            <th style="text-align:center">Aceitar/Recusar</th>                    
+            <th style="text-align:center">Assunto</th>
+            <th style="text-align:center">Aceitar</th>  
+            <th style="text-align:center">Recusar</th>                    
         </tr>
     </thead>
     <tbody style="text-align:center">

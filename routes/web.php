@@ -72,7 +72,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/aceitarPedido/{user}', 'ConnectionController@aceitarSolicitacao')->name('aceitarPedido');
     Route::patch('/cancelarSolicitacao/{connection}', 'ConnectionController@cancelarSolicitacao')->name('cancelarSolicitacao');
     Route::get('/mentorOuNao', 'UserSubjectController@editUserSubjectMentoria')->name('mentorOuNao');
-
+    Route::delete('/recusarPedido/{connection}', 'ConnectionController@excluirSolicitacao')->name('recusarPedido');
 
 });
 
