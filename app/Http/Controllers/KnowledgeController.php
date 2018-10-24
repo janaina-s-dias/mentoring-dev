@@ -44,7 +44,41 @@ class KnowledgeController extends Controller
             return array('bool' => true, 'motivo' => 'Não pode haver mentoria no mesmo assunto');
         }
     }
-
+    public function alteraMentor(Request $request)
+    {
+        $mentor = Knowledge::where('fk_knowledge_user', Auth::user()->user_id)
+                           ->where('fk_knowledge_subject', $request->fk_knowledge_subject);
+        if($mentor->count() == 0)
+        {
+            $this->validate($request, ['knowledge_nivel' => 'required'], ['knowledge_nivel.required' => 'Nivel obrigatorio']);
+            $knowledge = new Knowledge([
+               'knowledge_nivel' => $request->knowledge_nivel, 
+               'knowledge_rank' => 5, 
+               'fk_knowledge_user' => Auth::user()->user_id,
+               'fk_knowledge_subject' => $request->fk_knowledge_subject
+            ]);
+            try
+            {
+                $knowledge->save();
+                return redirect('Mentoria_no_assunto')->with('success', 'Alterado com sucesso');
+            } catch (QueryException $ex) {
+                return redirect('Mentoria_no_assunto')->with('failure', 'Deu alguma merda ein');
+            }
+        }
+        else
+        {
+            $knowledge = $mentor->first();
+            $knowledge->knowledge_nivel = $request->knowledge_nivel;
+            try
+            {
+                $knowledge->update();
+                return redirect('Mentoria_no_assunto')->with('success', 'Alterado com sucesso');
+            } catch (QueryException $ex) {
+                return redirect('Mentoria_no_assunto')->with('failure', 'Deu alguma merda ein');
+            }
+            
+        }
+    }
     public function show($id)
     {
         $mentorias = Knowledge::join('subjects', 'subject_id', '=', 'fk_knowledge_subject')

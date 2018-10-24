@@ -65,6 +65,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/ativarmentor/{knowledge_id}', 'KnowledgeController@ativarMentor')->name('ativarmentor');
     Route::patch('/ativarsubject/{subject_id}', 'SubjectController@ativarAssunto')->name('ativarsubject');
     Route::post('/alterandoSenha/{user_id}', 'UserController@updateSenha')->name('alterarSenha'); //teste
+    Route::post('/alterandoMentor', 'KnowledgeController@alteraMentor')->name('alteraMentor');
     Route::delete('user/{user}/subject/{subject}', 'UserSubjectController@deletar')->name('usersubject.deletar'); //teste
     Route::get('/profissao', 'ProfessionController@JsonPopular')->name('jsonpopularProfissao');
     Route::get('/carreira', 'CarrerController@JsonPopular')->name('jsonpopularCarreira');

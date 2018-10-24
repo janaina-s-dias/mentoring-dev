@@ -4,42 +4,25 @@
 @section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
 <script type="text/javascript">
-    $.get("{{route('mentorOuNao')}}", function(dados)
+    $.get("{{route('subject.show', $id)}}", function(dados)
        {
-           var option = '';
-           if(dados.length > 0){
-            $.each(dados, function(i, linha)
-            {
-                if(linha.mentor === "Não") 
-                 option+= "<tr class='warning'>";
-                else
-                    option+= "<tr class='success'>";
-                 option+= "<td>"+linha.assunto+"</td>";
-                 option+= "<td>"+linha.carreira+"</td>";
-                 option+= "<td>"+linha.profissao+"</td>";
-                 option+="<td>"+linha.mentor+"</td>";
-                 option+="<td>"+linha.editar+"</td>";
-                    option+="</tr>";
-                });
-                $("#editarMentoria").html(option).show();
-           }
+           $('#assunto').val(dados.subject_id);
        }, 'json'); 
 </script>    
-<table class="table table-condensed">
-    <thead>
-        <tr>
-            {{-- {{$id}} --}}
-            <th>Assunto</th>
-            <th>Carreira</th>
-            <th>Profissão</th>
-            <th>Mentoria</th>
-            <th>Editar</th>
-        </tr>
-    </thead>
-    <tbody id="editarMentoria">
-        
-    </tbody>
-</table>
+<form method="POST" action="{{route('alteraMentor')}}">
+    @csrf
+    <input type="hidden" id="assunto" name="fk_knowledge_subject"/>
+    <select id="mentorCombo" name="knowledge_nivel" class="form-control">
+        <option value="3">Conhecimento mediano</option>
+        <option value="4">Conhecimento quase pleno</option>
+        <option value="5">Conhecimento pleno</option>
+        <option value="6">Bastante conhecimento</option>
+        <option value="7">Experiente no assunto</option>
+        <option value="8">Mestre no assunto</option>
+    </select>
+    <input type="submit" class="btn btn-success" value="Enviar" name="enviando"/>
+</form>
+@include('inc.feedback')
 @endsection
 @include('widgets.panel', array('header'=>true, 'as'=>'table'))
 @stop

@@ -41,6 +41,7 @@
         
     </tbody>
 </table>
+@include('inc.feedback')
 @endsection
 @include('widgets.panel', array('header'=>true, 'as'=>'table'))
 @stop

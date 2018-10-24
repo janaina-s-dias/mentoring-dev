@@ -49,6 +49,13 @@ class SubjectController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $user = Subject::find($id);
+        
+        echo json_encode($user);
+    }
+    
     public function edit($id, Request $request)
     {
         $subject = Subject::join('carrers','carrer_id','=','fk_subject_carrer')->where('subject_id','=',$id)->get()->first();
