@@ -14,7 +14,11 @@ class KnowledgeController extends Controller
        $this->knowledge = $knowledge;
     }
 
-
+    public function criarMentorSobreAssunto($id)
+    {
+        return view('edits.editarMentor', compact('id'));
+    }
+    
     public function store(Request $request)
     {
         $this->validate($request, $this->knowledge->rules, $this->knowledge->messsages);
@@ -67,6 +71,32 @@ class KnowledgeController extends Controller
         echo json_encode($mentoria);
     }
 
+    public function showEditar(Request $request)
+    {
+        $id = $request->subject_id; 
+        $user = Knowledge::join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                ->where('fk_knowledge_user', $id)->get();
+        $mentoria = array();
+        foreach ($mentorias as $m) {
+            $submentoria = array();
+            $submentoria['assunto'] = $m->subject_name;
+            $submentoria['assunto_id'] = $m->subject_id;
+            $submentoria['nivel'] = intval($m->knowledge_nivel);
+            $submentoria['rank'] = intval($m->knowledge_rank);
+            $submentoria['ativo'] = boolval($m->knowledge_active);
+            $submentoria['ativar'] = ($m->knowledge_active) ?       
+                                        "<form method='POST' action='".route('ativarmentor', $m->knowledge_id)."'>".
+                                            method_field('PATCH').
+                                            @csrf_field().
+                                        "<button type='submit' role='button' class='btn btn-warning' data-toggle='tooltip' title='Inativar Item'><i class='fa fa-times'></i></button> </span></button> </form>" : 
+                                        "<form method='POST' action='".route('ativarmentor', $m->knowledge_id)."'>".
+                                            method_field('PATCH').
+                                            @csrf_field().
+                                        "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";;
+            $mentoria[] = $submentoria;
+        }
+        echo json_encode($mentoria);
+    }
     public function ativarMentor($id)
     { 
         $knowledge = Knowledge::find($id);

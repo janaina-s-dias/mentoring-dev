@@ -4,8 +4,7 @@
 @section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
 <script type="text/javascript">
-    $(document).ready(function(){
-       $.get("{{route('mentorOuNao')}}", function(dados)
+    $.get("{{route('mentorOuNao')}}", function(dados)
        {
            var option = '';
            if(dados.length > 0){
@@ -19,17 +18,17 @@
                  option+= "<td>"+linha.carreira+"</td>";
                  option+= "<td>"+linha.profissao+"</td>";
                  option+="<td>"+linha.mentor+"</td>";
-                 option+="<td><button></button></td>";
+                 option+="<td>"+linha.editar+"</td>";
                     option+="</tr>";
                 });
                 $("#editarMentoria").html(option).show();
            }
        }, 'json'); 
-    });
 </script>    
 <table class="table table-condensed">
     <thead>
         <tr>
+            {{-- {{$id}} --}}
             <th>Assunto</th>
             <th>Carreira</th>
             <th>Profissão</th>

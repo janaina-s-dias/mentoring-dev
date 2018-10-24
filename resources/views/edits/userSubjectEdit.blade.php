@@ -19,7 +19,7 @@
                  option+= "<td>"+linha.carreira+"</td>";
                  option+= "<td>"+linha.profissao+"</td>";
                  option+="<td>"+linha.mentor+"</td>";
-                 option+="<td><button></button></td>";
+                 option+="<td>"+linha.editar+"</td>";
                     option+="</tr>";
                 });
                 $("#editarMentoria").html(option).show();
