@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Content;
+use Illuminate\Database\QueryException;
 
 class ContentController extends Controller
 {
@@ -12,26 +13,7 @@ class ContentController extends Controller
     function __construct(Content $content) {
         $this->content = $content;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -51,9 +33,9 @@ class ContentController extends Controller
         try
         {
             $content->save();
-            return redirect()->with('success', 'Cadastrado com sucesso');
-        } catch (\Illuminate\Database\QueryException $ex) {
-            return redirect()->with('failure', 'Erro ao cadastrar');
+            return redirect('conteudo')->with('success', 'Cadastrado com sucesso');
+        } catch (QueryException $ex) {
+            return redirect('conteudo')->with('failure', 'Erro ao cadastrar');
         }
     }
 
@@ -65,7 +47,10 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        //
+        $conteudo = Content::find($id);
+        
+        echo json_encode($conteudo); //muda pra onde vai mostrar se for com redirect ou por json, se for view, usa compact tipo
+        //return view('ExibirConteudo', compact('conteudo'); 
     }
 
     /**
@@ -76,7 +61,10 @@ class ContentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $conteudo = Content::find($id);
+        
+        echo json_encode($conteudo); //muda pra onde vai editar se for com redirect ou por json, se for view, usa compact tipo
+        //return view('edits.conteudoEditar', compact('conteudo'); 
     }
 
     /**
@@ -88,7 +76,19 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->content->Regras(), $this->content->messages);
+        $content = Content::find($id);
+        $content->fk_content_knowledge = $request->fk_content_knowledge;
+        $content->content_content = $request->content_content;
+        $content->content_title = $request->content_title;
+       
+        try
+        {
+            $content->update();
+            return redirect('editarConteudo')->with('success', 'Alterado com sucesso');
+        } catch (QueryException $ex) {
+            return redirect('editarConteudo')->with('failure', 'Erro ao alterar');
+        }
     }
 
     /**
@@ -99,6 +99,12 @@ class ContentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $content = Content::find($id);
+        try {
+            $content->delete();
+            return back()->with('success', 'Deletado com sucesso');
+        } catch (QueryException $ex) {
+            return back()->with('failure', 'Erro ao deletar');
+        }
     }
 }

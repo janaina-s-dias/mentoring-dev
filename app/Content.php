@@ -35,9 +35,9 @@ class Content extends Model
                                 'content_type' => 'bail|required|max:20',
                                 'fk_content_knowledge' => 'required'
         
-    ];  
-            break;
-            
+                ];  
+            break;           
         }
+        return $this->rules;
     }
 }
