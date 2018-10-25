@@ -142,7 +142,7 @@ class ConnectionController extends Controller
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
             $sub_dados[] = 
-        
+            
             "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
             method_field('PATCH').
                 @csrf_field().
