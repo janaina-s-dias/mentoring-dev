@@ -88,6 +88,7 @@ class KnowledgeController extends Controller
             $submentoria = array();
             $submentoria['assunto'] = $m->subject_name;
             $submentoria['assunto_id'] = $m->subject_id;
+            $submentoria['mentor_id'] = $m->knowledge_id;
             $submentoria['nivel'] = intval($m->knowledge_nivel);
             $submentoria['rank'] = intval($m->knowledge_rank);
             $submentoria['ativo'] = boolval($m->knowledge_active);
