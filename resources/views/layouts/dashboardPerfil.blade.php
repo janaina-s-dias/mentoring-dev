@@ -128,6 +128,9 @@
                     <li {{ (Request::is('*cadastroContato') ? 'class="active"' : '') }}>
                         <a href="{{ url ('cadastroContato') }}"><i class="fa fa-users fa-fw"></i> Cadastrar Contato</a>
                     </li>
+                    <li {{ (Request::is('*meusContatos') ? 'class="active"' : '') }}>
+                        <a href="{{ url ('meusContatos') }}"><i class="fa fa-list fa-fw"></i> Meus Contatos</a>
+                    </li>
                     <li {{ (Request::is('*alterarPerfil') ? 'class="active"' : '') }}>
                         <a href="{{ url ('alterarPerfil') }}"><i class="fa fa-edit fa-fw"></i> Alterar Perfil</a>
                     </li>

@@ -134,22 +134,32 @@ class ConnectionController extends Controller
 
     //Conexões
     public function PegaDadosConexao(Request $request) {
+
+        $user = Auth::user();
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
         foreach ($pegadados as $row) {
+
+         
+
             $sub_dados = array();
             $sub_dados[] = $row->connection_start;
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = 
+            $sub_dados[] = ($row->connection_status == 0 && $row->fk_knowledge_user != Auth::user()->user_id) ?
             
             "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
             method_field('PATCH').
                 @csrf_field().
-            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" ;;    
-            
+            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" :
+
+            "Solicitações" ;
+        
+          
             $dados[] = $sub_dados;
         }
+
+     
         
         $output = array (
             "draw"  => intval($request->draw),
@@ -165,7 +175,7 @@ class ConnectionController extends Controller
     public function CriarQuery(Request $request)
     {
         $user = Auth::user();
-        $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name')
+        $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name', 'fk_knowledge_user', 'fk_connection_knowledge')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')

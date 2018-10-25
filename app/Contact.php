@@ -18,6 +18,10 @@ class Contact extends Model
     	'contact_description' => 'bail|required|max:100',
     	'fk_contact_user' => 'required'
     ];
+    public $rulesA = [
+        'contact_type' => 'bail|required|max:20',
+    	'contact_description' => 'bail|required|max:100'
+    ];
     public $messages = [
         'contact_type.required' => 'Campo de tipo de contato é de obrigatorio preenchimento',
         'contact_type.max' => 'Campo de tipo de contato de tamanho maximo de 20',

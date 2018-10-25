@@ -47,7 +47,5 @@
              </form>
               
          </section>
-<div id="mensagem">
-    
-</div>
+@include('inc.feedback')
 @stop
