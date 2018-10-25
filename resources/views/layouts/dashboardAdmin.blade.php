@@ -130,6 +130,9 @@
                             <li {{ (Request::is('*mentoresAdmin') ? 'class="active"' : '') }}>
                                 <a href="{{ url ('mentoresAdmin') }}">Mentores</a>
                             </li>
+                            <li {{ (Request::is('*conteudos') ? 'class="active"' : '') }}>
+                                <a href="{{ url ('conteudos') }}">Conteudos</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

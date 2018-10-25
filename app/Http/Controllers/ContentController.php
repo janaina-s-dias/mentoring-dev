@@ -143,7 +143,7 @@ class ContentController extends Controller
     {
          
         $this->content = Content::select('content_title','content_type', 'fk_content_knowledge', 'subject_name')
-            ->join('knowledge', 'knowledge_id', '=', 'fk_content_knowledge')
+            ->join('knowledges', 'knowledge_id', '=', 'fk_content_knowledge')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject');
                  
     
@@ -179,6 +179,12 @@ class ContentController extends Controller
         $this->CriarQuery($request);
         $query = $this->content->count();
         return $query;
+    }
+
+    public function TodosRegistros()
+    {
+        $content = Content::all();
+        return $content->count();
     }
     
 }
