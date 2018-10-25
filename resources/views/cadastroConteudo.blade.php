@@ -15,7 +15,7 @@
             var option = '';
             if(data.length > 0){
             $.each(data, function(i, linha) {
-                 option+= "<option value='"+linha.assunto_id+"'>"+linha.assunto+"</option>";
+                 option+= "<option value='"+linha.mentor_id+"'>"+linha.assunto+"</option>";
                  //no value ser o id do knowledge e não do assunto
             });
                 $("#assunto").append(option).show();
