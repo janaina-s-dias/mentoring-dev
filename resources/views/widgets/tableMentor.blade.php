@@ -45,10 +45,9 @@
         <tr>
             <th style="text-align:center">Assunto</th>
             <th style="text-align:center">Nível de Conhecimento</th>
-            <th style="text-align:center">Usuário</th>    
+            <th style="text-align:center">Mentor</th>    
             <th style="text-align:center">Pontuação</th>  
             <th style="text-align:center">Solicitar Mentoria</th> 
-            <!--<th style="text-align:center">Cancelar Mentoria</th>  -->      
         </tr>
     </thead>
     <tbody style="text-align:center">

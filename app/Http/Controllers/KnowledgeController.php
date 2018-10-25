@@ -208,22 +208,29 @@ class KnowledgeController extends Controller
 
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
+
+
         foreach ($pegadados as $row) {
-            $sub_dados = array();
-            $sub_dados[] = $row->subject_name; //subject_name
-            $sub_dados[] = $row->knowledge_nivel;  //knowledge_nivel
-            $sub_dados[] = $row->user_nome; //user_nome
-            $sub_dados[] = $row->knowledge_rank; //rank
-            $sub_dados[] = 
+
+            if($row->connection_status == null) {
+
+            
+                $sub_dados = array();
+                $sub_dados[] = $row->subject_name; //subject_name
+                $sub_dados[] = $row->knowledge_nivel;  //knowledge_nivel
+                $sub_dados[] = $row->user_nome; //user_nome
+                $sub_dados[] = $row->knowledge_rank; //rank
+                $sub_dados[] = 
             
             
             "<form method='POST' action='".route('conexao', $row->knowledge_id)."'>".
                             method_field('POST'). 
                             @csrf_field().
-            "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Solicitar'>OK</button> </span></button> </form>";
+            "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Solicitar'>Solicitar Mentoria</button> </span></button> </form>";
             
             
             $dados[] = $sub_dados;
+            }
         }
         
         $output = array (
@@ -234,7 +241,6 @@ class KnowledgeController extends Controller
         );
         echo json_encode($output);
     }
-
 
 
 
@@ -252,12 +258,13 @@ class KnowledgeController extends Controller
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
         }
-        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank')
-                ->join('users', 'user_id', '=', 'fk_knowledge_user')
-                ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank', 'connection_status')
+        ->join('users', 'user_id', '=', 'fk_knowledge_user')
+            ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
+                ->leftJoin('connections', 'fk_connection_knowledge', '=', 'knowledge_id')
                         ->whereIn('subject_id', $assuntos);            
-        //não pode aparecer mentores que ja estão conectados
-        //opção cancelar na lista de mentores, caso o mentor já tenha sido solicitado para iniciar uma mentoria
+                //não pode aparecer mentores que ja estão conectados
+                //opção cancelar na lista de mentores, caso o mentor já tenha sido solicitado para iniciar uma mentoria
         if($request->input('search.value') != null)
         {
             $this->knowledge->where('user_nome', 'like' ,'%', $request->input('search.value'));            

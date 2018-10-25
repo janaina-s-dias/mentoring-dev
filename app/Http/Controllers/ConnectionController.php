@@ -63,33 +63,33 @@ class ConnectionController extends Controller
     }
 
     //Deletar a linha da conexão  ??? ou dar um update??
-    //0- Em solicitação | 1- Ativo | 2- Encerrada
+    //0- Pode solicitar | 1- Solicitou | 2- Encerrada
     //Cancelar Solicitacao exclui linha do banco {enquanto conexão nao tiver sido iniciada}
     //Encerrar mentoria, update status para 2
-    public function cancelarSolicitacao($id1) //alterar nome para encerrarConexao
-    {
-        $con = Connection::find($id1);
-        $con->connection_status = 2;
-        try {
-            $con->update();
-                return redirect('conexoes')->with('success', 'Mentoria encerrada!');
-            } catch (\Illuminate\Database\QueryException $ex) {
-                return redirect('conexoes')->with('failure', 'Mentoria não encerrada');
-            }
-            return redirect('solicitacoes')->with('failure', 'qq tacotecendo');
-     }
+    // public function cancelarSolicitacao($id1) //alterar nome para encerrarConexao
+    // {
+    //     $con = Connection::find($id1);
+    //     $con->connection_status = 2;
+    //     try {
+    //         $con->update();
+    //         return back()->with('success', 'Mentoria encerrada!');
+    //         } catch (\Illuminate\Database\QueryException $ex) {
+    //             return back()->with('failure', 'Mentoria não encerrada');
+    //         }
+    //         return back()->with('failure', 'qq tacotecendo');
+    //  }
       
-     public function excluirSolicitacao($id1) //alterar nome do método para cancelar, que é o ato de excluir
+     public function excluirSolicitacao($id1) 
     {
-        dd($id1);
+        
         $con = Connection::find($id1);        
         try {
             $con->delete();
-                return redirect('solicitacoes')->with('success', 'Solicitação cancelada!');
+                    return back()->with('success', 'Solicitação cancelada!');
             } catch (\Illuminate\Database\QueryException $ex) {
-                return redirect('solicitacoes')->with('failure', 'Solicitação não cancelada');
+                return back()->with('failure', 'Solicitação não cancelada');
             }
-            return redirect('solicitacoes')->with('failure', 'qq tacotecendo');
+            return back()->with('failure', 'qq tacotecendo');
      }
         
  
@@ -141,12 +141,12 @@ class ConnectionController extends Controller
             $sub_dados[] = $row->connection_start;
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] =  
+            $sub_dados[] = 
         
             "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
             method_field('PATCH').
                 @csrf_field().
-            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Finalizar Mentoria</span></button> </form>" ;;    
+            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" ;;    
             
             $dados[] = $sub_dados;
         }
@@ -169,8 +169,9 @@ class ConnectionController extends Controller
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-                        //->whereNull('connection_end'); //tirei o whereNotNull para poder retornar todas
-                ->where('fk_connection_knowledge', $user->user_id); //Visualizando as conexões ativas
+                        // ->whereNotNull('connection_status') 
+                            ->where('fk_connection_knowledge', $user->user_id)
+                                ->orWhere('fk_connection_user', $user->user_id);
            
         //Conexao ainda nao aceita, deve ser visualizada pelo mentorado como "aguardando" na tela de conexões
        
@@ -225,7 +226,7 @@ class ConnectionController extends Controller
             "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
             
                 $sub_dados[] = 
-            "<form method='POST' action='".route('recusarPedido', $row->connection_id)."'>". 
+            "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
                     method_field('DELETE').
                         @csrf_field().
             "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Recusar'><span>Recusar</span></button> </form>" ;
