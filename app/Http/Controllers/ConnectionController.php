@@ -47,6 +47,7 @@ class ConnectionController extends Controller
             $dataAtual = date("Y/m/d");
                 
             $con->connection_start = $dataAtual;
+            $con->connection_end = date('d/m/Y', strtotime("+14 days",strtotime($dataAtual)));
             $con->connection_status = 1;
 
             try {
@@ -57,7 +58,17 @@ class ConnectionController extends Controller
             }
         }
         else {
-            return redirect('solicitacoes')->with('failure', 'Conexão já existente');
+            $dataAtual = date("Y/m/d");
+                
+            $con->connection_end = date('d/m/Y', strtotime("+14 days",strtotime($dataAtual)));
+            $con->connection_status = 1;
+
+            try {
+                $con->update();
+                return redirect('solicitacoes')->with('success', 'Conexao reiniciada!');
+            } catch (\Illuminate\Database\QueryException $ex) {
+                return redirect('solicitacoes')->with('failure', 'Conexao não reiniciada!');
+            }
         }
         
     }
@@ -149,14 +160,14 @@ class ConnectionController extends Controller
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
         foreach ($pegadados as $row) {
-
-            if($row->fk_knowledge_user != Auth::user()->user_id ) {
-
             $sub_dados = array();
-            $sub_dados[] = $row->connection_start;
+            $sub_dados[] = date('d/m/Y', strtotime($row->connection_start));
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
-            if(intval($row->connection_status) == 0) {
+            if(Auth::user()->user_id == $row->fk_knowledge_user && intval($row->connection_status) == 0) {
+                $sub_dados[] = "<button type='' role='button' class='btn btn-danger' data-toggle='tooltip' title='Aguardando...' disabled><span>Aguardando...</span></button> </form>";       
+            } 
+            else if(Auth::user()->user_id != $row->fk_knowledge_user && intval($row->connection_status) == 0) {
                 $sub_dados[] = "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>". 
                                     method_field('PATCH').
                                     @csrf_field().
@@ -171,7 +182,7 @@ class ConnectionController extends Controller
                                 "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Encerrar</span></button> </form>";  
             
             } 
-            else 
+            else if(intval($row->connection_status) == 2)
             { 
                 $sub_dados[] = "<form method='POST' action='".route('resolicitarConexao', $row->connection_id)."'>". 
                                     method_field('PATCH').
@@ -181,7 +192,6 @@ class ConnectionController extends Controller
           
             $dados[] = $sub_dados;
         }
-    }
         $output = array (
             "draw"  => intval($request->draw),
             "recordsTotal" => $this->TodosRegistros(), 
@@ -201,7 +211,7 @@ class ConnectionController extends Controller
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         // ->whereNotNull('connection_status') 
-                            ->where('fk_connection_knowledge', $user->user_id)
+                            ->where('fk_knowledge_user', $user->user_id)
                                 ->orWhere('fk_connection_user', $user->user_id);
            
         //Conexao ainda nao aceita, deve ser visualizada pelo mentorado como "aguardando" na tela de conexões
