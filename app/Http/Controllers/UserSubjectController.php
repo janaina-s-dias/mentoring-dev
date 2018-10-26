@@ -103,28 +103,31 @@ class UserSubjectController extends Controller
     public function editUserSubjectMentoria()
     {
         $us = UserSubject::select('*')
-                ->leftJoin('subjects', 'subject_id', '=', 'fk_user_subject')
-                ->leftJoin('carrers', 'carrer_id', '=', 'fk_subject_carrer')
-                ->leftJoin('professions', 'profession_id', '=', 'fk_carrer_profession')
-                ->leftJoin('knowledges', 'fk_knowledge_subject', '=', 'fk_user_subject')
-                ->where('fk_subject_user', Auth::user()->user_id)
+                ->join('subjects', 'subject_id', '=', 'fk_user_subject')
+                ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
+                ->join('professions', 'profession_id', '=', 'fk_carrer_profession')
                 ->get();
         $uss = array();
         foreach ($us as $s) {
-            $ussSub = array();
-            if($s->knowledge_id == null)
-            {
-                $ussSub['mentor'] = "Não";
+            if($s->fk_subject_user == Auth::user()->user_id){
+                $ussSub = array();
+                 $kn = \App\Knowledge::select('*')
+                    ->where('fk_knowledge_subject', $s->fk_user_subject)
+                    ->where('fk_knowledge_user', $s->fk_subject_user)->count();
+                if($kn == 0)
+                {
+                    $ussSub['mentor'] = "Não";
+                }
+                else 
+                {
+                    $ussSub['mentor'] = "Sim";
+                }
+                $ussSub['assunto'] = $s->subject_name;
+                $ussSub['editar'] = "<a href='".route('editarMeuAssuntoSemMentoria', $s->subject_id)."' class='btn btn-primary'>Editar</a>";
+                $ussSub['carreira'] = $s->carrer_name;
+                $ussSub['profissao'] = $s->profession_name;
+                $uss[] = $ussSub;
             }
-            else 
-            {
-                $ussSub['mentor'] = "Sim";
-            }
-            $ussSub['assunto'] = $s->subject_name;
-            $ussSub['editar'] = "<a href='".route('editarMeuAssuntoSemMentoria', $s->subject_id)."' class='btn btn-primary'>Editar</a>";
-            $ussSub['carreira'] = $s->carrer_name;
-            $ussSub['profissao'] = $s->profession_name;
-            $uss[] = $ussSub;
         }
         echo json_encode($uss);
     }
