@@ -122,9 +122,11 @@
                     <li {{ (Request::is('*cadastroAssunto') ? 'class="active"' : '') }}>
                         <a href="{{ url ('cadastroAssunto') }}"><i class="fa fa-trophy fa-fw"></i> Cadastrar Assunto</a>
                     </li>
+                    @if(Auth::user()->user_role >= 2)
                     <li {{ (Request::is('*Mentoria_no_assunto') ? 'class="active"' : '') }}>
                         <a href="{{ url ('Mentoria_no_assunto') }}"><i class="fa fa-edit fa-fw"></i> Mentoria por Assunto</a>
                     </li>
+                    @endif
                     <li {{ (Request::is('*cadastroContato') ? 'class="active"' : '') }}>
                         <a href="{{ url ('cadastroContato') }}"><i class="fa fa-users fa-fw"></i> Cadastrar Contato</a>
                     </li>

@@ -162,6 +162,7 @@ class ConnectionController extends Controller
         foreach ($pegadados as $row) {
             $sub_dados = array();
             $sub_dados[] = date('d/m/Y', strtotime($row->connection_start));
+            $sub_dados[] = date('d/m/Y', strtotime($row->connection_end));
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
             if(Auth::user()->user_id == $row->fk_knowledge_user && intval($row->connection_status) == 0) {
