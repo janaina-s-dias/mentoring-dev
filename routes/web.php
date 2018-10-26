@@ -37,6 +37,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
         Route::get('conteudo', function(){ return view('cadastroConteudo'); });
         Route::get('Mentoria_no_assunto', function(){ return view('edits.userSubjectEdit'); });
         Route::get('editarMentoria/{id}', 'KnowledgeController@criarMentorSobreAssunto')->name('editarMeuAssuntoSemMentoria');
+        Route::get('editarConteudo', function(){ return view('edits.conteudoEdit'); });
     });
 
     Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
@@ -76,8 +77,11 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/cancelarSolicitacao/{connection}', 'ConnectionController@excluirSolicitacao')->name('cancelarSolicitacao');
     Route::get('/mentorOuNao', 'UserSubjectController@editUserSubjectMentoria')->name('mentorOuNao');
     //Route::delete('/recusarPedido/{connection}', 'ConnectionController@excluirSolicitacao')->name('recusarPedido');
-    
+    Route::post('/pegaDadosConteudo', 'ContentController@PegaDadosConteudo')->name('pegaDadosConteudo');
+
+
 });
+
 
 Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('admin', function(){ return view('layouts.dashboardAdmin'); });
@@ -91,5 +95,7 @@ Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('AssuntosUsuarios', function(){ return view('manteruserSubject'); });
     Route::get('Contatos', function(){ return view('manterContatos'); });
     Route::get('mentoresAdmin', function(){ return view('manterMentores'); });
+    Route::get('conteudos', function(){ return view('manterConteudo'); })->name('conteudos');
+    // Route::get('EditarConteudo', function(){ return view('edits.conteudoEdit'); });
     
 });

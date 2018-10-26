@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 3 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 3, 4, 5 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -46,7 +46,9 @@
             <th style="text-align:center">Assunto</th>
             <th style="text-align:center">Título</th>
             <th style="text-align:center">Tipo</th>    
-            <th style="text-align:center">Ver</th>                   
+            <th style="text-align:center">Ver</th> 
+            <th style="text-align:center">Editar</th>   
+            <th style="text-align:center">Excluir</th>                   
         </tr>
     </thead>
     <tbody style="text-align:center">

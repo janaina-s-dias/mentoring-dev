@@ -140,24 +140,22 @@ class ConnectionController extends Controller
         $dados = array();
         foreach ($pegadados as $row) {
 
-         
+            if($row->fk_knowledge_user != Auth::user()->user_id ) {
 
             $sub_dados = array();
             $sub_dados[] = $row->connection_start;
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = ($row->connection_status == 0 && $row->fk_knowledge_user != Auth::user()->user_id) ?
+            $sub_dados[] = $row->connection_status ?
             
             "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
             method_field('PATCH').
                 @csrf_field().
-            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" :
-
-            "Solicitações" ;
-        
+            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" : "Ativa";
           
             $dados[] = $sub_dados;
         }
+    }
 
      
         

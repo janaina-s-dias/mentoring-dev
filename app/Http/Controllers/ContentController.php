@@ -47,9 +47,14 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        $conteudo = Content::find($id);
+        $conteudo = Content::join('knowledges', 'fk_content_knowledge', '=', 'knowledge_id')
+                        ->join('users', 'fk_knowledge_user', '=', 'user_id')
+                            ->join('subjects', 'fk_knowledge_subject', '=', 'subject_id')
+                                ->where('content_id', $id)->first();
+
         
-        echo json_encode($conteudo); //muda pra onde vai mostrar se for com redirect ou por json, se for view, usa compact tipo
+        return view('verConteudo', compact('conteudo'));
+        // echo json_encode($conteudo); //muda pra onde vai mostrar se for com redirect ou por json, se for view, usa compact tipo
         //return view('ExibirConteudo', compact('conteudo'); 
     }
 
@@ -63,8 +68,7 @@ class ContentController extends Controller
     {
         $conteudo = Content::find($id);
         
-        echo json_encode($conteudo); //muda pra onde vai editar se for com redirect ou por json, se for view, usa compact tipo
-        //return view('edits.conteudoEditar', compact('conteudo'); 
+        return view('edits.conteudoEdit', compact('conteudo')); 
     }
 
     /**
@@ -85,9 +89,9 @@ class ContentController extends Controller
         try
         {
             $content->update();
-            return redirect('editarConteudo')->with('success', 'Alterado com sucesso');
+            return back()->with('success', 'Alterado com sucesso');
         } catch (QueryException $ex) {
-            return redirect('editarConteudo')->with('failure', 'Erro ao alterar');
+            return back()->with('failure', 'Erro ao alterar');
         }
     }
 
@@ -120,10 +124,19 @@ class ContentController extends Controller
             $sub_dados[] = $row->content_type;
             $sub_dados[] = 
         
-            // "<form method='POST' action='".route('', $row->content_id)."'>". 
-            // method_field('').
-            //     @csrf_field().
-            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Visualizar'><span>Ver Conteúdo</span></button> </form>" ;  
+           
+            "<a href='".route('content.show', $row->content_id)."' role='button' class='btn btn-success' data-toggle='tooltip' title='Visualizar'><span>Ver Conteúdo</span></a>" ;  
+            
+            $sub_dados[] = 
+            "<a href='".route('content.edit', $row->content_id)."' role='button' class='btn btn-primary' data-toggle='tooltip' title='Alterar'>Editar</a>";
+
+            $sub_dados[] = 
+        
+            "<form method='POST' action='".route('content.destroy', $row->content_id)."'>". 
+             method_field('DELETE').
+                 @csrf_field().
+            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Editar'><span>Excluir</span></button> </form>" ;  
+
             
             $dados[] = $sub_dados;
         }
@@ -138,11 +151,11 @@ class ContentController extends Controller
     }
     private $order = ['subject_name','content_title', 'content_type', null];
 
-    //Conexões
+   
     public function CriarQuery(Request $request)
     {
          
-        $this->content = Content::select('content_title','content_type', 'fk_content_knowledge', 'subject_name')
+        $this->content = Content::select('content_id','content_title','content_type', 'fk_content_knowledge', 'subject_name')
             ->join('knowledges', 'knowledge_id', '=', 'fk_content_knowledge')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject');
                  
@@ -162,7 +175,7 @@ class ContentController extends Controller
         }
     }
     
-    //Conteudo
+
     public function CriarDataTable(Request $request)
     {
         $this->CriarQuery($request);
