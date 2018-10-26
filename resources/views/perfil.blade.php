@@ -5,11 +5,11 @@
     $(document).ready(function(){
        $.get("{{route('usersubject.show', Auth::user()->user_id)}}", function(dados)
        {
-           var option = '';
+           var option = '<br>';
            if(dados.length > 0){
             $.each(dados, function(i, linha)
             {
-                option+= "<li>"+linha.assunto+"</li>";
+                option+= "<h5 style='text-align: right'>"+linha.assunto+"</h5>";
             });
             $("#assuntos").html(option).show();
            }
@@ -38,9 +38,9 @@
         <div class="o-aside">
             <div>
                 <h2>Assuntos</h2>
-                    <ul id="assuntos" class="aki">
+                    <div id="assuntos" class="aki">
                         
-                    </ul>
+                    </div>
             </div>
        </div>
 

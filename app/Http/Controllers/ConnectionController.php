@@ -47,7 +47,7 @@ class ConnectionController extends Controller
             $dataAtual = date("Y/m/d");
                 
             $con->connection_start = $dataAtual;
-            $con->connection_end = date('d/m/Y', strtotime("+14 days",strtotime($dataAtual)));
+            $con->connection_end = date('Y/m/d', strtotime("+14 days",strtotime($dataAtual)));
             $con->connection_status = 1;
 
             try {
@@ -60,7 +60,7 @@ class ConnectionController extends Controller
         else {
             $dataAtual = date("Y/m/d");
                 
-            $con->connection_end = date('d/m/Y', strtotime("+14 days",strtotime($dataAtual)));
+            $con->connection_end = date('Y/m/d', strtotime("+14 days",strtotime($dataAtual)));
             $con->connection_status = 1;
 
             try {
@@ -166,11 +166,11 @@ class ConnectionController extends Controller
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
             if(Auth::user()->user_id == $row->fk_knowledge_user && intval($row->connection_status) == 0) {
-                $sub_dados[] = "<button type='' role='button' class='btn btn-danger' data-toggle='tooltip' title='Aguardando...' disabled><span>Aguardando...</span></button> </form>";       
+                $sub_dados[] = "<button type='' role='button' class='btn btn-default' data-toggle='tooltip' title='Aguardando...' disabled><span>Aguardando...</span></button> </form>";       
             } 
-            else if(Auth::user()->user_id != $row->fk_knowledge_user && intval($row->connection_status) == 0) {
+            else if(intval($row->connection_status) == 0) {
                 $sub_dados[] = "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>". 
-                                    method_field('PATCH').
+                                    method_field('DELETE').
                                     @csrf_field().
                                 "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Cancelar'><span>Cancelar</span></button> </form>"; 
             
@@ -183,12 +183,16 @@ class ConnectionController extends Controller
                                 "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Encerrar</span></button> </form>";  
             
             } 
-            else if(intval($row->connection_status) == 2)
+            else if(intval($row->connection_status) == 2 && Auth::user()->user_id != $row->fk_knowledge_user)
             { 
                 $sub_dados[] = "<form method='POST' action='".route('resolicitarConexao', $row->connection_id)."'>". 
                                     method_field('PATCH').
                                     @csrf_field().
                                 "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Resolicitar'><span>Solicitar novamente</span></button> </form>";  
+            }
+            else if(intval($row->connection_status) == 2 && Auth::user()->user_id == $row->fk_knowledge_user)
+            { 
+                $sub_dados[] = "<button type='submit' role='button' class='btn btn-default' data-toggle='tooltip' title='Finalizada' disabled><span>Finalizada</span></button> </form>";  
             }
           
             $dados[] = $sub_dados;
