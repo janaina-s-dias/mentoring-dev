@@ -62,22 +62,32 @@ class ConnectionController extends Controller
         
     }
 
-    //Deletar a linha da conexão  ??? ou dar um update??
-    //0- Pode solicitar | 1- Solicitou | 2- Encerrada
-    //Cancelar Solicitacao exclui linha do banco {enquanto conexão nao tiver sido iniciada}
-    //Encerrar mentoria, update status para 2
-    // public function cancelarSolicitacao($id1) //alterar nome para encerrarConexao
-    // {
-    //     $con = Connection::find($id1);
-    //     $con->connection_status = 2;
-    //     try {
-    //         $con->update();
-    //         return back()->with('success', 'Mentoria encerrada!');
-    //         } catch (\Illuminate\Database\QueryException $ex) {
-    //             return back()->with('failure', 'Mentoria não encerrada');
-    //         }
-    //         return back()->with('failure', 'qq tacotecendo');
-    //  }
+    
+     public function cancelarSolicitacao($id1)
+     {
+         $con = Connection::find($id1);
+         $con->connection_status = 2;
+         try {
+             $con->update();
+             return back()->with('success', 'Mentoria encerrada!');
+             } catch (\Illuminate\Database\QueryException $ex) {
+                 return back()->with('failure', 'Mentoria não encerrada');
+             }
+  
+      }
+      
+      
+      public function resolicitarConexao ($id){
+         $con = Connection::find($id);
+         $con->connection_status = 0;
+         try {
+             $con->update();
+             return back()->with('success', 'Mentoria resolicitada!');
+             } catch (\Illuminate\Database\QueryException $ex) {
+                return back()->with('failure', 'Mentoria não resolicitada');
+             }
+             
+      }
       
      public function excluirSolicitacao($id1) 
     {
@@ -89,7 +99,7 @@ class ConnectionController extends Controller
             } catch (\Illuminate\Database\QueryException $ex) {
                 return back()->with('failure', 'Solicitação não cancelada');
             }
-            return back()->with('failure', 'qq tacotecendo');
+           
      }
         
  
@@ -146,19 +156,32 @@ class ConnectionController extends Controller
             $sub_dados[] = $row->connection_start;
             $sub_dados[] = $row->user_nome;  
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = $row->connection_status ?
+            if(intval($row->connection_status) == 0) {
+                $sub_dados[] = "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>". 
+                                    method_field('PATCH').
+                                    @csrf_field().
+                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Cancelar'><span>Cancelar</span></button> </form>"; 
             
-            "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
-            method_field('PATCH').
-                @csrf_field().
-            "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Cancelar</span></button> </form>" : "Ativa";
+            } 
+            else if(intval($row->connection_status) == 1) 
+            { 
+                $sub_dados[] = "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
+                                    method_field('PATCH').
+                                    @csrf_field().
+                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Encerrar</span></button> </form>";  
+            
+            } 
+            else 
+            { 
+                $sub_dados[] = "<form method='POST' action='".route('resolicitarConexao', $row->connection_id)."'>". 
+                                    method_field('PATCH').
+                                    @csrf_field().
+                                "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Resolicitar'><span>Solicitar novamente</span></button> </form>";  
+            }
           
             $dados[] = $sub_dados;
         }
     }
-
-     
-        
         $output = array (
             "draw"  => intval($request->draw),
             "recordsTotal" => $this->TodosRegistros(), 
@@ -173,7 +196,7 @@ class ConnectionController extends Controller
     public function CriarQuery(Request $request)
     {
         $user = Auth::user();
-        $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name', 'fk_knowledge_user', 'fk_connection_knowledge')
+        $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name', 'fk_knowledge_user', 'fk_connection_knowledge', 'connection_status')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
@@ -204,7 +227,7 @@ class ConnectionController extends Controller
         $this->CriarQuery($request);
         if($request->length != -1)
         {
-            $this->connection->offset($request->start)->limit($request->length);
+            //$this->connection->offset($request->start)->limit($request->length);
         }
         $query = $this->connection->get();
         return $query;
@@ -234,7 +257,7 @@ class ConnectionController extends Controller
             "<button type='submit' role='button' class='btn btn-primary' data-toggle='tooltip' title='Aceitar'><span>Aceitar</span></button> </form>" ;
             
                 $sub_dados[] = 
-            "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
+            "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>". 
                     method_field('DELETE').
                         @csrf_field().
             "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Recusar'><span>Recusar</span></button> </form>" ;
