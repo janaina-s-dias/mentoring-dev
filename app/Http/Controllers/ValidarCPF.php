@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 class ValidarCPF extends Controller
 {
-    function validarCPF($cpf)
+    public static function validarCPF($cpf)
     {
         $multiplicador1 = array(10, 9, 8, 7, 6, 5, 4, 3, 2 );
         $multiplicador2 = array( 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 );

@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ConnectionController extends Controller
 {
-    function __construct(Request $request) {
-        
-    }
 
     public function salvar($knowledge)
     {
@@ -74,9 +71,9 @@ class ConnectionController extends Controller
     }
 
     
-     public function finalizarMentoria($id1)
+     public function finalizarMentoria($id)
      {
-         $con = Connection::find($id1);
+         $con = Connection::find($id);
          $con->connection_status = 2;
          try {
              $con->update();
@@ -88,59 +85,27 @@ class ConnectionController extends Controller
       }
       
       
-    public function resolicitarConexao ($id){
-        $con = Connection::find($id);
-        $con->connection_status = 0;
+      public function resolicitarConexao ($id){
+         $con = Connection::find($id);
+         $con->connection_status = 0;
          try {
-            $con->update();
-            return back()->with('success', 'Mentoria resolicitada!');
-            } catch (\Illuminate\Database\QueryException $ex) {
+             $con->update();
+             return back()->with('success', 'Mentoria resolicitada!');
+             } catch (\Illuminate\Database\QueryException $ex) {
                 return back()->with('failure', 'Mentoria não resolicitada');
-            }        
-    } 
- 
-    public function show($id)
+             }
+             
+      }
+      
+     public function destroy($id) 
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $con = Connection::find($id1);        
+        
+        $con = Connection::find($id);        
         try {
             $con->delete();
                     return back()->with('success', 'Solicitação cancelada!');
             } catch (\Illuminate\Database\QueryException $ex) {
                 return back()->with('failure', 'Solicitação não cancelada');
-            }
-    }
+            }     
+     }
 }

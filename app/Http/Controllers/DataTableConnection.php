@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 
 class DataTableConnection extends Controller
 {
-        public function PegaDadosConexao(Request $request) {
-
-        $user = Auth::user();
+    private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel'];
+    
+    public function PegaDadosConexao(Request $request) {
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
         foreach ($pegadados as $row) {
@@ -58,16 +58,14 @@ class DataTableConnection extends Controller
         );
         echo json_encode($output);
     }
-    private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel'];
-
-        public function CriarQuery(Request $request)
+    //Conexões
+    public function CriarQuery(Request $request)
     {
         $user = Auth::user();
         $this->connection = Connection::select('connection_id','connection_start','connection_end', 'user_nome', 'subject_name', 'fk_knowledge_user', 'fk_connection_knowledge', 'connection_status')
             ->join('users', 'user_id', '=', 'fk_connection_user')
             ->join('knowledges', 'knowledge_id', '=', 'fk_connection_knowledge')
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
-                        // ->whereNotNull('connection_status') 
                             ->where('fk_knowledge_user', $user->user_id)
                                 ->orWhere('fk_connection_user', $user->user_id);
            
@@ -100,10 +98,17 @@ class DataTableConnection extends Controller
         return $query;
     }
     
-    public function RegistrosFiltrados(Request $request)
+        public function RegistrosFiltrados(Request $request)
     {
         $this->CriarQuery($request);
         $query = $this->connection->count();
         return $query;
     }
+    
+        public function TodosRegistros()
+    {
+        $connection = Connection::all();
+        return $connection->count();
+    }
+
 }

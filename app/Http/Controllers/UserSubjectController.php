@@ -12,8 +12,8 @@ class UserSubjectController extends Controller
     private $us;
     public function __construct(UserSubject $us, Request $request) {
         $this->us = $us;
-        
     }
+
     public function JsonPopular(Request $request)
     {
         $user = $request->get('user');
@@ -28,51 +28,54 @@ class UserSubjectController extends Controller
         return response()->json($dados);
     }
     
+    private function salvarMentor($request)
+    {
+        $knowledge = new KnowledgeController(new \App\Knowledge());
+        $result = $knowledge->store($request);
+        if($result['bool'])
+        {
+            if($result['motivo'] == ''){
+                return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
+            }
+            else
+            {
+                return redirect('/cadastroAssunto')->with('failure', $result['motivo']); 
+            }
+        }
+    }
+    
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
         $userSessao = Auth::user();
+        if($userSessao->user_knowledge && $request->knowledge_nivel > 2) 
+        {
+            $this->salvarMentor($request);
+        }
+        else
+        {
+            $this->salvarMentorado($request);
+        }
+   }
+    private function salvarMentorado($request)
+    {
         $us = new UserSubject([
             'fk_user_subject' => $request->fk_user_subject,
             'fk_subject_user' => $request->fk_subject_user
         ]);
-        if($userSessao->user_knowledge && $request->knowledge_nivel > 2) 
-        {
-            $us->knowledge_nivel = $request->knowledge_nivel;
-            $us->knowledge_rank = 5;        
-        }
-        
-        $user = UserSubject::where('fk_user_subject', '=', $request->fk_user_subject)->
-                             where('fk_subject_user', '=', $request->fk_subject_user)->count();
+        $user = UserSubject::where('fk_user_subject', '=', $request->fk_user_subject)->where('fk_subject_user', '=', $request->fk_subject_user)->count();
         if($user == 0){
-            $this->salvar($us, $request->knowledge_nivel);
+            try {
+                $us->save();
+                return redirect('/cadastroAssunto')->with('success', "Assunto inserido em seus interesses!");
+            } catch (QueryException $exc) {
+                return redirect('/cadastroAssunto')->with('failure',  "Assunto não inserido em seus interesses!");  
+            }
         }
         else
         {
             return redirect('/cadastroAssunto')->with('failure', 'Assunto já cadastrado em seus interesses!'); 
         }
-            
-   }
-
-    private function salvar($us, $nivel) {
-        try {
-                $us->save();
-                if(Auth::user()->user_knowledge && $nivel > 2) {
-                    $mensagem = "Assunto inserido em suas mentorias!";
-                }
-                else {
-                    $mensagem = "Assunto inserido em seus interesses!";
-                }
-                return redirect('/cadastroAssunto')->with('success', $mensagem);
-            } catch (QueryException $exc) {
-                 if (!Auth::user()->user_knowledge) {
-                    $mensagem = "Assunto não inserido em seus interesses!";
-                }
-                else {
-                    $mensagem = "Assunto não inserido em suas mentorias!";
-                }
-                return redirect('/cadastroAssunto')->with('failure',  $$mensagem);  
-            }
     }
     public function show($id)
     {
@@ -90,12 +93,26 @@ class UserSubjectController extends Controller
     
     public function editUserSubjectMentoria()
     {
-        $us = UserSubject::join('subjects', 'subject_id', '=', 'fk_user_subject')->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')->join('professions', 'profession_id', '=', 'fk_carrer_profession')->get();
+        $us = UserSubject::select('*')
+                ->join('subjects', 'subject_id', '=', 'fk_user_subject')
+                ->join('carrers', 'carrer_id', '=', 'fk_subject_carrer')
+                ->join('professions', 'profession_id', '=', 'fk_carrer_profession')
+                ->get();
         $uss = array();
         foreach ($us as $s) {
             if($s->fk_subject_user == Auth::user()->user_id){
                 $ussSub = array();
-                $ussSub['mentor'] = ($s->knowledge_nivel == null) ? "Não" : "Sim";
+                 $kn = \App\Knowledge::select('*')
+                    ->where('fk_knowledge_subject', $s->fk_user_subject)
+                    ->where('fk_knowledge_user', $s->fk_subject_user)->count();
+                if($kn == 0)
+                {
+                    $ussSub['mentor'] = "Não";
+                }
+                else 
+                {
+                    $ussSub['mentor'] = "Sim";
+                }
                 $ussSub['assunto'] = $s->subject_name;
                 $ussSub['editar'] = "<a href='".route('editarMeuAssuntoSemMentoria', $s->subject_id)."' class='btn btn-primary'>Editar</a>";
                 $ussSub['carreira'] = $s->carrer_name;
@@ -106,14 +123,19 @@ class UserSubjectController extends Controller
         echo json_encode($uss);
     }
 
-    public function destroy($id)
+    public function deletar($id, $id2)
     {
-        $us = UserSubject::find($id);
+        $us = UserSubject::where('fk_user_subject', '=', intval($id2))->
+                           where('fk_subject_user', '=', intval($id));
+        $kw = \App\Knowledge::where('fk_knowledge_subject', '=', intval($id2))->
+                           where('fk_knowledge_user', '=', intval($id));
         try {
             $us->delete();
-            return back()->with('success', 'Removido!');
+            $kw->delete();
+            return redirect('/AssuntosUsuarios')->with('success', 'Assunto removido dos seus interesses!');
         } catch (QueryException $exc) {
-            return back()->with('failure', 'Não removido!');
+            return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos seus interesses!');
         }
-    }    
+    }
+    
 }

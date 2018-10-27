@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class DataTableKnowledge extends Controller
 {
-    public function PegaDadosKnowledge(Request $request) {
+        public function PegaDadosKnowledge(Request $request) {
 
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
@@ -45,11 +45,13 @@ class DataTableKnowledge extends Controller
         echo json_encode($output);
     }
 
+
+
     private $order = ['subject_name','knowledge_nivel', 'user_nome','knowledge_rank', null];
 
     public function CriarQuery(Request $request)
     {
-        $assunto = UserSubject::select('subject_id')
+        $assunto = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
                             ->where('fk_subject_user', Auth::user()->user_id)
@@ -59,7 +61,7 @@ class DataTableKnowledge extends Controller
         foreach ($assunto as $value) {
             $assuntos[] = $value->subject_id;
         }
-        $this->knowledge = UserSubject::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank', 'connection_status')
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank', 'connection_status')
         ->join('users', 'user_id', '=', 'fk_knowledge_user')
             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                 ->leftJoin('connections', 'fk_connection_knowledge', '=', 'knowledge_id')
@@ -80,6 +82,7 @@ class DataTableKnowledge extends Controller
             $this->knowledge->orderBy('knowledge_rank', 'desc');
         }
     }
+    
     public function CriarDataTable(Request $request)
     {
         $this->CriarQuery($request);
@@ -90,15 +93,18 @@ class DataTableKnowledge extends Controller
         $query = $this->knowledge->get();
         return $query;
     }
+    
+    
     public function RegistrosFiltrados(Request $request)
     {
         $this->CriarQuery($request);
         $query = $this->knowledge->count();
         return $query;
     }
+    
     public function TodosRegistros()
     {
-        $knowledge = UserSubject::select('subject_id')
+        $knowledge = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')
                             ->where('fk_subject_user', Auth::user()->user_id)
@@ -106,4 +112,5 @@ class DataTableKnowledge extends Controller
                             ->where('knowledge_active', true)->count();
         return $knowledge;
     }
+
 }

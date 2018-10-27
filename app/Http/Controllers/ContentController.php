@@ -35,13 +35,13 @@ class ContentController extends Controller
 
     public function show($id)
     {
-        $conteudo = Content::join('usersubjects', 'fk_content_knowledge', '=', 'usersubject_id')
-                        ->join('users', 'fk_subject_user', '=', 'user_id')
-                            ->join('subjects', 'fk_user_subject', '=', 'subject_id')
+        $conteudo = Content::join('knowledges', 'fk_content_knowledge', '=', 'knowledge_id')
+                        ->join('users', 'fk_knowledge_user', '=', 'user_id')
+                            ->join('subjects', 'fk_knowledge_subject', '=', 'subject_id')
                                 ->where('content_id', $id)->first();
 
         
-        return view('verConteudo', compact('conteudo')); 
+        return view('verConteudo', compact('conteudo'));
     }
 
     public function edit($id)
@@ -77,5 +77,5 @@ class ContentController extends Controller
         } catch (QueryException $ex) {
             return back()->with('failure', 'Erro ao deletar');
         }
-    }    
+    }
 }

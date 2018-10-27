@@ -30,7 +30,7 @@ class DataTableKnowledgeAdmin extends Controller
                 method_field('PATCH').
                 @csrf_field()."<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
             
-            $sub_dados[] = "<a href='".route('knowledge.edit', $row->knowledge_id)."' role='button' class='btn btn-primary' data-toggle='tooltip' title='Alterar'><span class='glyphicon glyphicon-edit'></span></a>";
+            //$sub_dados[] = "<a href='".route('knowledge.edit', $row->knowledge_id)."' role='button' class='btn btn-primary' data-toggle='tooltip' title='Alterar'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('knowledge.destroy', $row->knowledge_id)."'>".
                             method_field('DELETE').
                             csrf_field().
@@ -49,7 +49,7 @@ class DataTableKnowledgeAdmin extends Controller
     
     public function CriarQueryAdmin(Request $request)
     {
-        $assunto = UserSubject::select('subject_id')
+        $assunto = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')->get();
         $assuntos = array();
@@ -58,7 +58,7 @@ class DataTableKnowledgeAdmin extends Controller
             $assuntos[] = $value->subject_id;
         }
 
-        $this->knowledge = UserSubject::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_active','knowledge_rank')
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_active','knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);            
@@ -88,7 +88,7 @@ class DataTableKnowledgeAdmin extends Controller
 
     public function TodosRegistrosAdmin()
     {
-        $knowledge = UserSubject::select('subject_id')
+        $knowledge = Knowledge::select('subject_id')
                             ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->join('usersubjects', 'subject_id', '=', 'fk_user_subject')->count();
         return $knowledge;
@@ -104,5 +104,6 @@ class DataTableKnowledgeAdmin extends Controller
         $query = $this->knowledge->get();
         return $query;
     }
+    
     
 }

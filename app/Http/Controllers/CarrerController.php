@@ -101,5 +101,4 @@ class CarrerController extends Controller
          }
 
     }
-
 }

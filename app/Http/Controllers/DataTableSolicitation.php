@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class DataTableSolicitation extends Controller
 {
     private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel'];
-        public function PegaDadosSolicitacao(Request $request) {
+           public function PegaDadosSolicitacao(Request $request) {
         $pegadados = $this->CriarDataTable2($request);
         $dados = array();
         
