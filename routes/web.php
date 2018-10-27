@@ -1,6 +1,5 @@
-<?php
+    <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckLogin;
@@ -44,16 +43,17 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
     Route::get('/sair', 'UserController@logout')->name('sair');
     Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
-    Route::post('/pegaDadosCarreira', 'CarrerController@PegaDadosCarreira')->name('pegaDadosCarreira');
+    Route::post('/pegaDadosCarreira', 'DataTablaCarrer@PegaDadosCarreira')->name('pegaDadosCarreira');
     Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
     Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
-    Route::post('/pegaDadosUsuarioAssunto', 'UserSubjectController@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
-    Route::post('/pegaDadosContato', 'ContactController@PegaDadosContato')->name('pegaDadosContato');
+    Route::post('/pegaDadosUsuarioAssunto', 'DataTableUserSubject@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
+    Route::post('/pegaDadosContato', 'DataTableContact@PegaDadosContato')->name('pegaDadosContato');
     Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
     Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
-    Route::post('/pegaDadosMentor', 'KnowledgeController@PegaDadosKnowledge')->name('pegaDadosMentor');
-    Route::post('/pegaDadosMentorAdmin', 'KnowledgeController@PegaDadosKnowledgeAdmin')->name('pegaDadosMentorAdmin');
+    Route::post('/pegaDadosMentor', 'DataTableKnowledge@PegaDadosKnowledge')->name('pegaDadosMentor');
+    Route::post('/pegaDadosMentorAdmin', 'DataTableKnowledgeAdmin@PegaDadosKnowledgeAdmin')->name('pegaDadosMentorAdmin');
     Route::post('/conectar/{knowledge_id}', 'ConnectionController@salvar')->name('conexao');
+    
     Route::resource('usersubject', 'UserSubjectController');
     Route::resource('subject', 'SubjectController');
     Route::resource('carrer', 'CarrerController');
@@ -78,7 +78,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('/mentorOuNao', 'UserSubjectController@editUserSubjectMentoria')->name('mentorOuNao');
     Route::delete('/excluirSolicitacao/{connection}', 'ConnectionController@excluirSolicitacao')->name('excluirSolicitacao');
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');
-    Route::post('/pegaDadosConteudo', 'ContentController@PegaDadosConteudo')->name('pegaDadosConteudo');
+    Route::post('/pegaDadosConteudo', 'DataTableContent@PegaDadosConteudo')->name('pegaDadosConteudo');
 
     
     
