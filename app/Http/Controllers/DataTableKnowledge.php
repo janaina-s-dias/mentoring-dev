@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Knowledge;
+use Illuminate\Support\Facades\Auth;
 
 class DataTableKnowledge extends Controller
 {

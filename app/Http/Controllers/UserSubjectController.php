@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\UserSubject;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ class UserSubjectController extends Controller
     private $us;
     public function __construct(UserSubject $us, Request $request) {
         $this->us = $us;
+        
     }
 
     public function JsonPopular(Request $request)
@@ -28,55 +30,62 @@ class UserSubjectController extends Controller
         return response()->json($dados);
     }
     
-    private function salvarMentor($request)
-    {
-        $knowledge = new KnowledgeController(new \App\Knowledge());
-        $result = $knowledge->store($request);
-        if($result['bool'])
-        {
-            if($result['motivo'] == ''){
-                return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
-            }
-            else
-            {
-                return redirect('/cadastroAssunto')->with('failure', $result['motivo']); 
-            }
-        }
-    }
-    
     public function store(Request $request)
     {
         $this->validate($request, $this->us->rules, $this->us->messages);
         $userSessao = Auth::user();
         if($userSessao->user_knowledge && $request->knowledge_nivel > 2) 
         {
-            $this->salvarMentor($request);
+            $knowledge = new KnowledgeController(new \App\Knowledge());
+            $result = $knowledge->store($request);
+            if($result['bool'])
+            {
+                if($result['motivo'] == ''){
+                    return redirect('/cadastroAssunto')->with('failure', 'Erro ocorreu ao vincular como mentor'); 
+                }
+                else
+                {
+                    return redirect('/cadastroAssunto')->with('failure', $result['motivo']); 
+                }
+            }
         }
-        else
-        {
-            $this->salvarMentorado($request);
-        }
-   }
-    private function salvarMentorado($request)
-    {
         $us = new UserSubject([
             'fk_user_subject' => $request->fk_user_subject,
             'fk_subject_user' => $request->fk_subject_user
         ]);
-        $user = UserSubject::where('fk_user_subject', '=', $request->fk_user_subject)->where('fk_subject_user', '=', $request->fk_subject_user)->count();
+        $user = UserSubject::where('fk_user_subject', '=', $request->fk_user_subject)->
+                             where('fk_subject_user', '=', $request->fk_subject_user)->count();
         if($user == 0){
             try {
                 $us->save();
-                return redirect('/cadastroAssunto')->with('success', "Assunto inserido em seus interesses!");
+                Auth::user()->user_knowledge;
+                if (!Auth::user()->user_knowledge)
+                {
+                    $mensagem = "Assunto inserido em seus interesses!";
+                }
+                else {
+                    $mensagem = "Assunto inserido em suas mentorias!";
+                }
+                
+                return redirect('/cadastroAssunto')->with('success', $mensagem);
             } catch (QueryException $exc) {
-                return redirect('/cadastroAssunto')->with('failure',  "Assunto não inserido em seus interesses!");  
+                 if (!Auth::user()->user_knowledge)
+                {
+                    $mensagem = "Assunto não inserido em seus interesses!";
+                }
+                else {
+                    $mensagem = "Assunto não inserido em suas mentorias!";
+                }
+                return redirect('/cadastroAssunto')->with('failure',  $$mensagem);  
             }
         }
         else
         {
             return redirect('/cadastroAssunto')->with('failure', 'Assunto já cadastrado em seus interesses!'); 
         }
-    }
+            
+   }
+
     public function show($id)
     {
         $us = UserSubject::join('subjects', 'fk_user_subject', '=', 'subject_id')
@@ -137,5 +146,4 @@ class UserSubjectController extends Controller
             return redirect('/AssuntosUsuarios')->with('failure', 'Assunto não removido dos seus interesses!');
         }
     }
-    
 }

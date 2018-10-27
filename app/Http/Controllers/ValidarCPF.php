@@ -1,5 +1,4 @@
-﻿<?php
-
+<?php
 namespace App\Http\Controllers;
 
 class ValidarCPF extends Controller
@@ -12,7 +11,7 @@ class ValidarCPF extends Controller
         $digito;
         $soma;
         $resto;
-        $cpf = $cpf->trim();
+        $cpf = trim($cpf);
         $cpf = str_replace(".", "", $cpf);
         $cpf = str_replace("-", "", $cpf);
         if (strlen($cpf) != 11)
@@ -38,10 +37,6 @@ class ValidarCPF extends Controller
         else
             $resto = 11 - $resto;
         $digito = $digito + $resto."";
-        return $this->endsWith($cpf, $digito);
+        return (substr($cpf, 9, 2) == $digito );
     }
-
-	function endsWith( $str, $sub ) {
-   		return ( substr( $str, strlen( $str ) - strlen( $sub ) ) === $sub );
-	}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Knowledge;
 
 class DataTableKnowledgeAdmin extends Controller
 {
@@ -30,7 +31,7 @@ class DataTableKnowledgeAdmin extends Controller
                 method_field('PATCH').
                 @csrf_field()."<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Ativar Item'><i class='fa fa-check'></i></button> </button></form>";
             
-            //$sub_dados[] = "<a href='".route('knowledge.edit', $row->knowledge_id)."' role='button' class='btn btn-primary' data-toggle='tooltip' title='Alterar'><span class='glyphicon glyphicon-edit'></span></a>";
+            $sub_dados[] = "<a href='".route('knowledge.edit', $row->knowledge_id)."' role='button' class='btn btn-primary' data-toggle='tooltip' title='Alterar'><span class='glyphicon glyphicon-edit'></span></a>";
             $sub_dados[] = "<form method='POST' action='".route('knowledge.destroy', $row->knowledge_id)."'>".
                             method_field('DELETE').
                             csrf_field().
@@ -40,7 +41,7 @@ class DataTableKnowledgeAdmin extends Controller
         
         $output = array (
             "draw"  => intval($request->draw),
-            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsTotal" => $this->TodosRegistrosAdmin(), 
             "recordsFiltered" => $this->RegistrosFiltradosAdmin($request),
             "data" => $dados
         );

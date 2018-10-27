@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Connection;;
 
 class DataTableSolicitation extends Controller
 {
@@ -76,7 +77,7 @@ class DataTableSolicitation extends Controller
         return $query;
     }
     
-    public function RegistrosFiltrados2(Request $request)
+    public function RegistrosFiltrados(Request $request)
     {
         $this->CriarQuery2($request);
         $query = $this->connection->count();

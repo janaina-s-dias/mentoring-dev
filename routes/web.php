@@ -43,13 +43,13 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
     Route::get('/sair', 'UserController@logout')->name('sair');
     Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
-    Route::post('/pegaDadosCarreira', 'DataTablaCarrer@PegaDadosCarreira')->name('pegaDadosCarreira');
-    Route::post('/pegaDadosAssunto', 'SubjectController@PegaDadosAssunto')->name('pegaDadosAssunto');
-    Route::post('/pegaDadosUsuario', 'UserController@PegaDadosUsuario')->name('pegaDadosUsuario');
+    Route::post('/pegaDadosCarreira', 'DataTableCarrer@PegaDadosCarreira')->name('pegaDadosCarreira');
+    Route::post('/pegaDadosAssunto', 'DataTableSubject@PegaDadosAssunto')->name('pegaDadosAssunto');
+    Route::post('/pegaDadosUsuario', 'DataTableUser@PegaDadosUsuario')->name('pegaDadosUsuario');
     Route::post('/pegaDadosUsuarioAssunto', 'DataTableUserSubject@PegaDadosUsuarioAssunto')->name('pegaDadosUsuarioAssunto');
     Route::post('/pegaDadosContato', 'DataTableContact@PegaDadosContato')->name('pegaDadosContato');
-    Route::post('/pegaDadosConexao', 'ConnectionController@PegaDadosConexao')->name('pegaDadosConexao');
-    Route::post('/pegaDadosSolicitacao', 'ConnectionController@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
+    Route::post('/pegaDadosConexao', 'DataTableConnection@PegaDadosConexao')->name('pegaDadosConexao');
+    Route::post('/pegaDadosSolicitacao', 'DataTableSolicitation@PegaDadosSolicitacao')->name('pegaDadosSolicitacao');
     Route::post('/pegaDadosMentor', 'DataTableKnowledge@PegaDadosKnowledge')->name('pegaDadosMentor');
     Route::post('/pegaDadosMentorAdmin', 'DataTableKnowledgeAdmin@PegaDadosKnowledgeAdmin')->name('pegaDadosMentorAdmin');
     Route::post('/conectar/{knowledge_id}', 'ConnectionController@salvar')->name('conexao');
