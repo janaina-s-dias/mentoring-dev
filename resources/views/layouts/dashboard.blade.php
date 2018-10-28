@@ -1,6 +1,47 @@
 @extends('layouts.plane')
 @section('body')
-<?php $user = Auth::user(); ?>
+<script>
+    //solicitacoes
+    
+    $(document).ready(function(){
+        var text = "";
+        $.ajax({
+            url: "{{route('notificacao.solicitacao')}}",
+            dataType: 'json',
+            success: function(data)
+            {
+                if(data.length > 0)
+                {
+                    $.each(data, function(i, obj)
+                    {
+                        text += "<li>"+ 
+                                    "<a href=''>"+
+                                        "<div>"+
+                                            "<strong>"+obj.nomeMentorado+"</strong>"+
+                                            "<span class='pull-right text-muted'>"+
+                                                "<em>"+obj.dia+" "+obj.hora+"</em>"+
+                                            "</span>"+
+                                        "</div>"+
+                                        "<div>"+obj.assunto+"</div>"+
+                                    "</a>"+
+                                "</li>";
+                        $("#solicitacao").append(text);
+                    });
+                }
+                else
+                {
+                    text += "<li>"+ 
+                                    "<a class='text-center'><em>Nenhuma solicitação encontrada</em></a>"+
+                                "</li>";
+                        $("#solicitacao").append(text);
+                }
+                $("#solicitacao").append("<li class='divider'></li><li><a class='text-center' href=''><strong>See All Alerts</strong><i class='fa fa-angle-right'></i></a></li>");
+                
+            }
+        }); 
+    });
+</script>
+    <?php $user = Auth::user(); ?>
 <div id="wrapper">
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -67,22 +108,9 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a class="text-center" href="#">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
+                <ul id="solicitacao" class="dropdown-menu dropdown-alerts">
+                    
+                    
                 </ul>
             </li>
             <li class="dropdown">

@@ -79,7 +79,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::delete('/excluirSolicitacao/{connection}', 'ConnectionController@excluirSolicitacao')->name('excluirSolicitacao');
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');
     Route::post('/pegaDadosConteudo', 'DataTableContent@PegaDadosConteudo')->name('pegaDadosConteudo');
-
+    Route::get('/notificacao/solicitacao', "NotificacaoController@pegaSolicitacao")->name('notificacao.solicitacao');
     
     
 

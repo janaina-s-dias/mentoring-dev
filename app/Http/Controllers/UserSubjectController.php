@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\UserSubject;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
