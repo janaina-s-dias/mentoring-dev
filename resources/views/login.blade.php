@@ -1,120 +1,121 @@
-@extends ('layouts.plane')
-@section ('body')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="{{ asset('js/jquery.mask.js') }}"></script>
-<br><br><br><br><br><br>
-<div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-            <br /><br /><br />
-               @section ('login_panel_title','Tela de Acesso - Mentoring')
-               @section ('login_panel_body')
-               <form role="form" action="{{ route ('acessar') }}" method="post">
-                        @csrf
-                            <fieldset>
-                                <div class="form-group{{ $errors->has('user_login') ? ' has-error' : '' }}">
-                                    <input class="form-control" placeholder="Usuario" name="user_login" type="text" value="{{old('user_login')}}" autofocus>
-                                    @if ($errors->has('user_login'))
-                                    <small class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('user_login') }}</strong>
-                                    </small>
-                                    @endif
-                                </div>
-                                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
-                                    <input class="form-control" placeholder="Senha" name="user_hash" type="password">
-                                    @if ($errors->has('user_hash'))
-                                    <small class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('user_hash') }}</strong>
-                                    </small>
-                                    @endif
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Lembre-se
-                                    </label>
-                                </div>
-                                <button type="submit" class="btn btn-md btn-primary btn-block">Entrar</button>
-                                <a href="#" class="btn btn-md btn-success btn-block" data-toggle="modal" data-backdrop="static" data-target="#modalCadastro">Cadastrar</a>
-                            </fieldset>
-                   </form>
-                    
-                @endsection
-                @include('widgets.panel', array('as'=>'login', 'header'=>true))
-            @include('inc.feedback')
-        </div>
-        </div>
-            
-    </div>
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentoring</title>
+     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('fonts/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Footer-Basic.css') }}">    
+    <script src="{{ asset('js/jQuery.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/scripts/frontend.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}" type="text/javascript"></script>
+    <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        
+        #plx {
+    /* The image used */
+    background-image:url("{{ asset('img/study.jpg') }}");    
 
+    /* Full height */
+    height: 280px;
+    width: 100%;
 
-<div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Cadastro Inicial</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form  method="POST" action="{{ route('inserir') }}">
-                @csrf
-                <div class="form-group{{ $errors->has('user_email') ? ' has-error' : '' }}">
-                    <input class="form-control" name="user_email" id="email" type="text" placeholder="E-mail" value="{{old('user_email')}}">
-                    <p class="help-block">Insira um e-mail válido</p> 
-                    @if ($errors->has('user_email'))
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    </style>
+    
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">           
+             <form class="form-inline" role="form" action="{{ route ('acessar') }}" method="post">     
+                  @csrf
+                  
+                   <div class="form-group{{ $errors->has('user_login') ? ' is-invalid' : '' }}">
+                     <input type="text" class="form-control form-rounded" placeholder=" Login" name="user_login" type="text" id="login" value="" autofocus>
+                     @if ($errors->has('user_login'))
                         <small class="text-danger" role="alert">
-                            <strong>{{ $errors->first('user_email') }}</strong>
+                             <strong>{{ $errors->first('user_login') }}</strong>
                         </small>
                     @endif
-                </div>
-                <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
-                    <input class="form-control" name="login" id="user" type="text" placeholder="Usuario"value="{{old('login')}}">
-                    <p class="help-block">Mínimo 8 caracteres</p> 
-               @if ($errors->has('login'))
-                    <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('login') }}</strong>
-                    </small>
-                @endif
-                </div>
-                <div class="form-group{{ $errors->has('hash') ? ' has-error' : '' }}">
-                    <input class="form-control" name="hash" id="senha" type="password" placeholder="Senha">
-                    <p class="help-block">Mínimo 8 caracteres</p> 
-                    @if ($errors->has('hash'))
-                    <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('hash') }}</strong>
-                    </small>
-                @endif
-                </div>
-               
-                <div class="form-group{{ $errors->has('user_hash') ? ' has-error' : '' }}">
-                    <input class="form-control" name="hash_confirmation" id="confisenha" type="password" placeholder="Confirmação de Senha">
-                @if ($errors->has('user_hash'))
-                    <small class="text-danger" role="alert">
-                        <strong>{{ $errors->first('user_hash') }}</strong>
-                    </small>
-                @endif
-                </div> 
-        
-      </div>
-      <div class="modal-footer">
-        <input type="submit" class="btn btn-success col-auto mr-auto" value="Cadastrar" role="button" onclick="return validarSenha()">
-        <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button>
-      </form>
-      </div>
-    </div>
-  </div>
-</div>
+                    </div>
+                    
+                    <div class="form-group{{ $errors->has('user_hash') ? 'is-invalid' : '' }}">
+                          <input type="password" class="form-control form-rounded" placeholder=" Senha" name="user_hash" type="password" id="password" style="margin-left:5px;">
+                    
+                           @if ($errors->has('user_hash'))
+                                <small class="text-danger" role="alert">
+                                    <strong>{{ $errors->first('user_hash') }}</strong>
+                                </small>
+                           @endif
+                    </div> 
+                      
+                          <button type="submit" class="btn btn-info mb-2" id="submit">Entrar</button> 
+                            <a href="{{url('cadastro')}}" class="btn btn-info mb-2" id="cadastro">Cadastrar</a>
 
-<!-- Verifica a confirmação de senha -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        if({{$errors->hasAny(array('hash', 'login', 'user_email'))}})
-        {
-           $('#modalCadastro').modal('show');
-        }
-    });
-</script>
+                    <div class="checkbox">
+                         <label>
+                            <input name="remember" type="checkbox" value="Remember Me" style="margin-left:5px;">Lembre-se    
+                        </label>
+                        </div>
+                    </div>                        
+                               
+            </form>            
+        </div>
+    </div>
+
+     
+    <div class="container-fluid" id="primeirarow">      
+            <div class="row">
+               <div class="col-md-4"><img src="{{ asset('img/ment.png') }}" class="img-fluid" style="margin-top:25px;"></img></div>
+                <div class="col-md-5 offset-md-3" ><h2 style="margin-top:25%;"></h2></div>                
+            </div>
+        </div>  
+
+
+         <div class="container-fluid" id="plx">
+            <div class="row h-100">
+                     <div class="col-md-4">
+                        <h3><strong></strong></h3>
+                     </div>
+                     <div class="col-md-4">
+                       <h3><strong></strong></h3>
+                     </div>
+                     <div class="col-md-4">
+                        <h3><strong></strong></h3>
+                     </div>
+                
+            </div>
+        </div>
+
+</div>
+   
+
+
+<div class="footer-basic">
+        <footer>
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#">
+                    <i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="#">About</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">AJ2P Corp. <?php echo date('Y'); ?></p>
+        </footer>
+    </div>
+    
+    
+</body>
+
+</html>

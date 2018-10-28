@@ -30,7 +30,7 @@ class User extends Authenticatable {
         'user_login.exists' => 'Usuario inexistente',
         'user_hash.required' => 'Senha obrigatória!',
         
-        //cadastro 1
+        //cadastro
         'login.required' => 'Campo usuario é obrigatório!',
         'login.unique' => 'Usuário já existente. Insira outro usuário!',
         'login.max' => 'Usuário informado contém mais caracteres que o máximo permitido!',
@@ -40,14 +40,6 @@ class User extends Authenticatable {
         'hash.min' => 'Senha informada muito pequena!',
         'hash.max' => 'Senha informada muito grande!',
         'hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
-        
-        //senha
-        'new_user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
-        'new_user_hash.required' => 'Senha antiga é obrigatória!',
-        'new_user_hash.min' => 'Senha informada muito pequena!',
-        'new_user_hash.max' => 'Senha informada muito grande!',
-        
-        //cadastro 2
         'user_email.required' => 'Email obrigatório',
         'user_email.email' => 'Email inválido',
         'user_email.max' => 'Email muito grande',
@@ -61,24 +53,27 @@ class User extends Authenticatable {
         'user_rg.digits' => 'O RG deve ter 9 digitos e ser numerico' ,         
         'user_rg.required' => 'RG é obrigatorio',
         'user_telefone.max' => 'O telefone deve ter no maximo 15 digitos'    ,      
-        'user_celular.max' => 'O telefone celular deve ter no maximo 15 digitos'
+        'user_celular.max' => 'O telefone celular deve ter no maximo 15 digitos',
+
+        //senha
+        'new_user_hash.confirmed' => 'Senha e Confirmação de Senha não coecidem' ,         
+        'new_user_hash.required' => 'Senha antiga é obrigatória!',
+        'new_user_hash.min' => 'Senha informada muito pequena!',
+        'new_user_hash.max' => 'Senha informada muito grande!'
     ];   
-    public function Regras($tipo = 'insert1') {
+    public function Regras($tipo = 'insert') {
         switch ($tipo) {
-            case 'insert2':
+            case 'insert':
                 $this->rules = [
                         'user_cpf'          => 'bail|unique:users,user_cpf|required|max:14'
                     ,   'user_nome'         => 'bail|required|max:100'
                     ,   'user_rg'           => 'bail|required|max:12'
                     ,   'user_telefone'     => 'bail|max:15' 
                     ,   'user_celular'      => 'bail|max:15'
+                    ,   'user_login'             => 'bail|required|unique:users,user_login|max:100|min:5|alpha_num' 
+                    ,   'user_hash'              => 'bail|required|max:100|min:8|confirmed'
+                    ,   'user_email'        => 'bail|required|email|max:100|min:10|unique:users,user_email'
                 ];
-            break;
-            case 'insert1':
-                $this->rules = [
-                    'login' => 'bail|required|unique:users,user_login|max:100|min:5|alpha_num', 
-                    'hash' => 'bail|required|max:100|min:8|confirmed',
-                    'user_email' => 'bail|required|email|max:100|min:10|unique:users,user_email'];
                 break;
             case 'login':
                 $this->rules = [

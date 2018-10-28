@@ -29,50 +29,30 @@ class UserController extends Controller
     public function store(Request $request) {
         $this->validate($request, $this->user->Regras(), $this->user->mensagens);
         $users = new User([
-                'user_login' => $request->login
-            ,   'user_hash' => Hash::make($request->hash)
+                'user_login' => $request->user_login
+            ,   'user_hash' => Hash::make($request->user_hash)
             ,   'user_email'  => $request->user_email
-                ]);
+            ,   'user_rg'    => $request->user_rg
+            ,   'user_nome'    => $request->user_nome
+            ,   'user_cpf'    => $request->user_cpf
+            ,   'user_telefone'    => $request->user_telefone
+            ,   'user_celular'    => $request->user_celular
+            ,   'user_knowledge'    => $request->user_knowledge
+            ]);
+        if($users->user_knowledge)
+        {
+            $users->user_role = 2;
+        }     
         try
         {
            $users->save();
-           Auth::attempt(['user_login'=>$request->login, 'user_hash' => $request->hash]);
-           return redirect('cadastro')->with('success', 'Continue seu cadastro');
+           Auth::login($users);
+           return redirect('/')->with('success', 'Cadastro efetuado');
         } 
         catch (Exception $ex) 
         {
             return redirect('/')->with('failure', 'Não foi possivel cadastrar!');
         }
-    }
-    
-    public function store2(Request $request)
-    {
-        
-        $this->validate($request, $this->user->Regras('insert2'), $this->user->mensagens);
-        $users = User::find($request->user_id);
-        $users->user_nome =         $request->user_nome;
-        $users->user_rg =           $request->user_rg;
-        $users->user_cpf  =         $request->user_cpf;
-        $users->user_telefone  =    $request->user_telefone;
-        $users->user_celular  =     $request->user_celular;
-        $users->user_knowledge  =   $request->user_knowledge;
-        if(true){ //ValidarCPF::validarCPF($request->user_cpf
-            if($users->user_knowledge && $users->user_role < 3)
-            {
-                $users->user_role = 2;
-            }
-            try
-            {
-               $users->update();
-               Auth::login($users);
-               return redirect('/')->with('success', 'Cadastrado com sucesso');
-            } 
-            catch (QueryException $ex) 
-            {
-                return redirect('cadastro')->with('failure', 'Não foi possivel cadastrar!');
-            }
-        }
-        return redirect('cadastro')->with('failure', 'CPF invalido')->withInput();
     }
 
     public function updateSenha(Request $request, $user_id){

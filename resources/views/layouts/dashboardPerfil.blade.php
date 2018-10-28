@@ -3,7 +3,7 @@
 @section('body')
 <div id="wrapper">
 <?php $user = Auth::user(); ?>
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: rgb(0,176,176);">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -11,12 +11,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url ('/') }}">Mentoring</a>
+            <a class="navbar-brand" href="{{ url ('/') }}" style="color:white;">Mentoring</a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-comment fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-comment fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
                     <li>
@@ -41,7 +41,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-tasks fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-tasks">
                     <li>
@@ -69,7 +69,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                <i class="fa fa-bell fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
@@ -91,7 +91,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw" style="color:black;"></i><i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="{{ route('perfil')}}"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a></li>

@@ -2,7 +2,7 @@
 
 @section('body')
 <div id="wrapper">
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: rgb(0,176,176);">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -15,7 +15,7 @@
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-comment fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-comment fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
                     <li>
@@ -40,7 +40,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-tasks fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-tasks">
                     <li>
@@ -68,7 +68,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-bell fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
@@ -90,7 +90,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw" style="color:black;"></i>  <i class="fa fa-caret-down" style="color:black;"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="{{ url ('perfil')}}"><i class="fa fa-user fa-fw"></i> Perfil de Usuario</a></li>

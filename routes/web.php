@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckAdmin;
@@ -20,26 +20,22 @@ Route::get('/', function(){
     }
         
 });
+Route::get('cadastro', function() { return view('cadastroUsuario'); });
 Route::group(['middleware' => CheckLogin::class], function(){
-    Route::get('cadastro', function() { return view('cadastroUsuario'); });
-    Route::group(['middleware' => CheckCadastro::class], function(){
-        Route::get('perfil', function(){ return view('perfil'); })->name('perfil'); 
-        Route::get('cadastroAssunto', function(){ return view('cadastroAssunto'); });
-        Route::get('cadastroContato', function(){ return view('cadastroContato'); });
-        Route::get('meusContatos', function(){ return view('meusContatos'); });
-        Route::get('alterarPerfil', function(){ return view('alterarPerfil'); });
-        Route::get('alterarSenha', function(){ return view('alterarSenha'); });
-        Route::get('conexoes', function(){ return view('manterConexoes'); });
-        Route::get('solicitacoes', function(){ return view('manterSolicitacoes'); });
-        Route::get('mentores', function(){ return view('listarMentores'); });
-        Route::get('mentorias', function(){ return view('minhasMentorias'); });
-        Route::get('conteudo', function(){ return view('cadastroConteudo'); });
-        Route::get('Mentoria_no_assunto', function(){ return view('edits.userSubjectEdit'); });
-        Route::get('editarMentoria/{id}', 'KnowledgeController@criarMentorSobreAssunto')->name('editarMeuAssuntoSemMentoria');
-        Route::get('editarConteudo', function(){ return view('edits.conteudoEdit'); });
-    });
-
-    Route::post('/inserirUsuario2', 'UserController@store2')->name('inserirUser');
+    Route::get('perfil', function(){ return view('perfil'); })->name('perfil'); 
+    Route::get('cadastroAssunto', function(){ return view('cadastroAssunto'); });
+    Route::get('cadastroContato', function(){ return view('cadastroContato'); });
+    Route::get('meusContatos', function(){ return view('meusContatos'); });
+    Route::get('alterarPerfil', function(){ return view('alterarPerfil'); });
+    Route::get('alterarSenha', function(){ return view('alterarSenha'); });
+    Route::get('conexoes', function(){ return view('manterConexoes'); });
+    Route::get('solicitacoes', function(){ return view('manterSolicitacoes'); });
+    Route::get('mentores', function(){ return view('listarMentores'); });
+    Route::get('mentorias', function(){ return view('minhasMentorias'); });
+    Route::get('conteudo', function(){ return view('cadastroConteudo'); });
+    Route::get('Mentoria_no_assunto', function(){ return view('edits.userSubjectEdit'); });
+    Route::get('editarMentoria/{id}', 'KnowledgeController@criarMentorSobreAssunto')->name('editarMeuAssuntoSemMentoria');
+    Route::get('editarConteudo', function(){ return view('edits.conteudoEdit'); });
     Route::post('/alterandoUsuario', 'UserController@update')->name('atualizarUsuario');
     Route::get('/sair', 'UserController@logout')->name('sair');
     Route::post('/pegaDados', 'ProfessionController@PegaDados')->name('pegaDados');
@@ -53,7 +49,6 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::post('/pegaDadosMentor', 'DataTableKnowledge@PegaDadosKnowledge')->name('pegaDadosMentor');
     Route::post('/pegaDadosMentorAdmin', 'DataTableKnowledgeAdmin@PegaDadosKnowledgeAdmin')->name('pegaDadosMentorAdmin');
     Route::post('/conectar/{knowledge_id}', 'ConnectionController@salvar')->name('conexao');
-    
     Route::resource('usersubject', 'UserSubjectController');
     Route::resource('subject', 'SubjectController');
     Route::resource('carrer', 'CarrerController');
@@ -80,9 +75,6 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');
     Route::post('/pegaDadosConteudo', 'DataTableContent@PegaDadosConteudo')->name('pegaDadosConteudo');
     Route::get('/notificacao/solicitacao', "NotificacaoController@pegaSolicitacao")->name('notificacao.solicitacao');
-    
-    
-
 });
 
 
@@ -100,5 +92,4 @@ Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('mentoresAdmin', function(){ return view('manterMentores'); });
     Route::get('conteudos', function(){ return view('manterConteudo'); })->name('conteudos');
     // Route::get('EditarConteudo', function(){ return view('edits.conteudoEdit'); });
-    
 });
