@@ -17,9 +17,6 @@
         <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="{{ asset("assets/stylesheets/styles.css") }}" />
 <style rel="stylesheet">
-a:hover {
-    background-color: lightgreen;
-}
 </style>	
 </head>
 <body>

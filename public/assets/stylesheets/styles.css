@@ -3058,7 +3058,7 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  background-image: none;
+  background-image: black;
 }
 .btn-default.disabled,
 .btn-default[disabled],

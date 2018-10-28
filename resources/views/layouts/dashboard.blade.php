@@ -16,6 +16,7 @@
                                 "<em>"+obj.dia+" "+obj.hora+"</em></span></div><div>"+obj.assunto+"</div></a></li>";
                         $("#solicitacao").append(text);
                     });
+                    $("#notific").append("<span class='badge-notify'>"+data.length+"</span>");
                 }
                 else
                 {
@@ -30,7 +31,16 @@
         }); 
     });
 </script>
-<?php $user = Auth::user(); ?>
+<style>
+.badge-notify{
+   color:white;
+   position:relative;
+   border-radius: 50px;
+   top: -6px;
+   left: -6px;
+}
+</style>
+    <?php $user = Auth::user(); ?>
 <div id="wrapper">
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: rgb(0,176,176);">
         <div class="navbar-header">
@@ -40,7 +50,7 @@
             <a class="navbar-brand" href="{{ url ('/') }}" style="color:white;">Mentoring</a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
+            {{--<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-comment fa-fw"  style="color:black;"></i>  <i class="fa fa-caret-down"  style="color:black;"></i>
                 </a>
@@ -48,7 +58,7 @@
                     <li>
                         <a href="#">
                             <div>
-                                <strong>{{$user->user_nome }}</strong>
+                                <strong></strong>
                                 <span class="pull-right text-muted">
                                     <em>Hora/Dia</em>
                                 </span>
@@ -92,10 +102,10 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"  style="color:black;"></i>  <i class="fa fa-caret-down"  style="color:black;"></i>
+                    <i class="fa fa-bell fa-fw" id="notific" style="color:black;"></i>  <i class="fa fa-caret-down"  style="color:black;"></i>
                 </a>
                 <ul id="solicitacao" class="dropdown-menu dropdown-alerts">
                     
