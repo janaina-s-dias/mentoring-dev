@@ -14,7 +14,7 @@
            },
            "columnDefs": [
                 {
-                    "targets": [ 4 ], //quais colunas não possuirão a ordenação - editar/excluir
+                    "targets": [ 5 ], //quais colunas não possuirão a ordenação - editar/excluir
                     "orderable":false
                 }
            ],
@@ -47,6 +47,7 @@
             <th style="text-align:center">Término Conexão</th>
             <th style="text-align:center">Usuário</th>    
             <th style="text-align:center">Assunto</th>
+            <th style="text-align:center">Conteudo</th>   
             <th style="text-align:center">Ação</th>  <!-- Mentor, poderá cancelar a conexao? -->                       
         </tr>
     </thead>

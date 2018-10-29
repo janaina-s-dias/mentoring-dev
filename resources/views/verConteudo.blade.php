@@ -6,8 +6,7 @@
 
 <center><h2>{{$conteudo->content_title}}</h2></center>
 
-    <small style="margin-right: 0px">Mentor: {{$conteudo->user_nome}}</small>
-    <small style="margin-right: 0px">Assunto: {{$conteudo->subject_name}}</small>
+<small class="col col-sm-offset-9">Mentor: {{$conteudo->user_nome}} Assunto: {{$conteudo->subject_name}}</small>
 
 <br/>
 <br/>

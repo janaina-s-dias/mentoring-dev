@@ -72,6 +72,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');
     Route::post('/pegaDadosConteudo', 'DataTableContent@PegaDadosConteudo')->name('pegaDadosConteudo');
     Route::get('/notificacao/solicitacao', "NotificacaoController@pegaSolicitacao")->name('notificacao.solicitacao');
+    Route::get('/conteudosDoMentor/{id}', "ContentController@showOne")->name('chamaConteudos');
     Route::get('/chat', function(){return view('Chat');});
     Route::get('/mensagem', function(){return view('mensagem');})->name('mensagem');
 });

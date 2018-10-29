@@ -48,31 +48,20 @@ class ContentController extends Controller
     
     public function showOne(Request $request, $id)
     {
-        $conteudo = Content::join('knowledges', 'fk_content_knowledge', '=', 'knowledge_id')
+        $conteudos = Content::join('knowledges', 'fk_content_knowledge', '=', 'knowledge_id')
                         ->join('users', 'fk_knowledge_user', '=', 'user_id')
                             ->join('subjects', 'fk_knowledge_subject', '=', 'subject_id')
-                                ->where('knowlede_id', $id)->get();
-        $array = array();
-        foreach ($conteudo as $value) {
-            $subarray = array(); 
-            $subarray['titulo'] = $value->content_title;
-            $subarray['mentor'] = $value->user_nome;
-            $subarray['assunto'] = $value->subject_name;
-            $subarray['id'] = "<form method='post' action='".route('mostrarConteudoMentor');">"
-                             . csrf_field()
-                             . "<input type='hidden' value='".$value->content_id."'/>"
-                             . "<button role='button' type='submit' class='btn btn-primary'>Ver</button>"
-                             . "</form>";
-            $array[] = $subarray;
-        }
-        echo json_encode($array);
+                                ->where('knowledge_id', $id)->get();
+        $mentor = \App\Knowledge::join('users', 'fk_knowledge_user', '=', 'user_id')->where('knowledge_id', $id)->first();
+        $nome = $mentor->user_nome;
+        return view('conteudosDoMentor', compact('conteudos', 'nome'));
     }
     
     public function edit($id)
     {
         $conteudo = Content::find($id);
         
-        return view('edits.conteudoEdit', compact('conteudo')); 
+        return view('edits.conteudoEdit', compact('conteudo', 'nome')); 
     }
 
     public function update(Request $request, $id)
