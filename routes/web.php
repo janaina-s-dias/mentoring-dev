@@ -3,16 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckLogin;
-use App\Http\Middleware\CheckCadastro;
 
 Route::post('/logar', 'UserController@logar')->name('acessar');
 Route::post('/inserirUsuario', 'UserController@store')->name('inserir');
 Route::get('/', function(){
     if(Auth::check())
     {
-        $user = Auth::user();
-        if($user->user_nome == null || $user->user_cpf == null || $user->user_rg == null) return view('cadastroUsuario');
-        else return view('home');
+        return view('home');
     }
     else
     {   
@@ -75,6 +72,8 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');
     Route::post('/pegaDadosConteudo', 'DataTableContent@PegaDadosConteudo')->name('pegaDadosConteudo');
     Route::get('/notificacao/solicitacao', "NotificacaoController@pegaSolicitacao")->name('notificacao.solicitacao');
+    Route::get('/chat', function(){return view('Chat');});
+    Route::get('/mensagem', function(){return view('mensagem');})->name('mensagem');
 });
 
 

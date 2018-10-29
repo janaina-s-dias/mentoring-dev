@@ -44,6 +44,30 @@ class ContentController extends Controller
         return view('verConteudo', compact('conteudo'));
     }
 
+    
+    
+    public function showOne(Request $request, $id)
+    {
+        $conteudo = Content::join('knowledges', 'fk_content_knowledge', '=', 'knowledge_id')
+                        ->join('users', 'fk_knowledge_user', '=', 'user_id')
+                            ->join('subjects', 'fk_knowledge_subject', '=', 'subject_id')
+                                ->where('knowlede_id', $id)->get();
+        $array = array();
+        foreach ($conteudo as $value) {
+            $subarray = array(); 
+            $subarray['titulo'] = $value->content_title;
+            $subarray['mentor'] = $value->user_nome;
+            $subarray['assunto'] = $value->subject_name;
+            $subarray['id'] = "<form method='post' action='".route('mostrarConteudoMentor');">"
+                             . csrf_field()
+                             . "<input type='hidden' value='".$value->content_id."'/>"
+                             . "<button role='button' type='submit' class='btn btn-primary'>Ver</button>"
+                             . "</form>";
+            $array[] = $subarray;
+        }
+        echo json_encode($array);
+    }
+    
     public function edit($id)
     {
         $conteudo = Content::find($id);
