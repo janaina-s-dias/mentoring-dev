@@ -17,6 +17,8 @@ Route::get('/', function(){
     }
         
 });
+Route::get('/esqueciasenha', function(){return view('emails.esqueciasenha');})->name('esqueciasenha');
+
 Route::get('cadastro', function() { return view('cadastroUsuario'); });
 Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('perfil', function(){ return view('perfil'); })->name('perfil'); 

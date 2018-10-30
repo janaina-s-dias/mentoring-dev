@@ -63,10 +63,13 @@
 
                     <div class="checkbox">
                          <label>
-                            <input name="remember" type="checkbox" value="Remember Me" style="margin-left:5px;">Lembre-se    
+                            <input name="remember" type="checkbox" value="Remember Me" style="margin-left:-280px">Lembre-se    
                         </label>
-                        </div>
-                    </div>                        
+                         <label>
+                             <a href="{{route('esqueciasenha')}}" style="margin-left: 230px; margin-top:-24px">Esqueci minha senha</a>    
+                        </label>
+                    </div>
+            </div>                        
                                
             </form>            
         </div>
