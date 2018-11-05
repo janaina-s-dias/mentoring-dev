@@ -1,5 +1,24 @@
 @extends('layouts.dashboardPerfil')
-@section('page_heading','Minhas Mentorias')
+
+@section('titlePage')
+        
+        <title>Meus Contatos - Mentoring</title>
+
+@stop  
+
+@section('stylesPage')
+        
+        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
+
+@stop 
+
+@section('scriptsPage')
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
+    
+@stop
+
+
 @section('section')
 <script type="text/javascript">
     $(document).ready(function(){

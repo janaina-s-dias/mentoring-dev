@@ -1,5 +1,24 @@
 @extends('layouts.dashboardPerfil')
-@section('page_heading','Perfil')
+
+@section('titlePage')
+        
+        <title>Perfil - Mentoring</title>
+
+@stop  
+
+@section('stylesPage')
+        
+        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
+
+@stop 
+
+@section('scriptsPage')
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    
+@stop
+
+
 @section('section')       
 <script type="text/javascript">
     $(document).ready(function(){
@@ -16,6 +35,7 @@
        }, 'json'); 
     });
 </script>
+        
         <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
 
         <section class="astros">

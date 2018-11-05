@@ -1,5 +1,24 @@
 @extends('layouts.dashboardPerfil')
-@section('page_heading','Conteudo')
+
+@section('titlePage')
+        
+        <title>Cadastrar Conteúdo - Mentoring</title>
+
+@stop  
+
+@section('stylesPage')
+        
+        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
+
+@stop 
+
+@section('scriptsPage')
+     
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    
+@stop
+
+
 @section('section')
 <script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
@@ -23,19 +42,24 @@
     });
 </script>
 
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#conteudo">Conteudo</a></li>
-  </ul>
-  <div class="tab-content">
-    <div id="conteudo" class="tab-pane fade in active">
-        <br/>
-        <br/>
-        <form action="{{route('content.store')}}" method="POST" class="form-horizontal">
-            @csrf
+<div class="content-ce-profile">
+            
+            <div class="content-ce-profile-header">                
+                <h1>Cadastro de Conteúdo</h1>
+            </div>                  
+            
+                           
+<div class="content-ce-profile-cadassuntos"> 
+            
+
+
+        <form action="{{route('content.store')}}" method="POST" class="form-horizontal-profile">
+        @csrf    
             <div class="form-group{{ $errors->has('fk_content_knowledge') ? ' has-error' : '' }}">
-                <label class="control-label col-sm-2" for="assunto">Assunto:</label>
+                <div class="form-group-profile">
+                <label class="control-label-conteudo col-sm-2" for="assunto">Assunto:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="fk_content_knowledge" id="assunto">
+                    <select class="form-control-conteudo" name="fk_content_knowledge" id="assunto">
                         <option value="">Selecione o assunto</option>
                     </select>
                     @if ($errors->has('fk_content_knowledge'))
@@ -43,40 +67,55 @@
                             <strong>{{ $errors->first('fk_content_knowledge') }}</strong>
                         </small>
                     @endif
-                </div>    
+                </div>  
+                </div>  
             </div>
             <div class="form-group{{ $errors->has('content_title') ? ' has-error' : '' }}">
-                <label class="control-label col-sm-2" for="titulo">Titulo:</label>
+                <div class="form-group-profile">
+                <label class="control-label-conteudo col-sm-2" for="titulo">Titulo:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" name="content_title" id="titulo"/>
-                    @if ($errors->has('content_title'))
+                    <input class="form-control-conteudo" type="text" name="content_title" id="titulo"/>
+                    @if ($errors->has('fk_content_knowledge'))
                         <small class="text-danger" role="alert">
                             <strong>{{ $errors->first('content_title') }}</strong>
                         </small>
                     @endif
                 </div>    
+                </div>
             </div>
             <input type="hidden" class="form-control" name="content_type" value="1">
             <div class="form-group{{ $errors->has('content_content') ? ' has-error' : '' }}">
-                <label class="control-label col-sm-2" for="conteudo">Conteudo:</label>
-                <div class="col-sm-10">
-                    <textarea name="content_content" class="form-control" id="editor"></textarea>
-                    <small>Para adicionar conteudo direto no site, insirá-o acima</small>
-                    @if ($errors->has('content_content'))
-                        <small class="text-danger" role="alert">
+                <div class="form-group-profile">
+                <label class="control-label-conteudo col-sm-2" for="conteudo">Conteudo:</label>
+                <div class="col-sm-10-content">
+                    <div class="textarea-content">
+                    <textarea name="content_content" class="form-control-content" id="editor"></textarea>
+                    </div>
+                    @if ($errors->has('content_title'))
+                        <small class="text-danger-content" role="alert">
                             <strong>{{ $errors->first('content_content') }}</strong>
                         </small>
                     @endif
-                </div>    
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                    <small class="text-content">Para adicionar conteudo direto no site, insirá-o acima</small>    
+                    
+                    <div class="col-sm-offset-2-conteudo col-sm-10">
                     <button class="btn btn-success" id="submit">Cadastrar</button>
+                    </div>
+
                 </div>
+                  
+                </div>  
             </div>
+
         </form>
-    </div>
-  </div>
+    
+  
+
+</div>
+
+</div>
+
+
 {{-- 1 é conteudo, 2 arquivo, 3 video, 4 url --}}
 @include('inc.feedback')
 <script>

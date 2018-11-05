@@ -3,6 +3,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var text = "";
+        
         $.ajax({
             url: "{{route('notificacao.solicitacao')}}",
             dataType: 'json',
