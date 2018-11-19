@@ -1,5 +1,24 @@
 @extends('layouts.dashboardAdmin') 
-@section('page_heading','Mentores')
+
+@section('titlePage')
+        
+        <title>Mentores</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
+
 
 @section('section')
 

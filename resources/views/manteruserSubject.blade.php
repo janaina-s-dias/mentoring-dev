@@ -1,4 +1,23 @@
 @extends('layouts.dashboardAdmin') 
+
+@section('titlePage')
+        
+        <title>Assuntos por Usuários</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
 @section('page_heading','Assuntos por Usuários')
 
 @section('section')

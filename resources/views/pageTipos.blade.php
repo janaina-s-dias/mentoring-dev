@@ -1,5 +1,23 @@
 @extends('layouts.dashboardAdmin') 
-@section('page_heading','Profissões')
+
+@section('titlePage')
+        
+        <title>Profissões</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
 
 @section('section')
 <div>

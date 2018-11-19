@@ -160,7 +160,7 @@
                  <input type="hidden" name="fk_subject_user" value="{{ Auth::user()->user_id }}">
                  <div class="form-group">
                     <div class="col-sm-conteudo col-sm-10">
-                        <button class="btn btn-success btn-sm btn-circle" type="submit" name="Submit" id="Submit"><span class="glyphicon glyphicon-ok">Ok</span></button>
+                        <button class="btn-btn" type="submit" name="Submit" id="Submit">Ok</button>
                     </div>
                  </div>
                  </div>

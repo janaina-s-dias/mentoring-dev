@@ -1,5 +1,23 @@
 @extends('layouts.dashboardAdmin') 
-@section('page_heading','Usuários')
+
+@section('titlePage')
+        
+        <title>Usuários</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
 
 @section('section')
 

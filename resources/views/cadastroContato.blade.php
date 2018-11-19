@@ -74,8 +74,8 @@
                     <div class="form-group-profile">
                     <input type="hidden" name="fk_contact_user" value="{{ Auth::user()->user_id }}">
                     <div class="form-group">
-                    <div class="col-sm-offset-2-conteudo col-sm-10">
-                        <input class="btn btn-success" type="submit" name="Submit" value="Salvar" role="button" id="Submit">
+                    <div class="col-sm-conteudo col-sm-10">
+                        <input class="btn-btn" type="submit" name="Submit" value="Salvar" role="button" id="Submit">
                     </div>
                     </div>
                     </div>

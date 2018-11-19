@@ -99,7 +99,7 @@
                     <small class="text-content">Para adicionar conteudo direto no site, insirá-o acima</small>    
                     
                     <div class="col-sm-offset-2-conteudo col-sm-10">
-                    <button class="btn btn-success" id="submit">Cadastrar</button>
+                    <button class="btn-btn" id="submit">Cadastrar</button>
                     </div>
 
                 </div>

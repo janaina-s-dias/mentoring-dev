@@ -65,7 +65,7 @@
                 <div class="form-group"> 
                     <div class="form-group-profile">
                     <div class="col-sm-offset-4-senha col-sm-8">
-                    <button type="submit" class="btn btn-success">Alterar Senha</button>
+                    <button type="submit" class="btn-btn">Alterar Senha</button>
                     </div>
                     </div>
                 </div>   

@@ -1,4 +1,23 @@
 @extends('layouts.dashboard')
+
+@section('titlePage')
+        
+        <title>Conteudos do Mentor - Lista</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
 @section('page_heading','Conteudos do Mentor')
 @section('section')
 <script type="text/javascript">

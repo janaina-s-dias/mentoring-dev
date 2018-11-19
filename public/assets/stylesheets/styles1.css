@@ -5,16 +5,14 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
-
-/* html {
+html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
-}  */
-
+}
 article,
 aside,
 details,
@@ -45,27 +43,27 @@ audio:not([controls]) {
 template {
   display: none;
 }
-/* a {
+a {
   background-color: transparent;
 }
 a:active,
 a:hover {
   outline: 0;
-}  
+}
 abbr[title] {
   border-bottom: 1px dotted;
 }
 b,
 strong {
   font-weight: bold;
-}  
+}
 dfn {
   font-style: italic;
 }
 h1 {
   margin: .67em 0;
   font-size: 2em;
-}  */
+}
 mark {
   color: #000;
   background: #ff0;
@@ -86,9 +84,9 @@ sup {
 sub {
   bottom: -.25em;
 }
-/* img {
+img {
   border: 0;
-}  */
+}
 svg:not(:root) {
   overflow: hidden;
 }
@@ -1082,7 +1080,7 @@ th {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-/* html {
+html {
   font-size: 10px;
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1093,7 +1091,7 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
-} 
+}
 input,
 button,
 select,
@@ -1121,7 +1119,7 @@ figure {
 }
 img {
   vertical-align: middle;
-} */
+}
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
@@ -1178,7 +1176,7 @@ hr {
 [role="button"] {
   cursor: pointer;
 }
-/* h1,
+h1,
 h2,
 h3,
 h4,
@@ -1301,16 +1299,16 @@ p {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
-} */
+}
 @media (min-width: 768px) {
   .lead {
     font-size: 21px;
   }
 }
-/* small,
+small,
 .small {
   font-size: 85%;
-} */
+}
 mark,
 .mark {
   padding: .2em;
@@ -1409,7 +1407,7 @@ a.bg-danger:hover {
   margin: 40px 0 20px;
   border-bottom: 1px solid #eee;
 }
-/* ul,
+ul,
 ol {
   margin-top: 0;
   margin-bottom: 10px;
@@ -1419,7 +1417,7 @@ ol ul,
 ul ol,
 ol ol {
   margin-bottom: 0;
-} */
+}
 .list-unstyled {
   padding-left: 0;
   list-style: none;
@@ -2502,12 +2500,12 @@ legend {
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
-/* label {
+label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
-} */
+}
 input[type="search"] {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -2544,7 +2542,7 @@ output {
   line-height: 1.42857143;
   color: #555;
 }
-/* .form-control {
+.form-control {
   display: block;
   width: 100%;
   height: 34px;
@@ -2561,13 +2559,13 @@ output {
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-} 
+}
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-} 
+}
 .form-control::-moz-placeholder {
   color: #999;
   opacity: 1;
@@ -2587,7 +2585,7 @@ fieldset[disabled] .form-control {
 .form-control[disabled],
 fieldset[disabled] .form-control {
   cursor: not-allowed;
-} */
+}
 textarea.form-control {
   height: auto;
 }
@@ -2622,9 +2620,9 @@ input[type="search"] {
     line-height: 46px;
   }
 }
-/* .form-group {
+.form-group {
   margin-bottom: 15px;
-} */
+}
 .radio,
 .checkbox {
   position: relative;

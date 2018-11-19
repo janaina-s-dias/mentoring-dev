@@ -3,7 +3,7 @@
 @section('section')
 @section ('table_panel_title','Editar Assunto')
 @section ('table_panel_body')
-            <?php $subject = Session::get('assunto'); ?>
+          <?php $subject = Session::get('assunto'); ?>
           <form role="form" method="POST" action="{{route('subject.update', $subject->subject_id) }}">
               @method('PATCH')
               @csrf

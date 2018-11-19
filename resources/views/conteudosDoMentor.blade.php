@@ -1,4 +1,23 @@
 @extends('layouts.dashboard')
+
+@section('titlePage')
+        
+        <title>Conteúdos do Mentor</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
 @section('page_heading','Conteudo do Mentor: '.$nome)
 @section('section')
 

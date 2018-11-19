@@ -1,5 +1,24 @@
 @extends('layouts.dashboard') 
-@section('page_heading','Solicitações')
+
+@section('titlePage')
+        
+        <title>Solicitações</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
+
 
 @section('section')
 

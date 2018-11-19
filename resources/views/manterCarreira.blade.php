@@ -1,4 +1,23 @@
 @extends('layouts.dashboardAdmin') 
+
+@section('titlePage')
+        
+        <title>Carreiras</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop 
+
 @section('page_heading','Carreiras')
 
 @section('section')

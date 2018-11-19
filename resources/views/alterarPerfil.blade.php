@@ -21,7 +21,6 @@
 
 @section('section')
      
-        </style>
 
         <?php $user = Auth::user(); ?> 
         <div class="content-ce-profile">
@@ -216,7 +215,7 @@
 
                  <div class="form-group"> 
                    <div class="col-sm-offset-2-perfil col-sm-10">
-                        <button type="submit" class="btn btn-success">Atualizar Cadastro</button>
+                        <button type="submit" class="btn-btn">Atualizar Cadastro</button>
                    </div>
                  </div>
             </div>

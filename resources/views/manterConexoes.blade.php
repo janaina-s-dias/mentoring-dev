@@ -1,5 +1,24 @@
 @extends('layouts.dashboard') 
-@section('page_heading','Conexões')
+
+@section('titlePage')
+        
+        <title>Conexões</title>
+
+@stop 
+
+@section('stylesPage')
+        
+        
+
+@stop 
+
+@section('scriptsPage')
+     
+        
+    
+@stop
+
+
 
 @section('section')
 

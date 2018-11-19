@@ -381,7 +381,7 @@ body {
   height: calc(100vh - 70px);
   width: calc(100% - 290px);
   background: #fff;
-  position: absolute;  
+  position: relative;  
   top: 70px;
   left: 270px;
 }
@@ -402,6 +402,7 @@ body {
   padding: 0;
   height: 50px;
   background: rgba(0, 202, 202, 1);
+ /* background: #9489C8; */
 }
 
 .content-ce-profile-header h1 {
@@ -451,38 +452,15 @@ body {
 /*  /////////////////////   */
 
 
-/* Form - Alterar Perfil*/
 
 
-.form-horizontal-profile-perfil {
-    margin-top: 0px;
-    width: 800px;
-    position: relative;
-    top: 30px;
-}
-
-
-.box-lateral-perfil {
-    width: 552px;
-}
-
-.form-group table {
-    position: relative;
-    left: 100px;
-}
-
-.col-sm-offset-2-perfil {
-    position: relative;
-    left: 370px;
-    top: 12px;
-    height: 35px;
-}
 
 
 /* Form - Alterar Perfil*/
 
 
 .form-horizontal-profile {
+  margin-top: 0px;
   width: 800px;
   position: relative;
   top: 70px;
@@ -507,7 +485,8 @@ body {
 }
 
 .box-lateral:first-child {
-  border-right: 2px solid #5c5edc;
+/*  border-right: 2px solid #5c5edc; */
+  border-right: 2px solid rgba(0, 202, 202, 1);
 }
 
 
@@ -532,6 +511,7 @@ body {
 .form-control {
   padding-left: 20px; 
   width: 250px;
+/*  border: 2px solid #5c5edc; */
   border: 2px solid rgba(0, 202, 202, 1);
   background: transparent;
   color: rgba(100,100,100,0.7);
@@ -539,6 +519,7 @@ body {
 
 input[type="number"],input[type="text"] {
     -moz-appearance: textfield;
+/*    color: #5c5edc; */
     color: rgba(0, 202, 202, 1);
 }
 
@@ -595,7 +576,7 @@ input[type="number"],input[type="text"] {
   width: 127px;
   position: relative;
   top: 20px;
-  left: 235px;
+  left: 135px;
 }
 
 
@@ -608,8 +589,8 @@ input[type="number"],input[type="text"] {
   width: 127px;
   display: block;
   position: relative;
-  top: 10px;
-  left: 430px;
+  top: 50px;
+  left: 225px;
 }
 
 .control-label-conteudo {
@@ -624,9 +605,11 @@ input[type="number"],input[type="text"] {
 }
 
 .form-control-conteudo, .form-control-content {
+/*  border: 2px solid #5c5edc; */
   border: 2px solid rgba(0, 202, 202, 1);
   background: transparent;
-  color: 2px solid rgba(0, 202, 202, 1);
+/*  color: rgba(100,100,100,0.7); */
+  color: rgba(0, 202, 202, 1);
 }
 
 .form-control-conteudo {
@@ -645,7 +628,7 @@ input[type="number"],input[type="text"] {
 .col-sm-10-content {
   margin-top: 20px;
   height: 80px;
-  width: 550px;
+  width: 350px;
 }
 
 .text-danger-content {
@@ -664,13 +647,17 @@ input[type="number"],input[type="text"] {
 
 
 
+
+
 /* Cadastro Contato   */
 
 
 .form-control-conteudo {
   padding-left: 20px; 
+/*  border: 2px solid #5c5edc; */
   border: 2px solid rgba(0, 202, 202, 1);
   background: transparent;
+/*  color: #5c5edc; */
   color: rgba(0, 202, 202, 1);
 }
 
@@ -685,7 +672,6 @@ input[type="number"],input[type="text"] {
   width: 127px;
   display: block;
 }
-
 
 
 
