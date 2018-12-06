@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function (){
        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
        $('#tabelaUsuario').DataTable({
@@ -8,13 +8,13 @@
            "order": [],
            "dom": '<"top">rt<"bottom"ip><"clear">',
            "ajax": {
-               "url": "{{ route('pegaDadosUsuario') }}", 
+               "url": "{{ route('pegaDadosUsuario') }}",
                "type": "POST",
                "data": {_token: CSRF_TOKEN}
            },
            "columnDefs": [
                 {
-                    "targets": [ 9 ],  
+                    "targets": [ 9 ],
                     "orderable": false
                 }
            ],
@@ -35,12 +35,12 @@
         },
             "lengthChange": false,
             "pageLength": 10
-       }); 
+       });
     });
 </script>
 
 <div>
-<table id="tabelaUsuario" class="table-responsive">
+<table id="tabelaUsuario" class="table-responsive table-striped">
     <thead>
         <tr>
             <th>Código</th>
@@ -52,7 +52,6 @@
             <th>Telefone</th>
             <th>Celular</th>
             <th>Mentor?</th>
-            <!--<th>Ver assuntos</th>-->
             <th>Excluir</th>
         </tr>
     </thead>

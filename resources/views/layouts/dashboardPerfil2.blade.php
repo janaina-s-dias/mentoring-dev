@@ -1,21 +1,21 @@
 @extends('layouts.planePerfil')
 
 @section('title')
-   
+
    @yield('titlePage')
 
 @stop
 
 @section('styles')
-   
+
    @yield('stylesPage')
 
 @stop
 
 @section('scripts')
-    
-   @yield('scriptsPage') 
-    
+
+   @yield('scriptsPage')
+
 @stop
 
 @section('body')
@@ -24,19 +24,19 @@
     <?php $user = Auth::user(); ?>
     <div class="header-ce">
         <i class="dropdown-menu">
-           <img class="header-img" src="{{ asset("img/avatar.png") }}">
+           <img class="header-img" src="{{ asset('img/ment.png') }}">
         </i>
         <div class="dropdown-content" id="dropdown-content">
                  <a href="{{ route('perfil')}}">Perfil</a>
                  <a href="{{ route ('sair') }}">Sair</a>
-        </div> 
-    </div> 
+        </div>
+    </div>
 
     <div class="sidebar-ce">
         <div class="logo-ce">
-            <a href="{{ url ('/') }}"> 
+            <a href="{{ url ('/') }}">
                <img src="{{ asset("img/mentoring-1.png") }}" alt="Mentoring">
-            </a>            
+            </a>
         </div>
 
         <div class="photo-ce">
@@ -44,7 +44,7 @@
         <div class="photo-img-ce">
             <a href="#">
                 <img src="{{ asset("img/avatar.png") }}" alt="Avatar">
-            </a>            
+            </a>
         </div>
 
         <div class="photo-ce-role">
@@ -83,21 +83,21 @@
             </ul>
         </div>
 
-    </div>  
+    </div>
 
     <div class="content-ce">
 
            @yield('section')
 
-    </div>    
+    </div>
 </div>
 
 <script type="text/javascript">
 
     $(document).ready(function(){
-         
+
          $('.dropdown-menu').click(function(){
-           
+
                  $('.dropdown-content').toggleClass('active');
 
          })
@@ -105,14 +105,14 @@
 
     $(document).mouseup(function (e)
     {
-    var container = $('.dropdown-content'); 
+    var container = $('.dropdown-content');
 
-    if (!container.is(e.target) &&            
-        container.has(e.target).length === 0) 
+    if (!container.is(e.target) &&
+        container.has(e.target).length === 0)
     {
         $('.dropdown-content').removeClass('active');
     }
-    });  
+    });
 
 
 </script>

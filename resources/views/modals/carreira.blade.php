@@ -11,10 +11,9 @@
           @csrf
               <div class="form-group{{ $errors->has('fk_carrer_profession') ? ' has-error' : '' }}">
                   <label>Profissão</label>
-                  <select class="form-control" id="profissaoCombo" name="fk_carrer_profession"> 
+                  <select class="form-control" id="profissaoCombo" name="fk_carrer_profession">
                       <option value="">Carregando Profissões</option>
                   </select>
-                 <!-- Combo com profissões existentes -->
                  @if ($errors->has('fk_carrer_profession'))
                                 <small class="text-danger" role="alert">
                                     <strong>{{ $errors->first('fk_carrer_profession') }}</strong>
@@ -24,7 +23,6 @@
             <div class="form-group{{ $errors->has('carrer_name') ? ' has-error' : '' }}">
                 <label>Nome</label>
                 <input type="text" name="carrer_name" class="form-control" value="{{old('carrer_name')}}">
-                <!-- <p class="help-block">Example block-level help text here.</p> -->
                 @if ($errors->has('carrer_name'))
                                 <small class="text-danger" role="alert">
                                     <strong>{{ $errors->first('carrer_name') }}</strong>
@@ -33,8 +31,8 @@
             </div>
 
                 <input type="hidden" value="1" name="carrer_active">
-                <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button> 
-            <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button> 
+                <button type="submit" class="btn btn-success btn-circle" data-toggle="tooltip" title="Salvar"><i class="fa fa-check"></i></button>
+            <button type="reset" class="btn btn-default btn-circle" data-toggle="tooltip" title="Limpar"><i class="fa fa-times"></i></button>
         </form>
       </div>
     </div></div></div>
@@ -50,7 +48,7 @@
               });
               $("#profissaoCombo").html(option).show();
         }
-          
+
        });
     });
 </script>

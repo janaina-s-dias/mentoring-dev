@@ -12,16 +12,16 @@ Route::get('/', function(){
         return view('home');
     }
     else
-    {   
+    {
         return view('login');
     }
-        
+
 });
 Route::get('/esqueciasenha', function(){return view('emails.esqueciasenha');})->name('esqueciasenha');
 
 Route::get('cadastro', function() { return view('cadastroUsuario'); });
 Route::group(['middleware' => CheckLogin::class], function(){
-    Route::get('perfil', function(){ return view('perfil'); })->name('perfil'); 
+    Route::get('perfil', function(){ return view('perfil'); })->name('perfil');
     Route::get('cadastroAssunto', function(){ return view('cadastroAssunto'); });
     Route::get('cadastroContato', function(){ return view('cadastroContato'); });
     Route::get('meusContatos', function(){ return view('meusContatos'); });
@@ -83,7 +83,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
 Route::group(['middleware' => CheckAdmin::class], function(){
     Route::get('admin', function(){ return view('layouts.dashboardAdmin'); });
     Route::get('EditarProfissao', function(){ return view('edits.profissaoEdit'); });
-    Route::get('EditarAssunto', function(){ return view('edits.assuntosEdit'); });
+    Route::get('EditarAssunto', function(){ return view('edits.assuntoEdit'); });
     Route::get('EditarCarreira', function(){ return view('edits.carreiraEdit'); });
     Route::get('Profissoes', function(){ return view('pageTipos'); })->name('Profissoes');
     Route::get('Carreiras', function(){ return view('manterCarreira'); });

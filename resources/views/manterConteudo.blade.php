@@ -1,39 +1,26 @@
-@extends('layouts.dashboardAdmin') 
+@extends('layouts.dashboardAdmin')
 
 @section('titlePage')
-        
+
         <title>Conteúdos</title>
 
-@stop 
+@stop
 
 @section('stylesPage')
-        
-        
 
-@stop 
+
+
+@stop
 
 @section('scriptsPage')
-     
-        
-    
+
+
+
 @stop
 
 
 
 @section('section')
-
-<!-- <div>
-    <div class="input-group">
-                <span class="input-group-btn">
-                    <left>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-toggle="tooltip" title="Inserir novo assunto" data-target="#myModal3">
-                                <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </left>
-                </span>
-    </div> 
-</div>        -->
-
 
 
 <div class="row">
@@ -50,11 +37,10 @@
 
 @include('inc.feedback')
 @include('modals.assunto')
-           
 
-      
-            
+
+
+
 @stop
 
 
-  

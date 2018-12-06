@@ -1,21 +1,21 @@
 @extends('layouts.dashboardPerfil')
 
 @section('titlePage')
-        
+
         <title>Cadastrar Assunto - Mentoring</title>
 
-@stop  
+@stop
 
 @section('stylesPage')
-        
+
         <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
 
-@stop 
+@stop
 
 @section('scriptsPage')
-     
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 @stop
 
 
@@ -25,8 +25,8 @@
         $('#Submit').hide();
     $.get('/profissao', function(dados){
         if (dados.length > 0){
-            
-            var option = "<option value=''>Selecione Profissão</option>"; 
+
+            var option = "<option value=''>Selecione Profissão</option>";
             $.each(dados, function(i, obj){
                 option += "<option value='"+obj.profession_id+"'>"+
                     obj.profession_nome+"</option>";
@@ -34,18 +34,18 @@
         }
         $("#professionCombo").html(option).show();
     });
-    
+
     $('#professionCombo').change(function (){
         $('#Submit').hide();
         var profissao = $('#professionCombo').val();
         $.get('/carreira?profissao='+profissao, function(dados){
             if (dados.length > 0){
-                var option = "<option value=''>Selecione Carreira</option>"; 
+                var option = "<option value=''>Selecione Carreira</option>";
                 $.each(dados, function(i, obj){
                     option += "<option value='"+obj.carrer_id+"'>"+
                         obj.carrer_nome+"</option>";
                 });
-                 
+
             } else {
                 $("#carrerCombo").empty();
                 var option = "<option value=''>Carregando Carreira</option>";
@@ -54,26 +54,26 @@
                 $("#subjectCombo").html(optionSubject).show();
             }
         $("#carrerCombo").html(option).show();
-         }); 
+         });
     });
     $('#carrerCombo').change(function (){
         $('#Submit').hide();
         var carreira = $('#carrerCombo').val();
          $.get('/assunto?carreira='+carreira, function(dados){
             if (dados.length > 0){
-                var option = "<option value=''>Selecione Assunto</option>"; 
+                var option = "<option value=''>Selecione Assunto</option>";
                 $.each(dados, function(i, obj){
                     option += "<option value='"+obj.subject_id+"'>"+
                         obj.subject_nome+"</option>";
                 });
             } else {
                 $("#subjectCombo").empty();
-                var option = "<option value=''>Carregando Assunto</option>"; 
+                var option = "<option value=''>Carregando Assunto</option>";
             }
-            
-            
+
+
         $("#subjectCombo").html(option).show();
-         }); 
+         });
     });
     $('#subjectCombo').change(function (){
         if($(this).val() != '')
@@ -92,14 +92,14 @@
     }
 });
 
-</script>  
+</script>
         <?php $user = Session::get('user'); ?>
         <div class="content-ce-profile">
-            <div class="content-ce-profile-header">                
+            <div class="content-ce-profile-header">
                 <h1>Cadastrar Assuntos</h1>
             </div>
-            
-            <div class="content-ce-profile-cadassuntos">                  
+
+            <div class="content-ce-profile-cadassuntos">
                  <form method="POST" action="{{ route('usersubject.store')}}" class="form-horizontal">
                  @csrf
                     <div class="form-group">
@@ -129,21 +129,21 @@
                             <select id="subjectCombo" name="fk_user_subject" class="form-control-conteudo">
                                 <option value=""> Carregando Assunto</option>
                             </select>
-                            
+
                                 <small class="text-danger" role="alert">
                                     <strong></strong>
                                 </small>
-                            
+
                         </div>
                         </div>
-                    </div>                     
-                 
+                    </div>
+
                  <div class="form-group">
                     <div class="form-group-profile">
                     <label class="control-label-conteudo" id="teste" for="mentorCombo">Conhecimento:</label>
                     <div class="col-ce">
                         <select id="mentorCombo" name="knowledge_nivel" class="form-control-conteudo">
-                            <option value="1">Basico</option>
+                            <option value="1">Básico</option>
                             <option value="2">Pouco conhecimento</option>
                             <option value="3">Conhecimento mediano</option>
                             <option value="4">Conhecimento quase pleno</option>
@@ -164,7 +164,7 @@
                     </div>
                  </div>
                  </div>
-                 
+
 
                  </form>
             </div>

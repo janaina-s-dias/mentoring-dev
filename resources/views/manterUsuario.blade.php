@@ -1,21 +1,17 @@
-@extends('layouts.dashboardAdmin') 
+@extends('layouts.dashboardAdmin')
 
 @section('titlePage')
-        
+
         <title>Usuários</title>
 
-@stop 
+@stop
 
 @section('stylesPage')
-        
-        
 
-@stop 
+@stop
 
 @section('scriptsPage')
-     
-        
-    
+
 @stop
 
 
@@ -33,11 +29,10 @@
 
 @include('inc.feedback')
 @include('modals.usuarioSubject')
-           
 
-      
-            
+
+
+
 @stop
 
 
-  

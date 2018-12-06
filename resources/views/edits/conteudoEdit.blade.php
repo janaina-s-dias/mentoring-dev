@@ -1,7 +1,6 @@
-@extends('layouts.dashboardPerfil') 
+@extends('layouts.dashboardPerfil')
 @section('page_heading','Conteudo')
 @section('section')
-<script src="{{asset('assets/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         CKEDITOR.replace( 'editor', {
@@ -44,7 +43,7 @@
                             <strong>{{ $errors->first('fk_content_knowledge') }}</strong>
                         </small>
                     @endif
-                </div>    
+                </div>
             </div>
             <div class="form-group{{ $errors->has('content_title') ? ' has-error' : '' }}">
                 <label class="control-label col-sm-2" for="titulo">Titulo:</label>
@@ -55,7 +54,7 @@
                             <strong>{{ $errors->first('content_title') }}</strong>
                         </small>
                     @endif
-                </div>    
+                </div>
             </div>
             <input type="hidden" class="form-control" name="content_type" value="1">
             <div class="form-group{{ $errors->has('content_content') ? ' has-error' : '' }}">
@@ -70,7 +69,7 @@
                             <strong>{{ $errors->first('content_content') }}</strong>
                         </small>
                     @endif
-                </div>    
+                </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -88,6 +87,6 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 });
-</script>           
-            
+</script>
+
 @stop

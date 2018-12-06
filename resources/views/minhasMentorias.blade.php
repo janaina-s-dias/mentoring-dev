@@ -1,21 +1,17 @@
 @extends('layouts.dashboardPerfil')
 
 @section('titlePage')
-        
+
         <title>Minhas Mentorias - Mentoring</title>
 
-@stop  
+@stop
 
 @section('stylesPage')
-        
-        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
 
-@stop 
+@stop
 
 @section('scriptsPage')
-    
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
 @stop
 
 
@@ -25,20 +21,20 @@
        $.get("{{route('knowledge.show', Auth::user()->user_id)}}", function(dados)
        {
            var niveis = {
-             "1":"Basico",  
-             "2":"Pouco conhecimento",  
-             "3":"Conhecimento mediano",  
-             "4":"Conhecimento quase pleno",  
-             "5":"Conhecimento pleno",  
-             "6":"Bastante conhecimento",  
-             "7":"Experiente no assunto",  
-             "8":"Mestre no assunto"  
+             "1":"Basico",
+             "2":"Pouco conhecimento",
+             "3":"Conhecimento mediano",
+             "4":"Conhecimento quase pleno",
+             "5":"Conhecimento pleno",
+             "6":"Bastante conhecimento",
+             "7":"Experiente no assunto",
+             "8":"Mestre no assunto"
            };
            var option = '';
            if(dados.length > 0){
             $.each(dados, function(i, linha)
             {
-                if(linha.rank < 3) 
+                if(linha.rank < 3)
                  option+= "<tr class='danger'>";
                 else if(linha.rank < 5)
                  option+= "<tr class='warning'>";
@@ -60,9 +56,9 @@
                 });
                 $("#mentorias").html(option).show();
            }
-       }, 'json'); 
+       }, 'json');
     });
-</script>    
+</script>
 <center>
 <table class="table table-condensed">
     <thead>
@@ -75,7 +71,7 @@
         </tr>
     </thead>
     <tbody id="mentorias">
-        
+
     </tbody>
 </table>
 </center>

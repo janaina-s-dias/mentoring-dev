@@ -1,21 +1,13 @@
 @extends('layouts.planePerfil')
 
 @section('title')
-   
    @yield('titlePage')
-
 @stop
 
 @section('styles')
-   
-   @yield('stylesPage')
-
 @stop
 
 @section('scripts')
-    
-   @yield('scriptsPage') 
-    
 @stop
 
 @section('body')
@@ -23,7 +15,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var text = "";
-        
+
         $.ajax({
             url: "{{route('notificacao.solicitacao')}}",
             dataType: 'json',
@@ -41,21 +33,22 @@
                 }
                 else
                 {
-                    text += "<li>"+ 
+                    text += "<li>"+
                                     "<a><em>Nenhuma solicitação encontrada</em></a>"+
                                 "</li>";
                         $("#solicitacao").append(text);
                 }
                 $("#solicitacao").append("<li class='divider'></li><li><a href='{{ url ('solicitacoes') }}'><strong>Ver todas solicitações</strong></a></li>");
-                
+
             }
-        }); 
+        });
     });
 </script>
 <style>
+
 .badge-notify{
    padding: 3px;
-   font-size: 10px; 
+   font-size: 10px;
    background: red;
    color: white;
    position: absolute;
@@ -63,6 +56,7 @@
    top: -6px;
    left: 12px;
 }
+
 </style>
 <div class="container-ce">
     <?php $user = Auth::user(); ?>
@@ -96,32 +90,32 @@
                     @endif
                     <li class="divider"></li>
                     <li><a href="{{ route ('sair') }}"><i class="fa fa-sign-out-alt fa-fw"></i>Sair</a></li>
-                </ul> 
-            </li>               
+                </ul>
+            </li>
         </ul>
 
-    </div>  
+    </div>
 
     <div class="sidebar-ce">
 
         <div class="photo-ce">
         <div class="photo-img-ce">
             <a href="#">
-                <img src="{{ asset("img/avatar.png") }}" alt="Avatar">
-            </a>            
+                <img src="{{ asset('img/ment.png') }}" alt="Avatar">
+            </a>
         </div>
         <div class="photo-ce-role">
-        <h1>{{Auth::user()->user_nome}}</h1>
-        <h2>
-             @if(Auth::user()->user_role == 2) {{"Mentor"}}
-             @elseif(Auth::user()->user_role == 1) {{"Mentorado"}}
-             @elseif(Auth::user()->user_role == 3) {{"Moderador"}}
-             @elseif(Auth::user()->user_role == 4) {{"Administrador"}}
-             @elseif(Auth::user()->user_role == 5) {{"Administrador"}}
-             @endif
-        </h2>
+            <h1>{{Auth::user()->user_nome}}</h1>
+            <h2>
+                @if(Auth::user()->user_role == 2) {{"Mentor"}}
+                @elseif(Auth::user()->user_role == 1) {{"Mentorado"}}
+                @elseif(Auth::user()->user_role == 3) {{"Moderador"}}
+                @elseif(Auth::user()->user_role == 4) {{"Administrador"}}
+                @elseif(Auth::user()->user_role == 5) {{"Administrador"}}
+                @endif
+            </h2>
         </div>
-        </div>
+    </div>
 
         <div class="list-ce">
             <ul class="navlist-ce">
@@ -144,15 +138,15 @@
                         </li>
                 @endif
             </ul>
-        </div>        
+        </div>
 
-    </div>  
+    </div>
 
     <div class="content-ce">
-          
+
           @yield('section')
 
-    </div>     
+    </div>
 
 </div>
 
@@ -177,10 +171,10 @@ $(document).ready(function(){
 
             $('.header-ce-icon')
             .not($('.header-ce-icon').has($(e.target)))
-                .children('.dropdown-s').removeClass('open-user');    
+                .children('.dropdown-s').removeClass('open-user');
     });
 
-});       
+});
 
 
 </script>

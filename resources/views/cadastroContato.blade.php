@@ -1,36 +1,36 @@
 @extends('layouts.dashboardPerfil')
 
 @section('titlePage')
-        
+
         <title>Cadastrar Contato - Mentoring</title>
 
-@stop  
+@stop
 
 @section('stylesPage')
-        
+
         <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
 
-@stop 
+@stop
 
 @section('scriptsPage')
-     
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 @stop
 
 
 @section('section')
- 
+
          <div class="content-ce-profile">
-            <div class="content-ce-profile-header">                
+            <div class="content-ce-profile-header">
                 <h1>Cadastro de Contatos</h1>
-            </div>                  
-            
-                           
-            <div class="content-ce-profile-cadassuntos"> 
-               
-                <form id="formContato" method="POST" action="{{ route('contact.store')}}" class="form-horizontal-profile"> 
-                @csrf    
+            </div>
+
+
+            <div class="content-ce-profile-cadassuntos">
+
+                <form id="formContato" method="POST" action="{{ route('contact.store')}}" class="form-horizontal-profile">
+                @csrf
                     <div class="form-group{{ $errors->has('contact_type') ? ' has-error' : '' }}">
                         <div class="form-group-profile">
                         <label class="control-label-conteudo col-sm-2" for="contactType">Tipo:</label>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="form-group{{ $errors->has('contact_description') ? ' has-error' : ''}}">
                         <div class="form-group-profile">
                         <label class="control-label-conteudo col-sm-2" for="contactDescription">Contato:</label>
@@ -79,9 +79,9 @@
                     </div>
                     </div>
                     </div>
-                    
+
              </form>
-            
+
 
             </div>
 
