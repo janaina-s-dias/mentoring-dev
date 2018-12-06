@@ -16,7 +16,6 @@ class DataTableKnowledgeAdmin extends Controller
         $dados = array();
         foreach ($pegadados as $row) {
             $sub_dados = array();
-
             $sub_dados[] = $row->subject_name;
             $sub_dados[] = $row->knowledge_nivel;
             $sub_dados[] = $row->user_nome;
@@ -60,11 +59,10 @@ class DataTableKnowledgeAdmin extends Controller
             $assuntos[] = $value->subject_id;
         }
 
-        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_rank', 'knowledge_active')
+        $this->knowledge = Knowledge::select('knowledge_id', 'subject_name','knowledge_nivel', 'user_nome', 'knowledge_active','knowledge_rank')
                 ->join('users', 'user_id', '=', 'fk_knowledge_user')
                 ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                         ->whereIn('subject_id', $assuntos);
-                //não pode aparecer mentores que ja estão conectados
 
         if($request->input('search.value') != null)
         {
