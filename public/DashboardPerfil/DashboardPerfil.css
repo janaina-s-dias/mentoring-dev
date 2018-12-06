@@ -27,7 +27,7 @@ body {
 
 .header-ce-right {
   float: right !important;
-  list-style: none;  
+  list-style: none;
   margin: 0 50px 0 0;
   padding: 0;
 }
@@ -124,7 +124,7 @@ body {
   margin: 2px 0 0;
   list-style: none;
   background: #fff;
-  display: none;  
+  display: none;
 }
 
 .dropdown-user li a {
@@ -196,7 +196,7 @@ body {
   left: 0px;
   background: #fff;
   transition: all .3s linear;
-}  
+}
 
 .menu_btn span:after {
   content: '';
@@ -245,8 +245,8 @@ body {
   position: relative;
 }
 
-.navlist-ce {  
-  padding: 0;  
+.navlist-ce {
+  padding: 0;
 }
 
 .navlist-ce li {
@@ -343,7 +343,7 @@ body {
 }
 
 .photo-img-ce a img {
-  height: 80px; 
+  height: 80px;
   width: 80px;
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(0, 202, 200, 1);
@@ -351,10 +351,10 @@ body {
 }
 
 
-/* Responsividade 
+/* Responsividade
 
 @media (max-width: 750px){
-  
+
   .menu_btn {
     display: block;
   }
@@ -362,7 +362,7 @@ body {
   .sidebar-ce {
     left: -250px;
     transition: all .3s linear;
-  }   
+  }
 
   .open-sidebar {
     left: 0px;
@@ -381,14 +381,14 @@ body {
   height: calc(100vh - 70px);
   width: calc(100% - 290px);
   background: #fff;
-  position: absolute;  
+  position: absolute;
   top: 70px;
   left: 270px;
 }
 
 .content-ce-profile {
  /* height: 532px;
-  width: 354px; 
+  width: 354px;
   min-height: 0;
   min-width: 0; */
   height: 100%;
@@ -413,7 +413,7 @@ body {
   position: relative;
   top: 50%;
   left: 20px;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
 }
 
 .content-ce-profile-assuntos {
@@ -430,7 +430,7 @@ body {
   /*
   min-width: 750px;
   height: calc(100% - 152px);
-  float: right; 
+  float: right;
   */
   height: calc(100% - 62px);
   width: calc(100% - 250px);
@@ -444,7 +444,7 @@ body {
   margin: 10px 0 0 0;
   padding: 0;
   height: calc(100% - 60px);
-  background: #fff;  
+  background: #fff;
 }
 
 
@@ -513,7 +513,7 @@ body {
 
 .form-group-profile {
   height: 80px;
-  display: flex;  
+  display: flex;
 }
 
 .control-label {
@@ -530,7 +530,7 @@ body {
 }
 
 .form-control {
-  padding-left: 20px; 
+  padding-left: 20px;
   width: 250px;
   border: 2px solid rgba(0, 202, 202, 1);
   background: transparent;
@@ -557,13 +557,13 @@ input[type="number"],input[type="text"] {
 .col-sm-offset-2 {
   position: relative;
   left: 235px;
-  top: 12px; 
+  top: 12px;
   height: 35px;
 }
 
 .btn-btn {
   cursor: pointer;
-  height: 100%;  
+  height: 100%;
   width: 100%;
   margin: 0;
   background: transparent;
@@ -613,7 +613,7 @@ input[type="number"],input[type="text"] {
 }
 
 .control-label-conteudo {
-  height: 30px;
+  height: 40px;
   width: 100px;
   margin-right: 10px;
   text-align: right;
@@ -630,7 +630,7 @@ input[type="number"],input[type="text"] {
 }
 
 .form-control-conteudo {
-  height: 30px; 
+  height: 30px;
   width: 350px;
   position: relative;
   top: 50%;
@@ -668,7 +668,7 @@ input[type="number"],input[type="text"] {
 
 
 .form-control-conteudo {
-  padding-left: 20px; 
+  padding-left: 20px;
   border: 2px solid rgba(0, 202, 202, 1);
   background: transparent;
   color: rgba(0, 202, 202, 1);
@@ -692,7 +692,7 @@ input[type="number"],input[type="text"] {
 /* Responsividade */
 
 @media (max-width: 750px){
-  
+
   .menu_btn {
     display: block;
   }
@@ -700,7 +700,7 @@ input[type="number"],input[type="text"] {
   .sidebar-ce {
     left: -250px;
     transition: all .3s linear;
-  }   
+  }
 
   .open-sidebar {
     left: 0px;

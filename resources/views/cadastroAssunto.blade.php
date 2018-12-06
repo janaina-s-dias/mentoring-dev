@@ -8,13 +8,9 @@
 
 @section('stylesPage')
 
-        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
-
 @stop
 
 @section('scriptsPage')
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 @stop
 
@@ -104,12 +100,12 @@
                  @csrf
                     <div class="form-group">
                         <div class="form-group-profile">
-                        <label class="control-label-conteudo" for="professionCombo">Profissão:</label>
-                        <div class="col-ce">
-                            <select id="professionCombo" class="form-control-conteudo">
-                                <option value="">Carregando Profissão</option>
-                            </select>
-                        </div>
+                            <label class="control-label-conteudo" for="professionCombo">Profissão:</label>
+                                <div class="col-ce">
+                                    <select id="professionCombo" class="form-control-conteudo">
+                                        <option value="">Carregando Profissão</option>
+                                    </select>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -124,17 +120,15 @@
                     </div>
                     <div class="form-group">
                         <div class="form-group-profile">
-                        <label class="control-label-conteudo" for="subjectCombo">Assunto:</label>
-                        <div class="col-ce">
-                            <select id="subjectCombo" name="fk_user_subject" class="form-control-conteudo">
-                                <option value=""> Carregando Assunto</option>
-                            </select>
-
-                                <small class="text-danger" role="alert">
-                                    <strong></strong>
-                                </small>
-
-                        </div>
+                            <label class="control-label-conteudo" for="subjectCombo">Assunto:</label>
+                            <div class="col-ce">
+                                <select id="subjectCombo" name="fk_user_subject" class="form-control-conteudo">
+                                    <option value=""> Carregando Assunto</option>
+                                </select>
+                                    <small class="text-danger" role="alert">
+                                        <strong></strong>
+                                    </small>
+                            </div>
                         </div>
                     </div>
 
@@ -159,11 +153,12 @@
                  <div class="form-group-profile">
                  <input type="hidden" name="fk_subject_user" value="{{ Auth::user()->user_id }}">
                  <div class="form-group">
-                    <div class="col-sm-conteudo col-sm-10">
+                    <div class="col-sm-conteudo col-sm-20">
                         <button class="btn-btn" type="submit" name="Submit" id="Submit">Ok</button>
                     </div>
                  </div>
                  </div>
+
 
 
                  </form>

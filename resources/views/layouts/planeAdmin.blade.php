@@ -11,12 +11,14 @@
         <meta content="" name="description"/>
         <meta content="" name="author"/>
 
-            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
+        @yield('styles')
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="{{ asset('DataTables/datatables.min.js') }}" type="text/javascript"></script>
             <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
             <link rel="stylesheet" href="{{ asset('assets/stylesheets/styles.css') }}" />
 
-        @yield('styles')
         @yield('scripts')
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
         <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
