@@ -1,21 +1,17 @@
 @extends('layouts.dashboardPerfil')
 
 @section('titlePage')
-        
+
         <title>Cadastrar Conteúdo - Mentoring</title>
 
-@stop  
+@stop
 
 @section('stylesPage')
-        
-        <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
 
-@stop 
+@stop
 
 @section('scriptsPage')
-     
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
 @stop
 
 
@@ -43,18 +39,18 @@
 </script>
 
 <div class="content-ce-profile">
-            
-            <div class="content-ce-profile-header">                
+
+            <div class="content-ce-profile-header">
                 <h1>Cadastro de Conteúdo</h1>
-            </div>                  
-            
-                           
-<div class="content-ce-profile-cadassuntos"> 
-            
+            </div>
+
+
+<div class="content-ce-profile-cadassuntos">
+
 
 
         <form action="{{route('content.store')}}" method="POST" class="form-horizontal-profile">
-        @csrf    
+        @csrf
             <div class="form-group{{ $errors->has('fk_content_knowledge') ? ' has-error' : '' }}">
                 <div class="form-group-profile">
                 <label class="control-label-conteudo col-sm-2" for="assunto">Assunto:</label>
@@ -67,8 +63,8 @@
                             <strong>{{ $errors->first('fk_content_knowledge') }}</strong>
                         </small>
                     @endif
-                </div>  
-                </div>  
+                </div>
+                </div>
             </div>
             <div class="form-group{{ $errors->has('content_title') ? ' has-error' : '' }}">
                 <div class="form-group-profile">
@@ -80,7 +76,7 @@
                             <strong>{{ $errors->first('content_title') }}</strong>
                         </small>
                     @endif
-                </div>    
+                </div>
                 </div>
             </div>
             <input type="hidden" class="form-control" name="content_type" value="1">
@@ -96,27 +92,27 @@
                             <strong>{{ $errors->first('content_content') }}</strong>
                         </small>
                     @endif
-                    <small class="text-content">Para adicionar conteudo direto no site, insirá-o acima</small>    
-                    
-                    <div class="col-sm-offset-2-conteudo col-sm-10">
+                    <small class="text-content">Para adicionar conteudo direto no site, insirá-o acima</small>
+                       <br/>
+                    <div class="col-sm-offset-2-conteudo col-sm-8">
                     <button class="btn-btn" id="submit">Cadastrar</button>
                     </div>
 
                 </div>
-                  
-                </div>  
+
+                </div>
             </div>
 
         </form>
-    
-  
+
+
 
 </div>
 
 </div>
 
 
-{{-- 1 é conteudo, 2 arquivo, 3 video, 4 url --}}
+<!-- {{-- 1 é conteudo, 2 arquivo, 3 video, 4 url --}} -->
 @include('inc.feedback')
 <script>
 $(document).ready(function(){
@@ -124,6 +120,6 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 });
-</script>           
-            
+</script>
+
 @stop

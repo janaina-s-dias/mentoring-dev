@@ -1,21 +1,20 @@
 @extends('layouts.dashboard')
 
 @section('titlePage')
-        
+
         <title>Conteudos do Mentor - Lista</title>
 
-@stop 
+@stop
 
 @section('stylesPage')
-        
-        
 
-@stop 
+
+@stop
 
 @section('scriptsPage')
-     
-        
-    
+
+
+
 @stop
 
 @section('page_heading','Conteudos do Mentor')
@@ -37,9 +36,9 @@
                 });
                 $("#conteudo").html(option).show();
            }
-       }, 'json'); 
+       }, 'json');
     });
-</script>    
+</script>
 
 <table class="table table-condensed">
     <thead>
@@ -51,9 +50,9 @@
         </tr>
     </thead>
     <tbody id="conteudo">
-        
+
     </tbody>
-</table>     
-           
-            
+</table>
+
+
 @stop
