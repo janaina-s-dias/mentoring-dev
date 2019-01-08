@@ -12,7 +12,7 @@ class Profession extends Model
     public $message = [
         'profession_name.required' => 'A profissão é obrigatória!',
         'profession_name.unique' => 'Profissão já existente!',
-        'profession_name.max' => 'O campor deve conter no máximo 50 caracteres!',
+        'profession_name.max' => 'O campo deve conter no máximo 50 caracteres!',
     ];
     public function Rules($type = 'insert')
     {
@@ -26,6 +26,6 @@ class Profession extends Model
                     'profession_name' => 'bail|required|max:50'
                 ];
         }
-    
+
     }
 }

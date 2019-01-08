@@ -68,7 +68,7 @@ Route::group(['middleware' => CheckLogin::class], function(){
     Route::get('/assunto', 'SubjectController@JsonPopular')->name('jsonpopularAssunto');
     Route::get('/userassunto', 'UserSubjectController@JsonPopular')->name('jsonpopularUserAssunto');
     Route::patch('/aceitarPedido/{user}', 'ConnectionController@aceitarSolicitacao')->name('aceitarPedido');
-    Route::patch('/cancelarSolicitacao/{connection}', 'ConnectionController@cancelarSolicitacao')->name('cancelarSolicitacao');
+    Route::patch('/finalizarMentoria/{connection}', 'ConnectionController@finalizarMentoria')->name('finalizarMentoria');
     Route::get('/mentorOuNao', 'UserSubjectController@editUserSubjectMentoria')->name('mentorOuNao');
     Route::delete('/excluirSolicitacao/{connection}', 'ConnectionController@excluirSolicitacao')->name('excluirSolicitacao');
     Route::patch('/resolicitarConexao/{connection}', 'ConnectionController@resolicitarConexao')->name('resolicitarConexao');

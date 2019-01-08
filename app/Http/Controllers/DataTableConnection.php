@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class DataTableConnection extends Controller
 {
     private $order = ['connection_start','connection_end', 'user_nome','knowledge_nivel'];
-    
+
     public function PegaDadosConexao(Request $request) {
         $pegadados = $this->CriarDataTable($request);
         $dados = array();
@@ -18,46 +18,46 @@ class DataTableConnection extends Controller
             $sub_dados = array();
             $sub_dados[] = date('d/m/Y', strtotime($row->connection_start));
             $sub_dados[] = date('d/m/Y', strtotime($row->connection_end));
-            $sub_dados[] = $row->user_nome;  
+            $sub_dados[] = $row->user_nome;
             $sub_dados[] = $row->subject_name;
-            $sub_dados[] = (intval($row->connection_status) == 1 && Auth::user()->user_id != $row->fk_knowledge_user) ? 
-                    "<a href='".route('chamaConteudos', $row->knowledge_id)."' role='button' class='btn' style='background-color: rgb(0,176,176); color: white'> Conteudos </a>" : 
+            $sub_dados[] = (intval($row->connection_status) == 1 && Auth::user()->user_id != $row->fk_knowledge_user) ?
+                    "<a href='".route('chamaConteudos', $row->knowledge_id)."' role='button' class='btn' style='background-color: rgb(0,176,176); color: white'> Conteudos </a>" :
                     "<a href='".route('chamaConteudos', $row->knowledge_id)."' role='button' class='btn' style='background-color: rgb(0,176,176); color: white'> Meus Conteudos </a>";
             if(Auth::user()->user_id == $row->fk_knowledge_user && intval($row->connection_status) == 0) {
-                $sub_dados[] = "<button type='' role='button' class='btn btn-default' data-toggle='tooltip' title='Aguardando...' disabled><span>Aguardando...</span></button> </form>";       
-            } 
+                $sub_dados[] = "<button type='' role='button' class='btn btn-default' data-toggle='tooltip' title='Aguardando...' disabled><span>Aguardando...</span></button> </form>";
+            }
             else if(intval($row->connection_status) == 0) {
-                $sub_dados[] = "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>". 
+                $sub_dados[] = "<form method='POST' action='".route('excluirSolicitacao', $row->connection_id)."'>".
                                     method_field('DELETE').
                                     @csrf_field().
-                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Cancelar'><span>Cancelar</span></button> </form>"; 
-            
-            } 
-            else if(intval($row->connection_status) == 1) 
-            { 
-                $sub_dados[] = "<form method='POST' action='".route('cancelarSolicitacao', $row->connection_id)."'>". 
+                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Cancelar'><span>Cancelar</span></button> </form>";
+
+            }
+            else if(intval($row->connection_status) == 1)
+            {
+                $sub_dados[] = "<form method='POST' action='".route('finalizarMentoria', $row->connection_id)."'>".
                                     method_field('PATCH').
                                     @csrf_field().
-                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Encerrar</span></button> </form>";  
-            
-            } 
+                                "<button type='submit' role='button' class='btn btn-danger' data-toggle='tooltip' title='Encerrar'><span>Encerrar</span></button> </form>";
+
+            }
             else if(intval($row->connection_status) == 2 && Auth::user()->user_id != $row->fk_knowledge_user)
-            { 
-                $sub_dados[] = "<form method='POST' action='".route('resolicitarConexao', $row->connection_id)."'>". 
+            {
+                $sub_dados[] = "<form method='POST' action='".route('resolicitarConexao', $row->connection_id)."'>".
                                     method_field('PATCH').
                                     @csrf_field().
-                                "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Resolicitar'><span>Solicitar novamente</span></button> </form>";  
+                                "<button type='submit' role='button' class='btn btn-success' data-toggle='tooltip' title='Resolicitar'><span>Solicitar novamente</span></button> </form>";
             }
             else if(intval($row->connection_status) == 2 && Auth::user()->user_id == $row->fk_knowledge_user)
-            { 
-                $sub_dados[] = "<button type='submit' role='button' class='btn btn-default' data-toggle='tooltip' title='Finalizada' disabled><span>Finalizada</span></button> </form>";  
+            {
+                $sub_dados[] = "<button type='submit' role='button' class='btn btn-default' data-toggle='tooltip' title='Finalizada' disabled><span>Finalizada</span></button> </form>";
             }
-          
+
             $dados[] = $sub_dados;
         }
         $output = array (
             "draw"  => intval($request->draw),
-            "recordsTotal" => $this->TodosRegistros(), 
+            "recordsTotal" => $this->TodosRegistros(),
             "recordsFiltered" => $this->RegistrosFiltrados($request),
             "data" => $dados
         );
@@ -73,12 +73,12 @@ class DataTableConnection extends Controller
                     ->join('subjects', 'subject_id', '=', 'fk_knowledge_subject')
                             ->where('fk_knowledge_user', $user->user_id)
                                 ->orWhere('fk_connection_user', $user->user_id);
-           
+
         //Conexao ainda nao aceita, deve ser visualizada pelo mentorado como "aguardando" na tela de conexões
-       
+
         if($request->input('search.value') != null)
         {
-            $this->connection->where('user_nome', 'like' ,'%', $request->input('search.value'));            
+            $this->connection->where('user_nome', 'like' ,'%', $request->input('search.value'));
         }
         if($request->order!= null)
         {
@@ -90,7 +90,7 @@ class DataTableConnection extends Controller
             $this->connection->orderBy('user_id', 'asc');
         }
     }
-    
+
     //Conexões
     public function CriarDataTable(Request $request)
     {
@@ -102,14 +102,14 @@ class DataTableConnection extends Controller
         $query = $this->connection->get();
         return $query;
     }
-    
+
         public function RegistrosFiltrados(Request $request)
     {
         $this->CriarQuery($request);
         $query = $this->connection->count();
         return $query;
     }
-    
+
         public function TodosRegistros()
     {
         $connection = Connection::all();
