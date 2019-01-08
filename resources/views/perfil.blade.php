@@ -1,25 +1,25 @@
 @extends('layouts.dashboardPerfil')
 
 @section('titlePage')
-        
+
         <title>Perfil - Mentoring</title>
 
-@stop  
+@stop
 
 @section('stylesPage')
-        
+
         <link href="{{ asset('DashboardPerfil/DashboardPerfil.css') }}" rel="stylesheet" type="text/css"/>
 
-@stop 
+@stop
 
 @section('scriptsPage')
-    
+
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
 @stop
 
 
-@section('section')       
+@section('section')
 <script type="text/javascript">
     $(document).ready(function(){
        $.get("{{route('usersubject.show', Auth::user()->user_id)}}", function(dados)
@@ -32,16 +32,16 @@
             });
             $("#assuntos").html(option).show();
            }
-       }, 'json'); 
+       }, 'json');
     });
 </script>
-        
-        <link rel="stylesheet" href="{{ asset("assets/stylesheets/stylesprofileuser.css") }}" type="text/css">
+
+        <link rel="stylesheet" href="{{ asset('assets/stylesheets/stylesprofileuser.css') }}" type="text/css">
 
         <section class="astros">
-     
+
         <header class="o-header">
-            <img class="tumbnail" src="{{ asset("logos/icone-azul.png") }}">
+            <img class="tumbnail" src="{{ asset('logos/icone-azul.png') }}">
             <!-- src="{{ asset("logos/avatar.png") }}"  alt=""> -->
         </header>
         <header class="e-header">
@@ -59,18 +59,18 @@
             <div>
                 <h2>Assuntos</h2>
                     <div id="assuntos" class="aki">
-                        
+
                     </div>
             </div>
        </div>
 
        <div class="o-main">
-       
+
             <div><h2>Conexões</h2></div>
-      
+
        </div>
 
 
     </section>
-            
+
 @stop

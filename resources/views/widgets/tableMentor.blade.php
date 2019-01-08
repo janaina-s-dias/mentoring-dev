@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function (){
        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
        $('#tableMentor').DataTable({
@@ -35,7 +35,7 @@
         },
             "lengthChange": false,
             "pageLength": 15
-       }); 
+       });
     });
 </script>
 
@@ -45,28 +45,19 @@
         <tr>
             <th style="text-align:center">Assunto</th>
             <th style="text-align:center">Nível de Conhecimento</th>
-            <th style="text-align:center">Mentor</th>    
-            <th style="text-align:center">Pontuação</th>  
-            <th style="text-align:center">Solicitar Mentoria</th> 
+            <th style="text-align:center">Mentor</th>
+            <th style="text-align:center">Pontuação</th>
+            <th style="text-align:center">Solicitar Mentoria</th>
         </tr>
     </thead>
     <tbody style="text-align:center">
     </tbody>
 </table>
-</div> 
-
-
-<!-- <center>
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{ asset("logos/icone-azul.png") }}" alt="Card image cap" height="100" width="100">
-  <div class="card-body">
-    <h5 class="card-title"><b>Mentor</b></h5>
-    <p class="card-text">Expert em Bootstrap</p>
-    <p class="card-text">Ranking: 1º</p>
-    <a href="" class="btn btn-success">Solicitar</a>
-  </div>
 </div>
-</center>  -->
+
+
+
+
 
 
 
